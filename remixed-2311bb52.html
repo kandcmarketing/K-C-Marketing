@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <meta name="supported-color-schemes" content="light" />
+  <title>OIG Enforcement Trends Dashboard | HCCA Compliance Institute 2026</title>
+  <meta name="description" content="Interactive dashboard of HHS-OIG enforcement actions for 2025 and 2026 YTD: Self-Disclosure Protocol settlements, Civil Monetary Penalties &amp; Affirmative Exclusions, and Advisory Opinions." />
+  <meta name="author" content="Colin McCarthy, Kaufman &amp; Canoles" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;rect width='64' height='64' fill='%231B365D'/&gt;&lt;g fill='none' stroke='%23D4A574' stroke-width='3' stroke-linecap='round'&gt;&lt;line x1='32' y1='12' x2='32' y2='52'/&gt;&lt;line x1='20' y1='52' x2='44' y2='52'/&gt;&lt;line x1='14' y1='20' x2='50' y2='20'/&gt;&lt;path d='M14 20 L8 34 L20 34 Z'/&gt;&lt;path d='M50 20 L44 34 L56 34 Z'/&gt;&lt;/g&gt;&lt;/svg&gt;" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+/* OIG Enforcement Dashboard - Self-contained styles */
+
+* { box-sizing: border-box; }
+
+:root {
+  color-scheme: light only;
+  --color-bg: #f5f5f4;
+  --color-card: #ffffff;
+  --color-border: #d6d3d1;
+  --color-border-strong: #1c1917;
+  --color-text: #1c1917;
+  --color-text-muted: #57534e;
+  --color-text-faint: #78716c;
+  --color-row-alt: #fafaf9;
+  --color-row-hover: #fef3c7;
+  --color-accent: #b45309;
+  --color-masthead: #1c1917;
+  --color-masthead-text: #f5f5f4;
+  --color-masthead-faint: #a8a29e;
+
+  --cat-aks: #8B0000;
+  --cat-excluded: #1B365D;
+  --cat-unlicensed: #4A7C59;
+  --cat-false: #B8860B;
+  --cat-medical: #6B2E2E;
+  --cat-upcoding: #2F4F4F;
+  --cat-providerbased: #7B3F00;
+  --cat-emtala: #4B0082;
+  --cat-other: #6B6B6B;
+}
+
+html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.serif { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; }
+
+/* Masthead */
+.masthead {
+  background: var(--color-masthead);
+  color: var(--color-masthead-text);
+  border-bottom: 8px solid var(--color-accent);
+}
+.masthead-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+.masthead-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+.masthead-eyebrow .sep { color: #57534e; }
+.masthead h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 8px 0;
+}
+.masthead-tagline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: var(--color-masthead-faint);
+  font-size: 18px;
+  margin: 8px 0 20px 0;
+}
+.masthead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 12px;
+  color: var(--color-masthead-faint);
+  border-top: 1px solid #44403c;
+  padding-top: 16px;
+}
+.masthead-meta strong { color: var(--color-masthead-text); font-weight: 500; }
+
+/* Nav */
+.nav {
+  background: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.nav-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.nav-tab:hover { color: var(--color-text); border-bottom-color: var(--color-border); }
+.nav-tab.active { color: var(--color-text); border-bottom-color: var(--color-accent); }
+.nav-spacer { flex: 1; }
+
+/* Main */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* Executive summary */
+.exec-summary {
+  border-left: 4px solid var(--color-accent);
+  padding: 0 0 0 24px;
+  margin-bottom: 40px;
+  max-width: 800px;
+}
+.exec-summary h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+.exec-summary p { color: var(--color-text-muted); font-size: 14px; line-height: 1.6; margin: 0; }
+
+/* Section */
+.section { margin-bottom: 64px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2px solid var(--color-border-strong);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+.section-number {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: #a8a29e;
+  line-height: 1;
+}
+.section-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+.section-subtitle { font-size: 14px; color: var(--color-text-muted); margin: 0; }
+
+/* Stat tiles */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+@media (max-width: 700px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-tile {
+  background: var(--color-row-alt);
+  border: 1px solid var(--color-border);
+  padding: 16px 20px;
+}
+.stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-faint);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.stat-value {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 30px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.stat-sub { font-size: 12px; color: var(--color-text-muted); font-style: italic; margin-top: 4px; }
+
+/* Chart row */
+.chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+.chart-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+}
+.chart-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+/* Bar chart */
+.bar-chart { width: 100%; }
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+.bar-label {
+  flex: 0 0 150px;
+  text-align: right;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar-track {
+  flex: 1;
+  background: var(--color-row-alt);
+  height: 22px;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  color: white;
+  font-weight: 600;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  transition: width 0.4s ease;
+}
+.bar-value-outside {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-left: 4px;
+}
+
+/* Treemap (custom SVG) */
+.treemap { width: 100%; height: 280px; display: block; }
+.treemap rect { stroke: white; stroke-width: 2; }
+.treemap text { fill: white; pointer-events: none; }
+
+/* Pie/donut for AO outcomes */
+.outcomes-display { display: flex; gap: 24px; align-items: center; padding: 20px; }
+.donut-wrap { flex: 0 0 160px; height: 160px; position: relative; }
+.donut-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.donut-center-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+.donut-center-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-top: 4px; }
+.outcomes-legend { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.outcomes-legend-row { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.outcomes-legend-swatch { width: 14px; height: 14px; flex: 0 0 14px; }
+.outcomes-legend-num { font-weight: 600; font-variant-numeric: tabular-nums; margin-left: auto; }
+
+/* Filter controls */
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.search-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-text);
+}
+.search-input:focus { outline: none; border-color: var(--color-border-strong); }
+.btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid var(--color-border-strong);
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--color-border-strong); color: var(--color-card); }
+.btn-primary:hover { background: #404040; }
+.btn-secondary { background: var(--color-card); color: var(--color-text); }
+.btn-secondary:hover { background: var(--color-row-alt); }
+.select {
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.pills { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
+.pills-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); margin-right: 4px; }
+.pill {
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.pill:hover { background: var(--color-row-alt); }
+.pill.active { color: white; border-color: transparent; }
+.pills-link {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-family: inherit;
+}
+.pills-link:hover { color: var(--color-text); }
+.pills-sep { color: var(--color-border); }
+
+.results-info {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.results-info strong { color: var(--color-text); font-weight: 600; font-style: normal; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--color-border); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: var(--color-row-alt); }
+th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid var(--color-border-strong);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  position: relative;
+}
+th:hover { background: #f5f5f4; }
+th.sortable:after { content: ''; }
+th.sort-asc:after { content: ' ▲'; color: var(--color-text-faint); font-size: 10px; }
+th.sort-desc:after { content: ' ▼'; color: var(--color-text-faint); font-size: 10px; }
+th.right { text-align: right; }
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+td.right { text-align: right; }
+td.tabular { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.party { font-weight: 500; }
+td.amount { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tbody tr { background: var(--color-card); }
+tbody tr:nth-child(even) { background: var(--color-row-alt); }
+@media (hover: hover) {
+  tbody tr:hover { background: var(--color-row-hover); }
+}
+.amount-empty { color: #a8a29e; }
+
+.cat-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  white-space: nowrap;
+}
+.outcome-fav { background: var(--cat-unlicensed); }
+.outcome-unfav { background: var(--cat-aks); }
+
+/* Source link column */
+.src-col { width: 36px; text-align: center; }
+td.src-col { padding: 4px; }
+a.src-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+a.src-link:hover {
+  background: var(--color-row-alt);
+  color: var(--color-accent);
+}
+
+.empty-row td {
+  text-align: center;
+  padding: 32px;
+  color: var(--color-text-faint);
+  font-style: italic;
+}
+
+footer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  font-size: 12px;
+  color: var(--color-text-faint);
+  border-top: 1px solid var(--color-border);
+}
+footer p { margin: 0 0 8px 0; }
+
+/* Print */
+@media print {
+  @page { size: letter portrait; margin: 0.5in; }
+  body { background: white; }
+  .nav, .controls, .pills { display: none !important; }
+  .section { break-before: page; page-break-before: always; margin-bottom: 24px; }
+  .section:first-of-type { break-before: avoid; page-break-before: avoid; }
+  table { font-size: 10pt; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; page-break-inside: avoid; }
+  .chart-card { break-inside: avoid; page-break-inside: avoid; }
+}
+
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-eyebrow">
+        <span>HCCA Compliance Institute 2026</span>
+        <span class="sep">·</span>
+        <span>April 27–30 · Orlando</span>
+      </div>
+      <h1 class="serif">OIG Enforcement Trends</h1>
+      <p class="masthead-tagline">Self-Disclosure Settlements · CMPs &amp; Affirmative Exclusions · Advisory Opinions</p>
+      <div class="masthead-meta">
+        <span>Source: <strong>oig.hhs.gov/fraud/enforcement</strong> &amp; <strong>oig.hhs.gov/compliance/advisory-opinions</strong></span>
+        <span>Period: <strong>Jan 1, 2025 – Apr 17, 2026 (YTD)</strong></span>
+        <span>Records: <strong id="meta-record-count"></strong></span>
+      </div>
+    </div>
+  </header>
+  <nav class="nav" id="app-nav"></nav>
+  <main id="app-main"></main>
+  <footer>
+    <p>Data compiled from public OIG enforcement listings and the Advisory Opinion browse index. Enforcement category assignments reflect a keyword-based classifier applied to the action title and OIG&apos;s one-sentence summary; cases implicating multiple theories (e.g. AKS + unlicensed provider) fall into the highest-precedence category. Provider type classifications are similarly keyword-based.</p>
+    <p>Advisory Opinion <strong>arrangement type</strong> and <strong>requestor industry</strong> classifications are manual (each opinion reviewed individually). The <strong>statutes implicated</strong> tags reflect what each opinion analyzes directly; note that every OIG advisory opinion implicates AKS by default, so the tag is only analytically useful when combined with other statutes (most notably the Beneficiary Inducement CMP). OIG does not have jurisdiction to opine on the physician self-referral law (Stark); Stark enforcement sits with CMS.</p>
+    <p>Each row links to the underlying OIG page (click the ↗ in the Src column). Exclusion-only actions are shown with a $0 amount and excluded from the dollar chart but counted in the frequency chart. In each CMP case resolved through settlement agreement, the settling party has contested OIG&apos;s allegations and denied any liability; no CMP judgment or finding of liability has been made.</p>
+  </footer>
+  <script>
+const SDP = [
+  { date: "2026-03-18", party: "Henry Ford St. John Hospital and Henry Ford Warren Hospital", category: "AKS/Remuneration", amount: 5300000, summary: "Medically unnecessary procedures and improper remuneration", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/henry-ford-st-john-hospital-and-henry-ford-warren-hospital-agreed-to-pay-53-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-medically-unnecessary-procedures-and-paying-improper-remuneration/" },
+  { date: "2026-03-17", party: "Nevada Heart and Vascular Center", category: "False/Not-Provided Claims", amount: 226000, summary: "Improper claims for sleep studies", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/nevada-heart-and-vascular-center-agreed-to-pay-226000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-improper-claims-for-sleep-studies/" },
+  { date: "2026-03-12", party: "Choice HomeCare", category: "False/Not-Provided Claims", amount: 34900000, summary: "Services not provided or falsified dates of services", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/choice-homecare-agreed-to-pay-349-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-provided-or-for-falsified-dates-of-services/" },
+  { date: "2026-03-06", party: "Cancer Center Oncology Medical Group", category: "False/Not-Provided Claims", amount: 429000, summary: "Overbilling for drugs", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/cancer-center-oncology-medical-group-agreed-to-pay-429000-for-allegedly-violating-the-civil-monetary-penalties-law-by-overbilling-for-drugs/" },
+  { date: "2026-03-06", party: "Fairwinds Treatment Center", category: "Unlicensed Provider", amount: 414000, summary: "Services not licensed to provide", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/fairwinds-treatment-center-agreed-to-pay-414000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-it-was-not-licensed-to-provide/" },
+  { date: "2026-03-06", party: "Mercy Medical Center", category: "AKS/Remuneration", amount: 14800000, summary: "Improper remuneration \u2014 unpaid fees, expenses, distributions", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/mercy-medical-center-agreed-to-pay-148-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-provided-improper-remuneration-in-the-form-of-unpaid-fees-and-expenses-and-distributions/" },
+  { date: "2026-02-27", party: "Eskenazi Health", category: "Provider-Based", amount: 4800000, summary: "Services failed to meet provider-based requirements", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/eskenazi-health-agreed-to-pay-48-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-failed-to-meet-provider-based-requirements/" },
+  { date: "2026-02-24", party: "Estes Park Health / UCHealth Estes Valley", category: "AKS/Remuneration", amount: 245000, summary: "Improper remuneration \u2014 excess compensation", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/estes-park-health-and-uchealth-estes-valley-medical-center-agreed-to-pay-245000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-excess-compensation/" },
+  { date: "2026-02-24", party: "Northwestern Medical Group", category: "Unlicensed Provider", amount: 76000, summary: "Services by unlicensed individuals", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/northwestern-medical-group-agreed-to-pay-76000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2026-02-24", party: "Seven Hills Health and Rehabilitation Center", category: "Excluded Individual", amount: 167000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/seven-hills-health-and-rehabilitation-center-agreed-to-pay-167000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-02-13", party: "Ferry County Hospital District No 1", category: "Unlicensed Provider", amount: 51000, summary: "Services by unlicensed individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/ferry-county-hospital-district-no-1-agreed-to-pay-51000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-02-12", party: "Tampa General Medical Group", category: "False/Not-Provided Claims", amount: 33000, summary: "Incident-to services not covered", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/tampa-general-medical-group-agreed-to-pay-33000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-incident-to-services-not-covered/" },
+  { date: "2026-01-30", party: "Forefront Living Hospice", category: "Unlicensed Provider", amount: 1900000, summary: "Incorrect provider / non-enrolled or incorrect providers", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/forefront-living-hospice-agreed-to-pay-19-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-identified-the-incorrect-provider-or-were-performed-by-non-enrolled-or-incorrect-providers/" },
+  { date: "2026-01-26", party: "Brickyard Healthcare - Willow Springs Care Center", category: "Unlicensed Provider", amount: 99000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/brickyard-healthcare-willow-springs-care-center-agreed-to-pay-99000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-01-26", party: "National Providers in Healthcare & Medstream Anesthesia Hawaii", category: "False/Not-Provided Claims", amount: 254000, summary: "Services failed coverage criteria", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/national-providers-in-healthcare-and-medstream-anesthesia-hawaii-agreed-to-pay-254000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-failed-to-meet-coverage-criteria/" },
+  { date: "2026-01-20", party: "Lake Minnetonka Shores", category: "Unlicensed Provider", amount: 113000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/lake-minnetonka-shores-agreed-to-pay-113000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-01-12", party: "Health Care Authority for Baptist Health", category: "Upcoding", amount: 1400000, summary: "Upcoding inpatient hospital services", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/the-health-care-authority-for-baptist-health-agreed-to-pay-14-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-upcoding-inpatient-hospital-services/" },
+  { date: "2026-01-09", party: "Avantara North", category: "Unlicensed Provider", amount: 20000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/avantara-north-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-01-09", party: "Castle Biosciences", category: "Excluded Individual", amount: 112000, summary: "Employing an excluded individual", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/castle-biosciences-agreed-to-pay-112000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-01-09", party: "Delnor Community Hospital", category: "Unlicensed Provider", amount: 177000, summary: "Services by unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/delnor-community-hospital-agreed-to-pay-177000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-01-06", party: "Boyer Family Practice and Medical Spa", category: "False/Not-Provided Claims", amount: 272000, summary: "Services not performed or failed coverage criteria", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/boyer-family-practice-and-medical-spa-agreed-to-pay-272000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-were-not-performed-or-failed-to-meet-coverage-criteria/" },
+  { date: "2025-12-31", party: "Hospice of San Antonio", category: "Unlicensed Provider", amount: 256000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/hospice-of-san-antonio-agreed-to-pay-256000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-12-23", party: "Veracyte", category: "AKS/Remuneration", amount: 100000, summary: "Improper remuneration \u2014 uncompensated services", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/veracyte-agreed-to-pay-100000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-uncompensated-services/" },
+  { date: "2025-12-18", party: "Optima Medical", category: "Excluded Individual", amount: 106000, summary: "Employing an excluded individual", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/optima-medical-agreed-to-pay-106000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-16", party: "Ignite Medical Resort Carondelet", category: "Unlicensed Provider", amount: 118000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/ignite-medical-resort-carondelet-agreed-to-pay-118000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-12-12", party: "PAI Participant 1", category: "Medically Unnecessary", amount: 749000, summary: "Services not provided as billed or not medically necessary", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/pai-participant-1-agreed-to-pay-749000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-provided-as-billed-or-not-medically-necessary/" },
+  { date: "2025-12-12", party: "Summit Healthcare Association", category: "AKS/Remuneration", amount: 2800000, summary: "Improper remuneration \u2014 rental fees, compensation, staffing", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/summit-healthcare-association-agreed-to-pay-28-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-and-receiving-improper-remuneration-in-the-form-of-excessive-rental-fees-excessive-compensation-and-free-staffing-services/" },
+  { date: "2025-12-12", party: "University Medical Center of Southern Nevada", category: "AKS/Remuneration", amount: 945000, summary: "Upcoded services and improper remuneration", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/university-medical-center-of-southern-nevada-agreed-to-pay-945000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-upcoded-services-and-paying-improper-remuneration/" },
+  { date: "2025-12-11", party: "Community Hospital San Bernadino", category: "Excluded Individual", amount: 112000, summary: "Employing an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/community-hospital-san-bernadino-agreed-to-pay-112000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-11", party: "St. John's Regional Medical Center", category: "Excluded Individual", amount: 357000, summary: "Employing an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/st-johns-regional-medical-center-agreed-to-pay-357000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-10", party: "Central Emergency Medical Services", category: "Excluded Individual", amount: 20000, summary: "Employing an excluded individual", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/central-emergency-medical-services-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-08", party: "Option Care Health", category: "AKS/Remuneration", amount: 719000, summary: "Improper remuneration \u2014 referral-based compensation", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/option-care-health-agreed-to-pay-719000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-referral-based-compensation/" },
+  { date: "2025-12-04", party: "Brentwood Springs", category: "Unlicensed Provider", amount: 54000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/brentwood-springs-agreed-to-pay-54000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-12-04", party: "Midwest Surgery Center", category: "Unlicensed Provider", amount: 274000, summary: "Services by unlicensed individual", provider_type: "ASC / Surgical Center", url: "https://oig.hhs.gov/fraud/enforcement/midwest-surgery-center-agreed-to-pay-274000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-12-04", party: "Williamsport and Deercreek Emergency Squad", category: "Excluded Individual", amount: 160000, summary: "Employing an excluded individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/williamsport-and-deercreek-emergency-squad-agreed-to-pay-160000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-02", party: "Palos Community Hospital", category: "Unlicensed Provider", amount: 129000, summary: "Services by unlicensed individuals", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/palos-community-hospital-agreed-to-pay-129000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-12-01", party: "Alive Hospice", category: "Unlicensed Provider", amount: 67000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/alive-hospice-agreed-to-pay-67000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-12-01", party: "State of Mississippi \u2013 University of Mississippi Medical Center", category: "Excluded Individual", amount: 368000, summary: "Employing an excluded individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/the-state-of-mississippi-university-of-mississippi-medical-center-agreed-to-pay-368000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-11-20", party: "Verde Valley Ambulance Company", category: "Unlicensed Provider", amount: 40000, summary: "Services rendered by individual that lacked proper credentials", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/verde-valley-ambulance-company-agreed-to-pay-40000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-rendered-by-an-individual-that-lacked-proper-credentials/" },
+  { date: "2025-11-17", party: "Strata Pathology Services", category: "AKS/Remuneration", amount: 100000, summary: "Improper remuneration \u2014 free access to systems", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/strata-pathology-services-agreed-to-pay-100000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-free-access-to-systems/" },
+  { date: "2025-11-13", party: "San Antonio Regional Hospital", category: "AKS/Remuneration", amount: 100000, summary: "Improper remuneration \u2014 free prior authorization services", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/san-antonio-regional-hospital-agreed-to-pay-100000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-free-prior-authorization-services/" },
+  { date: "2025-11-05", party: "Blick Center", category: "False/Not-Provided Claims", amount: 165000, summary: "Psychotherapy services not provided as billed", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/blick-center-agreed-to-pay-165000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-psychotherapy-services-that-were-not-provided-as-billed/" },
+  { date: "2025-11-05", party: "Genesis Behavioral Services", category: "AKS/Remuneration", amount: 100000, summary: "Improper remuneration in exchange for referrals", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/genesis-behavioral-services-agreed-to-pay-100000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-exchange-for-referrals/" },
+  { date: "2025-10-31", party: "Hopebridge", category: "False/Not-Provided Claims", amount: 25000, summary: "Services without proper treatment plans", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/hopebridge-agreed-to-pay-25000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-without-proper-treatment-plans/" },
+  { date: "2025-10-29", party: "Exact Sciences Laboratories", category: "Excluded Individual", amount: 85000, summary: "Employing an excluded individual", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/exact-sciences-laboratories-agreed-to-pay-85000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-10-29", party: "Metropolis Dermatology", category: "False/Not-Provided Claims", amount: 140000, summary: "Incident-to services not covered", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/metropolis-dermatology-agreed-to-pay-140000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-incident-to-services-not-covered/" },
+  { date: "2025-10-28", party: "Swedish Medical Center and Swedish Medical Group", category: "False/Not-Provided Claims", amount: 10000000, summary: "Claims for services provided in clinical research studies", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/swedish-medical-center-and-swedish-medical-group-agreed-to-pay-10-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-for-in-clinical-research-studies/" },
+  { date: "2025-10-27", party: "Lee Health System", category: "Excluded Individual", amount: 18800000, summary: "Employing excluded individuals; services not performed or failed coverage", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/lee-health-system-agreed-to-pay-188-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals-and-submitting-claims-for-services-that-were-not-performed-or-failed-to-meet-coverage-criteria/" },
+  { date: "2025-10-27", party: "ONE Health Ohio", category: "False/Not-Provided Claims", amount: 24000, summary: "Services that did not meet requirements of time-based codes", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/one-health-ohio-agreed-to-pay-24000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-did-not-meet-the-requirements-of-time-based-codes/" },
+  { date: "2025-10-20", party: "Gastroenterology Group of Rochester", category: "False/Not-Provided Claims", amount: 352000, summary: "False evaluation and management claims", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/gastroenterology-group-of-rochester-agreed-to-pay-352000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-false-evaluation-and-management-claims/" },
+  { date: "2025-10-16", party: "Eastern Nephrology", category: "Excluded Individual", amount: 81000, summary: "Employing an excluded individual", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/eastern-nephrology-agreed-to-pay-81000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-10-16", party: "University of Texas Health Science Center at Houston", category: "Upcoding", amount: 390000, summary: "Upcoded evaluation and management claims", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/the-university-of-texas-health-science-center-at-houston-agreed-to-pay-390000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-upcoded-evaluation-and-management-claims/" },
+  { date: "2025-10-03", party: "Highmark", category: "Excluded Individual", amount: 71000, summary: "Employing an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/highmark-agreed-to-pay-71000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-26", party: "University of Mississippi Medical Center", category: "Unlicensed Provider", amount: 271000, summary: "Services by unlicensed individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/university-of-mississippi-medical-center-agreed-to-pay-271000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-09-19", party: "SMP Health St. Raphael", category: "Excluded Individual", amount: 233000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/smp-health-st-raphael-agreed-to-pay-233000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-18", party: "Hiawatha Care Center", category: "Excluded Individual", amount: 201000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/hiawatha-care-center-agreed-to-pay-201000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-18", party: "Weirton Medical Center", category: "Excluded Individual", amount: 54000, summary: "Employing an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/weirton-medical-center-agreed-to-pay-54000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-12", party: "Arizona's Children Association", category: "False/Not-Provided Claims", amount: 54000, summary: "Services not provided", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/arizonas-children-association-agreed-to-pay-54000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitted-claims-for-services-not-provided/" },
+  { date: "2025-09-12", party: "Las Vegas Surgical Associates", category: "Upcoding", amount: 20000, summary: "Claims for ablation procedures misrepresented dates of service or upcoded", provider_type: "ASC / Surgical Center", url: "https://oig.hhs.gov/fraud/enforcement/las-vegas-surgical-associates-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-ablation-procedures-that-misrepresented-dates-of-service-or-were-upcoded/" },
+  { date: "2025-09-11", party: "Jacksonville Fire and Rescue Department", category: "Unlicensed Provider", amount: 167000, summary: "Services by unlicensed individuals", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/jacksonville-fire-and-rescue-department-agreed-to-pay-167000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-09-11", party: "Marianjoy Rehabilitation Hospital and Clinics", category: "Unlicensed Provider", amount: 190000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/marianjoy-rehabilitation-hospital-and-clinics-agreed-to-pay-190000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-09-08", party: "Compassion Hospice", category: "AKS/Remuneration", amount: 430000, summary: "Improper remuneration \u2014 referral-based compensation", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/compassion-hospice-agreed-to-pay-430000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-referral-based-compensation/" },
+  { date: "2025-09-04", party: "Community Memorial Health System", category: "Unlicensed Provider", amount: 111000, summary: "Services by unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/community-memorial-health-system-agreed-to-pay-111000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-09-04", party: "Laurels of Sandy Creek and Laurel of Hudsonville", category: "Excluded Individual", amount: 122000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/laurels-of-sandy-creek-and-laurel-of-hudsonville-agreed-to-pay-122000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-03", party: "Greenwood Center for Nursing and Rehabilitation", category: "Unlicensed Provider", amount: 83000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/greenwood-center-for-nursing-and-rehabilitation-agreed-to-pay-83000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-08-25", party: "North Central Ohio Family Care Center / Dr. Heddleson", category: "False/Not-Provided Claims", amount: 66000, summary: "Claims that did not meet billing requirements", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/north-central-ohio-family-care-center-and-dr-james-heddleson-agreed-to-pay-66000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-that-did-not-meet-billing-requirements/" },
+  { date: "2025-08-25", party: "Waccamaw Dermatology", category: "False/Not-Provided Claims", amount: 160000, summary: "Claims that did not meet Medicare requirements for locum tenens coverage", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/waccamaw-dermatology-agreed-to-pay-160000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-that-did-not-meet-medicare-requirements-for-locum-tenens-coverage/" },
+  { date: "2025-08-22", party: "Crawford Drug", category: "False/Not-Provided Claims", amount: 78000, summary: "Claims for prescription drugs not dispensed", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/crawford-drug-agreed-to-pay-78000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-prescription-drugs-not-dispensed/" },
+  { date: "2025-08-19", party: "Emerald Care Center Claremore", category: "Unlicensed Provider", amount: 116000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/emerald-care-center-claremore-agreed-to-pay-116000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-08-13", party: "Legacy Health", category: "False/Not-Provided Claims", amount: 709000, summary: "Sleep study services not provided; compensation for services not provided", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/legacy-health-agreed-to-pay-709000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-sleep-study-services-not-provided-and-paying-remuneration-in-the-form-of-compensation-for-services-not-provided/" },
+  { date: "2025-08-07", party: "Elite Medical Transport", category: "False/Not-Provided Claims", amount: 144000, summary: "Services containing forged and invalid signatures", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/elite-medical-transport-agreed-to-pay-144000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-containing-forged-and-invalid-signatures/" },
+  { date: "2025-08-06", party: "University Physicians of Brooklyn", category: "False/Not-Provided Claims", amount: 455000, summary: "Incident-to services not covered", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/university-physicians-of-brooklyn-agreed-to-pay-455000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-incident-to-services-not-covered/" },
+  { date: "2025-08-06", party: "Woodland Springs", category: "Unlicensed Provider", amount: 188000, summary: "Services by unlicensed individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/woodland-springs-agreed-to-pay-188000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-08-04", party: "St. Luke's Hospital of Duluth", category: "AKS/Remuneration", amount: 214000, summary: "Remuneration in the form of free technology services", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/st-luke%C3%A6s-hospital-of-duluth-agreed-to-pay-214000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-remuneration-in-the-form-of-free-technology-services/" },
+  { date: "2025-07-28", party: "NHC Healthcare \u2013 Burlington", category: "Unlicensed Provider", amount: 31000, summary: "Services by unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/nhc-healthcare-burlington-agreed-to-pay-31000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-07-28", party: "Urology Group of Florida", category: "Excluded Individual", amount: 25000, summary: "Employing an excluded individual", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/urology-group-of-florida-agreed-to-pay-25000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-07-21", party: "Woodlands Senior Living of Cape Elizabeth", category: "Excluded Individual", amount: 270000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/woodlands-senior-living-of-cape-elizabeth-agreed-to-pay-270000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-07-18", party: "City of Fort Dodge", category: "Unlicensed Provider", amount: 32000, summary: "Services by unlicensed individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/city-of-fort-dodge-agreed-to-pay-32000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-07-17", party: "Medfleet", category: "Unlicensed Provider", amount: 81000, summary: "Services by improperly licensed emergency medical responder", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/medfleet-agreed-to-pay-81000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-improperly-licensed-emergency-medical-responder/" },
+  { date: "2025-07-11", party: "Corvallis Clinic", category: "AKS/Remuneration", amount: 108000, summary: "Remuneration in form of referrals and referral fees", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/corvallis-clinic-agreed-to-pay-108000-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-and-receiving-remuneration-in-the-form-of-referrals-and-receiving-remuneration-in-the-form-of-referral-fees/" },
+  { date: "2025-07-11", party: "SPARC Network", category: "Excluded Individual", amount: 181000, summary: "Employing an excluded individual", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/sparc-network-agreed-to-pay-181000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-07-09", party: "1st Choice Healthcare", category: "False/Not-Provided Claims", amount: 31000, summary: "Chronic care management not provided as claimed", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/1st-choice-healthcare-agreed-to-pay-31000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-chronic-care-management-that-were-not-provided-as-claimed/" },
+  { date: "2025-07-09", party: "MUSC Physicians", category: "False/Not-Provided Claims", amount: 225000, summary: "Psychotherapy services not provided as claimed", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/musc-physicians-agreed-to-pay-225000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-psychotherapy-that-were-not-provided-as-claimed/" },
+  { date: "2025-07-09", party: "Shasta View Care Center", category: "False/Not-Provided Claims", amount: 41000, summary: "Fraudulent nursing services", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/shasta-view-care-center-agreed-to-pay-41000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-fraudulent-nursing-services/" },
+  { date: "2025-07-09", party: "St. Joseph Living Center", category: "Excluded Individual", amount: 88000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/st-joseph-living-center-agreed-to-pay-88000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-06-27", party: "MP Primary Care Services", category: "False/Not-Provided Claims", amount: 72000, summary: "Services not provided", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/mp-primary-care-services-agreed-to-pay-72000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-provided/" },
+  { date: "2025-06-25", party: "University of California Irvine Health", category: "False/Not-Provided Claims", amount: 482000, summary: "Improperly billed critical care services", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/university-of-california-irvine-health-agreed-to-pay-482000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-improperly-billed-critical-care-services/" },
+  { date: "2025-06-16", party: "All Star Physical Therapy", category: "Unlicensed Provider", amount: 1200000, summary: "Services by non-enrolled or uncredentialed providers", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/all-star-physical-therapy-agreed-to-pay-12-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-by-non-enrolled-or-uncredentialed-providers/" },
+  { date: "2025-06-13", party: "All Star Physical Therapy Specialists / Confluent Health", category: "Unlicensed Provider", amount: 636000, summary: "Services by non-enrolled or uncredentialed providers", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/all-star-physical-therapy-specialists-confluent-health-and-confluent-health-california-agreed-to-pay-636000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-by-non-enrolled-or-uncredentialed-providers/" },
+  { date: "2025-06-10", party: "Adventist Health System", category: "Provider-Based", amount: 628000, summary: "Services in spaces not identified for clinical use / supplemental outpatient", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/adventist-health-system-agreed-to-pay-628000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-in-spaces-not-identified-for-clinical-use-or-supplemental-outpatient-services/" },
+  { date: "2025-06-10", party: "Citadel Care Center \u2013 Sterling", category: "Excluded Individual", amount: 639000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/citadel-care-center-sterling-agreed-to-pay-639000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-06-09", party: "Lorien Nursing & Rehab Center-Elkridge", category: "Unlicensed Provider", amount: 117000, summary: "Services by unlicensed individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/lorien-nursing-rehab-center-elkridge-agreed-to-pay-117000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-06-04", party: "Advanced Clinical Laboratory", category: "Excluded Individual", amount: 33000, summary: "Employing an excluded individual", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/advanced-clinical-laboratory-agreed-to-pay-33000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-06-04", party: "Northwell Healthcare", category: "Upcoding", amount: 411000, summary: "Services not performed, failed coverage, or upcoded", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/northwell-healthcare-agreed-to-pay-411000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-performed-that-did-not-meet-coverage-criteria-or-were-upcoded/" },
+  { date: "2025-06-04", party: "Pinnacle Peak Recovery", category: "Excluded Individual", amount: 31000, summary: "Employing an excluded individual", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/pinnacle-peak-recovery-agreed-to-pay-31000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-05-29", party: "Cook County Health", category: "False/Not-Provided Claims", amount: 451000, summary: "Services ineligible for payment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/cook-county-health-agreed-to-pay-451000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-were-ineligible-for-payment/" },
+  { date: "2025-05-28", party: "City of Wheeling, West Virginia Fire Department", category: "False/Not-Provided Claims", amount: 36000, summary: "Ambulance services with false signatures", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/city-of-wheeling-west-virginia-fire-department-agreed-to-pay-36000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-ambulance-services-with-false-signatures/" },
+  { date: "2025-05-22", party: "Perry Avenue Family Medical Center", category: "False/Not-Provided Claims", amount: 600000, summary: "Services not provided as claimed", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/perry-avenue-family-medical-center-agreed-to-pay-600000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-provided-as-claimed/" },
+  { date: "2025-05-15", party: "Children's Hospital of Philadelphia", category: "Excluded Individual", amount: 23000, summary: "Individual excluded from Pennsylvania Medicaid", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/childrens-hospital-of-philadelphia-agreed-to-pay-23000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-individual-excluded-from-pennsylvania-medicaid/" },
+  { date: "2025-05-09", party: "Capital Health System", category: "False/Not-Provided Claims", amount: 528000, summary: "Remote physiologic monitoring \u2014 coverage and payment requirements", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/capital-health-system-agreed-to-pay-528000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-remote-physiologic-monitoring-that-did-not-meet-coverage-and-payment-requirements/" },
+  { date: "2025-05-09", party: "City of Bristol, Tennessee", category: "Unlicensed Provider", amount: 20000, summary: "Services by unlicensed individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/city-of-bristol-tennessee-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-05-09", party: "Delmarva Spine and Pain", category: "Upcoding", amount: 311000, summary: "Upcoded E&M and misidentified place of service", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/delmarva-spine-and-pain-agreed-to-pay-311000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-upcoded-evaluation-and-management-claims-and-claims-that-misidentified-the-place-of-services/" },
+  { date: "2025-05-08", party: "UT Health Science Center Houston / UT Physicians", category: "AKS/Remuneration", amount: 78000, summary: "Orders or referrals signed by medical assistants", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/the-university-of-texas-health-science-center-at-houston-and-ut-physicians-agreed-to-pay-78000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-orders-or-referrals-signed-by-medical-assistants/" },
+  { date: "2025-05-07", party: "Tulse Bone and Joint Associates", category: "Medically Unnecessary", amount: 769000, summary: "Medically unnecessary services related to knee replacement surgeries", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/tulse-bone-and-joint-associates-agreed-to-pay-769000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-medically-unnecessary-services-related-to-knee-replacement-surgeries/" },
+  { date: "2025-05-06", party: "Lorien Bulle Rock", category: "Unlicensed Provider", amount: 90000, summary: "Services by unlicensed individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/lorien-bulle-rock-agreed-to-pay-90000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-05-06", party: "Lorien Mt. Airy", category: "Unlicensed Provider", amount: 46000, summary: "Services by unlicensed individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/lorien-mt-airy-agreed-to-pay-46000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-05-05", party: "Encore at Turf Valley", category: "Unlicensed Provider", amount: 36000, summary: "Services by unlicensed individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/encore-at-turf-valley-agreed-to-pay-36000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2025-05-02", party: "Capital Cardiology Associates", category: "Unlicensed Provider", amount: 2800000, summary: "Services performed by non-enrolled providers", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/capital-cardiology-associates-agreed-to-pay-28-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-performed-by-non-enrolled-providers/" },
+  { date: "2025-05-02", party: "The Little Clinic and Affiliated Entities", category: "False/Not-Provided Claims", amount: 89000, summary: "Telehealth services not provided as claimed", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/the-little-clinic-and-affiliated-entities-agreed-to-pay-89000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-telehealth-services-not-provided-as-claimed/" },
+  { date: "2025-05-01", party: "Emory Healthcare Network", category: "AKS/Remuneration", amount: 1000000, summary: "Improper remuneration paid to physicians", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/emory-healthcare-network-agreed-to-pay-1-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-remuneration-to-physicians/" },
+  { date: "2025-05-01", party: "Mountain View of Cascadia", category: "Unlicensed Provider", amount: 33000, summary: "Services by unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/mountain-view-of-cascadia-agreed-to-pay-33000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-04-24", party: "John H. Stroger, Jr. Hospital of Cook County", category: "Excluded Individual", amount: 456000, summary: "Individuals excluded from Illinois Medicaid", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/john-h-stroger-jr-hospital-of-cook-county-agreed-to-pay-456000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-individuals-excluded-from-illinois-medicaid/" },
+  { date: "2025-04-24", party: "Maxim Healthcare Services", category: "False/Not-Provided Claims", amount: 676000, summary: "Services not performed or failed coverage criteria", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/maxim-healthcare-services-agreed-to-pay-676000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-performed-or-that-did-not-meet-coverage-criteria/" },
+  { date: "2025-04-23", party: "GreenField Health System", category: "False/Not-Provided Claims", amount: 286000, summary: "Assignment agreement violation", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/greenfield-health-system-agreed-to-pay-286000-for-allegedly-violating-the-civil-monetary-penalties-law-by-requesting-payment-from-beneficiaries-in-violation-of-an-assignment-agreement/" },
+  { date: "2025-04-23", party: "Kadlec Regional Medical Center", category: "False/Not-Provided Claims", amount: 8900000, summary: "Services that did not meet coverage criteria", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/kadlec-regional-medical-center-agreed-to-pay-89-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-did-not-meet-coverage-criteria/" },
+  { date: "2025-04-16", party: "Baptist Health Medical Group", category: "Excluded Individual", amount: 47000, summary: "Employing an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/baptist-health-medical-group-agreed-to-pay-47000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-04-03", party: "Piedmont Health Services", category: "False/Not-Provided Claims", amount: 4700000, summary: "Services that did not meet Medicare requirements", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/piedmont-health-services-agreed-to-pay-47-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-did-not-meet-medicare-requirements/" },
+  { date: "2025-03-28", party: "Diligent Urgent Care", category: "Upcoding", amount: 614000, summary: "Incident-to services upcoded and identified incorrect rendering provider", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/diligent-urgent-care-agreed-to-pay-614000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-incident-to-services-that-identified-the-incorrect-rendering-provider-and-were-upcoded/" },
+  { date: "2025-03-25", party: "Radiology Regional Center", category: "Unlicensed Provider", amount: 92000, summary: "Services by unlicensed individual", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/radiology-regional-center-agreed-to-pay-92000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-03-03", party: "Friendly Medical Transport", category: "False/Not-Provided Claims", amount: 119000, summary: "Mileage greater than provided", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/friendly-medical-transport-agreed-to-pay-119000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-mileage-greater-than-provided/" },
+  { date: "2025-02-24", party: "Benedictine Living Community Crookston", category: "Excluded Individual", amount: 247000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/benedictine-living-community-crookston-agreed-to-pay-247000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-02-20", party: "South Pacific Rehabilitation Services", category: "Excluded Individual", amount: 201000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/south-pacific-rehabilitation-services-agreed-to-pay-201000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-02-07", party: "Glens Falls Hospital", category: "False/Not-Provided Claims", amount: 204000, summary: "Services that did not meet coverage requirements", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/glens-falls-hospital-agreed-to-pay-204000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-did-not-meet-coverage-requirements/" },
+  { date: "2025-02-04", party: "Clinical Pathology Laboratories", category: "Excluded Individual", amount: 352000, summary: "Employing an excluded individual", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/clinical-pathology-laboratories-agreed-to-pay-352000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-01-24", party: "Wellstar Health System", category: "Unlicensed Provider", amount: 468000, summary: "Services by unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/wellstar-health-system-agreed-to-pay-468000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2025-01-15", party: "Pacific Eye Institute", category: "Medically Unnecessary", amount: 599000, summary: "Services not provided as claimed or not medically necessary", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/pacific-eye-institute-agreed-to-pay-599000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-not-provided-as-claimed-or-not-medically-necessary/" },
+  { date: "2025-01-07", party: "Wabash General Hospital", category: "Unlicensed Provider", amount: 107000, summary: "Services by unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/wabash-general-hospital-agreed-to-pay-107000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" }
+];
+const CMP = [
+  { date: "2026-01-28", party: "Holmes Regional Medical Center", category: "EMTALA", amount: 113000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/holmes-regional-medical-center-agreed-to-pay-113000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2026-01-27", party: "Cordell Memorial Hospital", category: "EMTALA", amount: 40000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/cordell-memorial-hospital-agreed-to-pay-40000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2025-12-19", party: "Dr. Sergio Sokol and Affiliated Practices", category: "Medically Unnecessary", amount: 398000, summary: "Medically unnecessary services", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/dr-sergio-sokol-and-affiliated-practices-agreed-to-pay-398000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-medically-unnecessary-services/" },
+  { date: "2025-12-19", party: "Labtech Diagnostics and Joseph Labash", category: "AKS/Remuneration", amount: 0, summary: "Excluded \u2014 paying improper remuneration", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/labtech-diagnostics-and-joseph-labash-agreed-to-be-excluded-for-allegedly-paying-improper-remuneration/" },
+  { date: "2025-12-18", party: "Dr. Min Wu and Affiliated Urgent Care Centers", category: "False/Not-Provided Claims", amount: 883000, summary: "Telehealth services not provided as claimed; failed coverage", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/dr-min-wu-and-affiliated-urgent-care-centers-agreed-to-pay-883000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-telehealth-services-not-provided-as-claimed-and-services-that-failed-to-meet-coverage-criteria/" },
+  { date: "2025-12-17", party: "Center at Lowry", category: "Excluded Individual", amount: 292000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/center-at-lowry-agreed-to-pay-292000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-17", party: "Center at Northridge", category: "Excluded Individual", amount: 227000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/center-at-northridge-agreed-to-pay-227000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-12-09", party: "H. Brady Millican, III", category: "AKS/Remuneration", amount: 0, summary: "Excluded 3 years \u2014 paying improper remuneration", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/h-brady-millican-iii-agreed-to-be-excluded-for-3-years-for-allegedly-paying-improper-remuneration/" },
+  { date: "2025-12-08", party: "Coastline EMS / SouthCoast EMS", category: "False/Not-Provided Claims", amount: 162000, summary: "False claims for emergency ambulance services", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/coastline-emergency-medical-services-and-southcoast-emergency-medical-services-agreed-to-pay-162000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-false-claims-for-emergency-ambulance-services/" },
+  { date: "2025-12-04", party: "Initium Health", category: "False/Not-Provided Claims", amount: 580000, summary: "Inappropriately drawing down funds from HHS grant (COVID-19)", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/initium-health-agreed-to-pay-580000-for-allegedly-violating-the-civil-monetary-penalties-law-by-inappropriately-drawing-down-funds-from-an-hhs-grant/" },
+  { date: "2025-11-20", party: "Michael Lesem, MD", category: "False/Not-Provided Claims", amount: 546000, summary: "Bundled services including drugs not purchased", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/michael-lesem-md-and-michael-d-lesem-md-pa-agreed-to-pay-546000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-bundled-services-that-included-drugs-that-were-not-purchased/" },
+  { date: "2025-11-20", party: "Rashid Pervez, MD / North Central Ohio Health Care", category: "False/Not-Provided Claims", amount: 698000, summary: "Bundled services including drugs not purchased", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/rashid-pervez-md-and-north-central-ohio-health-care-agreed-to-pay-698000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-bundled-services-that-included-drugs-that-were-not-purchased/" },
+  { date: "2025-11-12", party: "Spartanburg Medical Center", category: "EMTALA", amount: 100000, summary: "EMTALA \u2014 inappropriate transfer", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/spartanburg-medical-center-agreed-to-pay-100000-for-allegedly-violating-patient-dumping-statute-by-inappropriately-transferring-a-patient/" },
+  { date: "2025-11-12", party: "William Mangan, DO", category: "Medically Unnecessary", amount: 0, summary: "Excluded 10 years \u2014 unnecessary genetic tests and DMEPOS claims", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/william-mangan-do-agreed-to-excluded-for-10-years-for-allegedly-submitting-claims-for-unnecessary-genetic-tests-and-dmepos/" },
+  { date: "2025-09-29", party: "AccuCare Home Health Services", category: "Excluded Individual", amount: 20000, summary: "Employing an excluded individual", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/accucare-home-health-services-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-29", party: "Symphony Crestwood, Chicago West, Midway", category: "Excluded Individual", amount: 107000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/symphony-crestwood-symphony-chicago-west-and-symphony-midway-agreed-to-pay-107000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-09-24", party: "David Boguslavsky, MD / Premier Medical Acupuncture", category: "False/Not-Provided Claims", amount: 581000, summary: "Bundled services including drugs not purchased", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/david-boguslavsky-md-and-premier-medical-acupuncture-agreed-to-pay-581000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-bundled-services-that-included-drugs-that-were-not-purchased/" },
+  { date: "2025-09-23", party: "Keith Myers", category: "False/Not-Provided Claims", amount: 250000, summary: "False claims related to federally funded COVID-19 vaccines", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/keith-myers-agreed-to-pay-250000-for-allegedly-violating-the-civil-monetary-penalties-law-by-causing-false-claims-records-and-statements-related-to-federally-funded-covid-19-vaccines/" },
+  { date: "2025-09-19", party: "Our Community Pharmacy / Candida Webb", category: "AKS/Remuneration", amount: 100000, summary: "Paying remuneration to beneficiaries; excluded 5 years", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/our-community-pharmacy-and-candida-webb-agreed-to-pay-100000-and-be-excluded-for-5-years-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-remuneration-to-beneficiaries/" },
+  { date: "2025-09-11", party: "Alexandra Tellez", category: "AKS/Remuneration", amount: 60000, summary: "Receiving remuneration in exchange for referring Medicare services", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/alexandra-tellez-agreed-to-pay-60000-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-remuneration-in-exchange-for-referring-medicare-services/" },
+  { date: "2025-09-04", party: "Ryan Cleland, DC / Infinite Wellness Integrative Medical Center", category: "Medically Unnecessary", amount: 249000, summary: "Medically unnecessary services", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/ryan-cleland-dc-and-infinite-wellness-integrative-medical-center-agreed-to-pay-249000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-medically-unnecessary-services/" },
+  { date: "2025-09-03", party: "Opal Mullings / Optimum Faith Lab Corp", category: "Other", amount: 0, summary: "Excluded 10 years", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/opal-mullings-and-optimum-faith-lab-corp-were-excluded-for-10-years/" },
+  { date: "2025-08-26", party: "Ideal Health Diagnostics / Svetlana Dizik", category: "AKS/Remuneration", amount: 227000, summary: "Receiving improper remuneration; causing false or fraudulent Medicare claims; excluded 10 years", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/ideal-health-diagnostics-and-svetlana-dizik-agreed-to-pay-227000-and-be-excluded-for-10-years-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-improper-remuneration-and-causing-the-submission-of-false-or-fraudulent-medicare-claims/" },
+  { date: "2025-08-19", party: "North Carolina Baptist Hospital", category: "EMTALA", amount: 200000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examinations", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/north-carolina-baptist-hospital-agreed-to-pay-200000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations/" },
+  { date: "2025-08-15", party: "Bristol Regional Medical Center", category: "EMTALA", amount: 150000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examinations", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/bristol-regional-medical-center-agreed-to-pay-150000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations/" },
+  { date: "2025-08-14", party: "Swedish American Hospital", category: "EMTALA", amount: 100000, summary: "EMTALA \u2014 failing to provide appropriate MSE and stabilizing treatment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/swedish-american-hospital-agreed-to-pay-100000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination-and-stabilizing-treatment/" },
+  { date: "2025-08-04", party: "Zavier Ash, MD", category: "AKS/Remuneration", amount: 209000, summary: "Receiving remuneration in exchange for prescribing medications", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/zavier-ash-md-agreed-to-pay-209000-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-remuneration-in-exchange-for-prescribing/" },
+  { date: "2025-07-31", party: "Kidspeace National Centers of New England", category: "Excluded Individual", amount: 44000, summary: "Contracting with an excluded individual", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/kidspeace-national-centers-of-new-england-agreed-to-pay-44000-for-allegedly-violating-the-civil-monetary-penalties-law-by-contracting-with-an-excluded-individual/" },
+  { date: "2025-07-25", party: "Flowers Hospital", category: "EMTALA", amount: 150000, summary: "EMTALA \u2014 failing to accept appropriate transfers", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/flowers-hospital-agreed-to-pay-150000-for-allegedly-violating-patient-dumping-statute-by-failing-to-accept-appropriate-transfers/" },
+  { date: "2025-07-15", party: "Frankfort Regional Medical Center", category: "EMTALA", amount: 110000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/frankfort-regional-medical-center-agreed-to-pay-110000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2025-07-10", party: "Andrew Gomes, MD", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/andrew-gomes-md-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-07-10", party: "UAB Medical West", category: "EMTALA", amount: 100000, summary: "EMTALA \u2014 failing to provide stabilizing treatment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/uab-medical-west-agreed-to-pay-100000-for-allegedly-violating-patient-dumping-statue-by-failing-to-provide-stabilizing-treatment/" },
+  { date: "2025-07-09", party: "Brant Jolly", category: "False/Not-Provided Claims", amount: 0, summary: "Excluded 10 years \u2014 false claims for lab tests", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/brant-jolly-agreed-to-be-excluded-for-10-years-for-allegedly-submitting-false-claims-for-lab-tests/" },
+  { date: "2025-06-30", party: "Nirmal Mulye, PhD", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/nirmal-mulye-phd-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-06-18", party: "Wahid Makki", category: "False/Not-Provided Claims", amount: 0, summary: "Excluded 10 years \u2014 claims for prescriptions never dispensed", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/wahid-makki-agreed-to-be-excluded-for-10-years-for-allegedly-submitting-claims-for-prescriptions-never-dispensed/" },
+  { date: "2025-06-11", party: "Riverside Recovery Services", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/riverside-recovery-services-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-06-10", party: "CareLink Home Health", category: "Excluded Individual", amount: 35000, summary: "Employing an excluded individual", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/carelink-home-health-agreed-to-pay-35000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-05-29", party: "Skilled Nursing Facilities (multiple)", category: "Excluded Individual", amount: 1500000, summary: "Employing excluded individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/skilled-nursing-facilities-agreed-to-pay-15-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals/" },
+  { date: "2025-05-27", party: "Jeffrey Parnell, Stanley Jones, and LGRB Management Services", category: "AKS/Remuneration", amount: 0, summary: "Excluded 10 years \u2014 paying improper remuneration", provider_type: "DME / Medical Device", url: "https://oig.hhs.gov/fraud/enforcement/jeffrey-parnell-stanley-jones-and-lgrb-management-services-agreed-to-be-excluded-for-10-years-for-allegedly-paying-improper-remuneration/" },
+  { date: "2025-05-27", party: "Parkwest Medical Center", category: "EMTALA", amount: 80000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/parkwest-medical-center-agreed-to-pay-80000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2025-05-16", party: "Quivvy Tech Corporation / Reliable Document Solutions / Franklyn Michelin", category: "Medically Unnecessary", amount: 0, summary: "Excluded 25 years \u2014 medically unnecessary DME and pharmaceuticals", provider_type: "DME / Medical Device", url: "https://oig.hhs.gov/fraud/enforcement/quivvy-tech-corporation-reliable-document-solutions-and-franklyn-michelin-agreed-to-be-excluded-for-25-years-for-allegedly-submitting-and-causing-the-submission-of-medically-unnecessary-durable-medical-equipment-and-pharmaceuticals/" },
+  { date: "2025-05-09", party: "Brentwood Behavioral Healthcare of Mississippi", category: "EMTALA", amount: 350000, summary: "EMTALA \u2014 failing to accept appropriate transfers", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/brentwood-behavioral-healthcare-of-mississippi-agreed-to-pay-350000-for-allegedly-violating-patient-dumping-statute-by-failing-to-accept-appropriate-transfers/" },
+  { date: "2025-05-09", party: "ECU Health Medical Center", category: "EMTALA", amount: 119000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/ecu-health-medical-center-agreed-to-pay-119000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2025-04-22", party: "CHI St. Joseph Health - Saint Joseph Hospital", category: "EMTALA", amount: 133000, summary: "EMTALA \u2014 failing to accept an appropriate transfer", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/chi-st-joseph-health-saint-joseph-hospital-agreed-to-pay-133000-for-allegedly-violating-patient-dumping-statute-by-failing-to-accept-an-appropriate-transfer/" },
+  { date: "2025-04-15", party: "Christopher Mallavarapu, MD", category: "AKS/Remuneration", amount: 305000, summary: "Receiving remuneration for ordering DME, genetic testing, prescription medications", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/christopher-mallavarapu-md-agreed-to-pay-305000-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-remuneration-in-exchange-for-ordering-durable-medical-equipment-genetic-testing-and-prescription-medications/" },
+  { date: "2025-04-03", party: "Advancare Healthcare Services", category: "Excluded Individual", amount: 41000, summary: "Employing an excluded individual", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/advancare-healthcare-services-agreed-to-pay-41000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-04-03", party: "Diagnostic Clinic of Longview", category: "Excluded Individual", amount: 77000, summary: "Employing an excluded individual", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/diagnostic-clinic-of-longview-agreed-to-pay-77000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-03-24", party: "Health Plus", category: "Excluded Individual", amount: 0, summary: "Excluded 10 years \u2014 failing to supply payment information required in OIG subpoena", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/health-plus-was-excluded-for-10-years-for-failing-to-supply-payment-information-required-in-an-oig-subpoena/" },
+  { date: "2025-03-20", party: "Assure Holdings / Assure Neuromonitoring", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/assure-holdings-and-assure-neuromonitoring-were-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-03-06", party: "Alex De Jesus, MD", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/alex-de-jesus-md-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-02-26", party: "Ascension Resurrection", category: "EMTALA", amount: 133420, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/ascension-resurrection-agreed-to-pay-133420-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examination/" },
+  { date: "2025-02-20", party: "Baptist Medical Center South", category: "EMTALA", amount: 290000, summary: "EMTALA \u2014 failing to provide appropriate MSE and stabilizing treatment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/baptist-medical-center-south-agreed-to-pay-290000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations-and-stabilizing-treatment/" },
+  { date: "2025-02-14", party: "Med One Mobile / Gregory Wireman", category: "Medically Unnecessary", amount: 0, summary: "Excluded 5 years \u2014 medically unnecessary ambulance transportation", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/med-one-mobile-and-gregory-wireman-agreed-to-be-excluded-for-5-years-for-submitting-claims-for-medically-unnecessary-ambulance-transportation-services/" },
+  { date: "2025-01-23", party: "Walnut Creek Nursing Center", category: "Excluded Individual", amount: 243000, summary: "Employing an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/walnut-creek-nursing-center-agreed-to-pay-243000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-01-16", party: "Action Recovery Group", category: "Excluded Individual", amount: 73000, summary: "Employing an excluded individual", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/action-recovery-group-agreed-to-pay-73000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2025-01-16", party: "City of Livingston", category: "False/Not-Provided Claims", amount: 116000, summary: "False claims for emergency ambulance services", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/city-of-livingston-agreed-to-pay-116000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-false-claims-for-emergency-ambulance-services/" },
+  { date: "2025-01-06", party: "Adriana Strimbu, DPM", category: "Excluded Individual", amount: 41000, summary: "Employing an excluded individual", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/adriana-strimbu-dpm-agreed-to-pay-41000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" }
+];
+const AO = [
+  { date: "2026-04-17", category: "AKS", summary: "Medicare Advantage subsidiaries offering Employer Group Waiver Plans and sharing a percentage of savings with certain groups.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-07/", id: "AO 26-07", ao_id: "AO 26-07", outcome: "Favorable", topic: "MA organization EGWPs \u2014 sharing savings with employer groups they cover", arrangement_type: "Shared-Savings / Gainsharing", industry: "Managed Care / Health Plan", statutes: ["AKS"] },
+  { date: "2026-04-10", category: "AKS + Beneficiary Inducement CMP", summary: "State-designated domestic crisis provider billing federal programs for therapy and waiving cost-sharing.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-06/", id: "AO 26-06", ao_id: "AO 26-06", outcome: "Favorable", topic: "State-designated domestic-crisis provider \u2014 cost-sharing waiver for therapy services", arrangement_type: "Cost-Sharing Waiver", industry: "Behavioral Health / Crisis Provider", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2026-03-16", category: "AKS + Beneficiary Inducement CMP", summary: "Subsidizing certain cost-sharing obligations in the context of a clinical trial.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-05/", id: "AO 26-05", ao_id: "AO 26-05", outcome: "Favorable", topic: "Cost-sharing subsidy for clinical trial participants", arrangement_type: "Cost-Sharing Waiver", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2026-03-09", category: "AKS", summary: "Manufacturer offering ASC discounts on IOLs/supplies contingent on affiliated practice's software purchase.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-03/", id: "AO 26-03", ao_id: "AO 26-03", outcome: "Favorable", topic: "Med-tech manufacturer \u2014 bundled IOL/supply discount to ASCs tied to practice software purchases", arrangement_type: "Manufacturer Discount", industry: "Medical Device / DME Manufacturer", statutes: ["AKS"] },
+  { date: "2026-03-09", category: "AKS", summary: "Sole shareholder of Medicare-certified ASC transferring ownership interests in anticipation of retirement.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-04/", id: "AO 26-04", ao_id: "AO 26-04", outcome: "Favorable", topic: "ASC \u2014 transfer of ownership interests by sole shareholder upon retirement", arrangement_type: "Ownership Transfer / Buy-In", industry: "ASC / Surgical Center", statutes: ["AKS"] },
+  { date: "2026-02-18", category: "AKS", summary: "Urgent-care management entity proposing to operate a lab providing services to its urgent care patients.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-02/", id: "AO 26-02", ao_id: "AO 26-02", outcome: "Favorable", topic: "Urgent-care management entity \u2014 operating its own lab for patient services", arrangement_type: "Lab Operation / Service Expansion", industry: "Management Services Org (MSO)", statutes: ["AKS"] },
+  { date: "2026-01-16", category: "AKS + Beneficiary Inducement CMP", summary: "Manufacturer of colorectal cancer screening test waiving cost-sharing for commercially insured patients.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-01/", id: "AO 26-01", ao_id: "AO 26-01", outcome: "Favorable", topic: "Lab test manufacturer \u2014 waiving cost-sharing for colorectal cancer screening", arrangement_type: "Cost-Sharing Waiver", industry: "Clinical Laboratory", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2026-01-05", category: "AKS", summary: "Home care agency offering sign-on bonuses to individuals who would care for their own family members.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-12/", id: "AO 25-12", ao_id: "AO 25-12", outcome: "Unfavorable", topic: "Home care agency \u2014 sign-on bonuses to prospective family-caregiver employees", arrangement_type: "Recruitment Bonus / Employee Referral", industry: "Home Health / Hospice", statutes: ["AKS"] },
+  { date: "2025-12-18", category: "AKS", summary: "Pharmaceutical manufacturer offering discounts on certain vaccines.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-11/", id: "AO 25-11", ao_id: "AO 25-11", outcome: "Favorable", topic: "Pharma manufacturer \u2014 vaccine discount structures", arrangement_type: "Manufacturer Discount", industry: "Pharmaceutical Manufacturer", statutes: ["AKS"] },
+  { date: "2025-09-11", category: "AKS + Beneficiary Inducement CMP", summary: "Company-funded foundation providing grants to families of children receiving therapy.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-10/", id: "AO 25-10", ao_id: "AO 25-10", outcome: "Favorable", topic: "Charitable foundation \u2014 grants for families receiving a specific therapy", arrangement_type: "Patient Assistance", industry: "Charitable Foundation / Patient Assistance", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2025-08-12", category: "AKS", summary: "Physician-owned entity manufacturing and distributing medical devices.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-09/", id: "AO 25-09", ao_id: "AO 25-09", outcome: "Favorable", topic: "Physician-owned medical device manufacturer / distributor arrangement", arrangement_type: "Physician-Owned Entity (Manufacturer/Distributor)", industry: "Medical Device / DME Manufacturer", statutes: ["AKS"] },
+  { date: "2025-07-07", category: "AKS", summary: "Device company providing free access to electronic billing/ordering platform.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-08/", id: "AO 25-08", ao_id: "AO 25-08", outcome: "Unfavorable", topic: "Medical device manufacturer \u2014 free electronic-billing access for customers", arrangement_type: "Free Goods/Services to Providers", industry: "Medical Device / DME Manufacturer", statutes: ["AKS"] },
+  { date: "2025-07-02", category: "AKS + Beneficiary Inducement CMP", summary: "Travel, lodging, meals for qualifying gene-therapy patients and caregivers.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-06/", id: "AO 25-06", ao_id: "AO 25-06", outcome: "Favorable", topic: "Pharma manufacturer \u2014 gene-therapy patient travel/lodging assistance", arrangement_type: "Patient Assistance", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2025-07-02", category: "AKS + Beneficiary Inducement CMP", summary: "Manufacturer sponsoring a companion lab test required before prescribing its drug.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-07/", id: "AO 25-07", ao_id: "AO 25-07", outcome: "Favorable", topic: "Pharma manufacturer \u2014 sponsored companion lab test before prescribing", arrangement_type: "Sponsored Testing/Screening Program", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2025-06-30", category: "AKS", summary: "Device maker reimbursing up to $2,500 for needle-stick injuries from device failure.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-05/", id: "AO 25-05", ao_id: "AO 25-05", outcome: "Favorable", topic: "Medical device manufacturer \u2014 needle-stick injury reimbursement (up to $2,500)", arrangement_type: "Warranty / Defect Reimbursement", industry: "Medical Device / DME Manufacturer", statutes: ["AKS"] },
+  { date: "2025-06-20", category: "AKS", summary: "Device maker paying for exclusion / compliance monitoring on behalf of customers.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-04/", id: "AO 25-04", ao_id: "AO 25-04", outcome: "Unfavorable", topic: "Medical device manufacturer \u2014 paying customers' exclusion-screening fees", arrangement_type: "Free Goods/Services to Providers", industry: "Medical Device / DME Manufacturer", statutes: ["AKS"] },
+  { date: "2025-06-11", category: "AKS", summary: "Management services org leasing telehealth equipment to physician practices.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-03/", id: "AO 25-03", ao_id: "AO 25-03", outcome: "Favorable", topic: "MSO \u2014 telehealth-equipment lease arrangement with physicians", arrangement_type: "Management Services / MSO", industry: "Management Services Org (MSO)", statutes: ["AKS"] },
+  { date: "2025-04-09", category: "AKS + Beneficiary Inducement CMP", summary: "FQHC referring patients to social service providers without compensation.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-02/", id: "AO 25-02", ao_id: "AO 25-02", outcome: "Favorable", topic: "FQHC \u2014 unadvertised referrals to social-service providers", arrangement_type: "Referral Arrangement (Non-Traditional)", industry: "FQHC / Safety-Net Provider", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2025-01-15", category: "AKS + Beneficiary Inducement CMP", summary: "Free drug program for eligible patients regardless of insurance.", url: "https://oig.hhs.gov/compliance/advisory-opinions/25-01/", id: "AO 25-01", ao_id: "AO 25-01", outcome: "Favorable", topic: "Pharmaceutical manufacturer \u2014 free-drug access program", arrangement_type: "Patient Assistance", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducement CMP"] }
+];
+
+  </script>
+  <script>
+// OIG Enforcement Dashboard - Vanilla JS, no framework
+// All UI is built with DOM API and plain SVG.
+
+// Data is injected as DATA_SDP, DATA_CMP, DATA_AO globals before this script.
+
+// ----- Constants -----
+const CATEGORY_COLORS = {
+  "Excluded Individual": "#1B365D",
+  "Unlicensed Provider": "#4A7C59",
+  "False/Not-Provided Claims": "#B8860B",
+  "Medically Unnecessary": "#6B2E2E",
+  "Upcoding": "#2F4F4F",
+  "Provider-Based": "#7B3F00",
+  "EMTALA": "#4B0082",
+  "Other": "#6B6B6B",
+  "AKS/Remuneration": "#8B0000",
+  "Beneficiary Inducement": "#B8860B",
+  "Lab/Diagnostic": "#4A7C59",
+  "Patient Support": "#1B365D",
+  "Medical Device": "#6B2E2E",
+  "Telehealth": "#2F4F4F",
+  "FQHC/Safety Net": "#7B3F00",
+  "Discount Safe Harbor": "#4B0082",
+};
+const colorFor = (cat) => CATEGORY_COLORS[cat] || "#6B6B6B";
+
+// Provider type colors — distinct palette from category colors, lower saturation
+const PROVIDER_TYPE_COLORS = {
+  "Hospital / Health System":           "#2E5C8A",
+  "Physician Practice / Medical Group": "#A67C52",
+  "Long-Term Care / SNF / Hospice / ALF":"#7B4B94",
+  "Behavioral Health / Recovery":       "#3D7A5C",
+  "Home Health":                        "#B87333",
+  "Lab / Diagnostic / Imaging":         "#8B4513",
+  "Pharmacy / Pharma Manufacturer":     "#5D6B2F",
+  "DME / Medical Device":               "#6B4423",
+  "Ambulance / EMS":                    "#A4343A",
+  "ASC / Surgical Center":              "#1F5F5B",
+  "Individual Physician / NPP":         "#704214",
+  "Government / Municipal / Tribal":    "#46524A",
+  "Other / Unclassified":               "#78716c",
+};
+const colorForProvider = (pt) => PROVIDER_TYPE_COLORS[pt] || "#78716c";
+
+// ----- Formatters -----
+function fmtCurrency(n) {
+  if (n >= 1000000) return "$" + (n / 1000000).toFixed(n >= 10000000 ? 1 : 2) + "M";
+  if (n >= 1000) return "$" + Math.round(n / 1000) + "K";
+  return "$" + n.toLocaleString();
+}
+function fmtCurrencyFull(n) { return "$" + n.toLocaleString(); }
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(d) {
+  const [y, m, day] = d.split("-");
+  return MONTHS[parseInt(m, 10) - 1] + " " + parseInt(day, 10) + ", " + y;
+}
+function median(arr) {
+  const a = [...arr].sort((x, y) => x - y);
+  const m = Math.floor(a.length / 2);
+  return a.length % 2 ? a[m] : Math.round((a[m - 1] + a[m]) / 2);
+}
+
+// ----- DOM helpers -----
+function el(tag, attrs, ...children) {
+  const node = document.createElement(tag);
+  if (attrs) {
+    for (const k of Object.keys(attrs)) {
+      if (k === "class") node.className = attrs[k];
+      else if (k === "style" && typeof attrs[k] === "object") Object.assign(node.style, attrs[k]);
+      else if (k === "html") node.innerHTML = attrs[k];
+      else if (k.startsWith("on") && typeof attrs[k] === "function") node.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+      else if (attrs[k] !== false && attrs[k] != null) node.setAttribute(k, attrs[k]);
+    }
+  }
+  for (const child of children) {
+    if (child == null || child === false) continue;
+    if (Array.isArray(child)) {
+      for (const c of child) {
+        if (c == null || c === false) continue;
+        node.appendChild(typeof c === "string" || typeof c === "number" ? document.createTextNode(String(c)) : c);
+      }
+    } else {
+      node.appendChild(typeof child === "string" || typeof child === "number" ? document.createTextNode(String(child)) : child);
+    }
+  }
+  return node;
+}
+function svg(tag, attrs, ...children) {
+  const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  if (attrs) {
+    for (const k of Object.keys(attrs)) {
+      if (attrs[k] !== false && attrs[k] != null) node.setAttribute(k, attrs[k]);
+    }
+  }
+  for (const child of children) {
+    if (child == null || child === false) continue;
+    if (Array.isArray(child)) {
+      for (const c of child) {
+        if (c == null || c === false) continue;
+        node.appendChild(typeof c === "string" || typeof c === "number" ? document.createTextNode(String(c)) : c);
+      }
+    } else {
+      node.appendChild(typeof child === "string" || typeof child === "number" ? document.createTextNode(String(child)) : child);
+    }
+  }
+  return node;
+}
+function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+
+// ----- Aggregation -----
+function aggregateByCategory(rows) {
+  const map = {};
+  rows.forEach((r) => {
+    if (!map[r.category]) map[r.category] = { category: r.category, count: 0, amount: 0 };
+    map[r.category].count += 1;
+    map[r.category].amount += r.amount || 0;
+  });
+  return Object.values(map).sort((a, b) => b.count - a.count);
+}
+
+function aggregateByProviderType(rows) {
+  const map = {};
+  rows.forEach((r) => {
+    const pt = r.provider_type || "Other / Unclassified";
+    if (!map[pt]) map[pt] = { provider_type: pt, count: 0, amount: 0 };
+    map[pt].count += 1;
+    map[pt].amount += r.amount || 0;
+  });
+  return Object.values(map).sort((a, b) => b.count - a.count);
+}
+
+// ----- Stat tiles -----
+function statTile(label, value, sublabel) {
+  return el("div", { class: "stat-tile" },
+    el("div", { class: "stat-label" }, label),
+    el("div", { class: "stat-value" }, value),
+    sublabel ? el("div", { class: "stat-sub" }, sublabel) : null
+  );
+}
+
+// ----- Bar chart (horizontal) -----
+// data: array of items with a `labelKey` field and a value at `valueKey`
+// colorFn: receives the label string, returns a hex color
+function barChart(data, valueKey, formatter, opts) {
+  opts = opts || {};
+  const labelKey = opts.labelKey || "category";
+  const colorFn = opts.colorFn || colorFor;
+  const max = Math.max(...data.map(d => d[valueKey] || 0), 1);
+  const wrap = el("div", { class: "bar-chart" });
+  data.forEach(d => {
+    const v = d[valueKey] || 0;
+    const pct = (v / max) * 100;
+    const showInside = pct > 25;
+    const label = d[labelKey];
+    wrap.appendChild(el("div", { class: "bar-row" },
+      el("div", { class: "bar-label", title: label }, label),
+      el("div", { class: "bar-track" },
+        el("div", {
+          class: "bar-fill",
+          style: { width: pct + "%", background: colorFn(label) }
+        }, showInside ? formatter(v) : "")
+      ),
+      !showInside ? el("div", { class: "bar-value-outside" }, formatter(v)) : null
+    ));
+  });
+  return wrap;
+}
+
+// ----- Treemap (custom squarified-ish layout) -----
+function treemap(data, width, height) {
+  const filtered = data.filter(d => (d.amount || 0) > 0);
+  const total = filtered.reduce((s, d) => s + d.amount, 0);
+  if (total === 0) return svg("svg", { class: "treemap", viewBox: `0 0 ${width} ${height}` });
+
+  // Sort descending by amount
+  const items = [...filtered].sort((a, b) => b.amount - a.amount);
+  const totalArea = width * height;
+
+  // Simple slice-and-dice layout
+  const rects = [];
+  let x = 0, y = 0, w = width, h = height;
+  let remaining = items;
+
+  // Use a simple recursive layout: split largest off, alternate orientation
+  function layout(items, x, y, w, h, horizontal) {
+    if (items.length === 0) return;
+    if (items.length === 1) {
+      rects.push({ ...items[0], x, y, w, h });
+      return;
+    }
+    const sumAll = items.reduce((s, d) => s + d.amount, 0);
+    // Group items: take first item as "big" if it's > 40% of remaining
+    const first = items[0];
+    const firstFrac = first.amount / sumAll;
+    if (horizontal && firstFrac >= 0.3) {
+      const splitW = w * firstFrac;
+      rects.push({ ...first, x, y, w: splitW, h });
+      layout(items.slice(1), x + splitW, y, w - splitW, h, !horizontal);
+    } else if (!horizontal && firstFrac >= 0.3) {
+      const splitH = h * firstFrac;
+      rects.push({ ...first, x, y, w, h: splitH });
+      layout(items.slice(1), x, y + splitH, w, h - splitH, !horizontal);
+    } else {
+      // Split evenly by area along current orientation
+      const half = Math.ceil(items.length / 2);
+      const left = items.slice(0, half);
+      const right = items.slice(half);
+      const leftSum = left.reduce((s, d) => s + d.amount, 0);
+      const frac = leftSum / sumAll;
+      if (horizontal) {
+        const splitW = w * frac;
+        layout(left, x, y, splitW, h, !horizontal);
+        layout(right, x + splitW, y, w - splitW, h, !horizontal);
+      } else {
+        const splitH = h * frac;
+        layout(left, x, y, w, splitH, !horizontal);
+        layout(right, x, y + splitH, w, h - splitH, !horizontal);
+      }
+    }
+  }
+  layout(items, 0, 0, width, height, width > height);
+
+  const root = svg("svg", { class: "treemap", viewBox: `0 0 ${width} ${height}`, preserveAspectRatio: "none" });
+  rects.forEach(r => {
+    root.appendChild(svg("rect", {
+      x: r.x, y: r.y, width: r.w, height: r.h, fill: colorFor(r.category)
+    }));
+    if (r.w > 70 && r.h > 30) {
+      const fontSize = r.w > 140 ? 12 : 10;
+      root.appendChild(svg("text", {
+        x: r.x + 8, y: r.y + 18, "font-size": fontSize, "font-weight": 600
+      }, r.category));
+      if (r.w > 90 && r.h > 50) {
+        root.appendChild(svg("text", {
+          x: r.x + 8, y: r.y + 34, "font-size": 11, opacity: 0.85
+        }, fmtCurrency(r.amount)));
+      }
+    }
+  });
+  return root;
+}
+
+// ----- Donut chart for AO outcomes -----
+function donutChart(favCount, unfavCount) {
+  const total = favCount + unfavCount;
+  const wrap = el("div", { class: "outcomes-display" });
+  const donut = el("div", { class: "donut-wrap" });
+  const SIZE = 160, R = 70, STROKE = 24;
+  const C = 2 * Math.PI * R;
+  const favLen = (favCount / total) * C;
+  const unfavLen = (unfavCount / total) * C;
+  const root = svg("svg", { class: "donut-svg", viewBox: `0 0 ${SIZE} ${SIZE}` });
+  // Background
+  root.appendChild(svg("circle", {
+    cx: SIZE/2, cy: SIZE/2, r: R, fill: "none", stroke: "#e7e5e4", "stroke-width": STROKE
+  }));
+  // Favorable arc
+  root.appendChild(svg("circle", {
+    cx: SIZE/2, cy: SIZE/2, r: R, fill: "none",
+    stroke: "#4A7C59", "stroke-width": STROKE,
+    "stroke-dasharray": `${favLen} ${C}`,
+    "stroke-dashoffset": "0"
+  }));
+  // Unfavorable arc (offset by favorable length)
+  root.appendChild(svg("circle", {
+    cx: SIZE/2, cy: SIZE/2, r: R, fill: "none",
+    stroke: "#8B0000", "stroke-width": STROKE,
+    "stroke-dasharray": `${unfavLen} ${C}`,
+    "stroke-dashoffset": `-${favLen}`
+  }));
+  donut.appendChild(root);
+  donut.appendChild(el("div", { class: "donut-center" },
+    el("div", { class: "donut-center-num" }, total),
+    el("div", { class: "donut-center-label" }, "Opinions")
+  ));
+  wrap.appendChild(donut);
+  wrap.appendChild(el("div", { class: "outcomes-legend" },
+    el("div", { class: "outcomes-legend-row" },
+      el("div", { class: "outcomes-legend-swatch", style: { background: "#4A7C59" } }),
+      "Favorable",
+      el("span", { class: "outcomes-legend-num" }, favCount + " (" + Math.round(favCount/total*100) + "%)")
+    ),
+    el("div", { class: "outcomes-legend-row" },
+      el("div", { class: "outcomes-legend-swatch", style: { background: "#8B0000" } }),
+      "Unfavorable",
+      el("span", { class: "outcomes-legend-num" }, unfavCount + " (" + Math.round(unfavCount/total*100) + "%)")
+    )
+  ));
+  return wrap;
+}
+
+// ----- CSV export -----
+function exportCSV(rows, filename, type) {
+  let header, body;
+  if (type === "ao") {
+    header = ["AO", "Date", "Outcome", "Arrangement Type", "Industry", "Statutes", "Topic", "Summary", "URL"];
+    body = rows.map(r => [
+      r.id, r.date, r.outcome,
+      csvEsc(r.arrangement_type || ""),
+      csvEsc(r.industry || ""),
+      csvEsc((r.statutes || []).join("; ")),
+      csvEsc(r.topic), csvEsc(r.summary), csvEsc(r.url || "")
+    ]);
+  } else {
+    header = ["Date", "Party", "Provider Type", "Category", "Amount", "Summary", "URL"];
+    body = rows.map(r => [r.date, csvEsc(r.party), csvEsc(r.provider_type || ""), r.category, r.amount, csvEsc(r.summary), csvEsc(r.url || "")]);
+  }
+  const csv = [header.join(","), ...body.map(b => b.join(","))].join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function csvEsc(s) { return '"' + String(s).replace(/"/g, '""') + '"'; }
+
+// ----- Enforcement table component (manages own state) -----
+function makeEnforcementTable(rows, allCategories, opts) {
+  opts = opts || {};
+  const showAmount = opts.showAmount !== false;
+  const filename = opts.filename || "oig-enforcement.csv";
+
+  // Build provider-type list from actual data, sorted by frequency
+  const ptCounts = {};
+  rows.forEach(r => {
+    const pt = r.provider_type || "Other / Unclassified";
+    ptCounts[pt] = (ptCounts[pt] || 0) + 1;
+  });
+  const allProviderTypes = Object.keys(ptCounts).sort((a, b) => ptCounts[b] - ptCounts[a]);
+
+  const state = {
+    sortKey: "date",
+    sortDir: "desc",
+    search: "",
+    activeCats: new Set(allCategories),
+    activeProviderTypes: new Set(allProviderTypes),
+  };
+
+  const container = el("div");
+  const controlsEl = el("div");
+  const catPillsEl = el("div", { class: "pills" });
+  const ptPillsEl = el("div", { class: "pills" });
+  const infoEl = el("div", { class: "results-info" });
+  const tableWrap = el("div", { class: "table-wrap" });
+
+  function setSort(key) {
+    if (state.sortKey === key) state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
+    else { state.sortKey = key; state.sortDir = "desc"; }
+    rerender();
+  }
+
+  function getFiltered() {
+    const q = state.search.trim().toLowerCase();
+    let rs = rows.filter(r =>
+      state.activeCats.has(r.category) &&
+      state.activeProviderTypes.has(r.provider_type || "Other / Unclassified")
+    );
+    if (q) rs = rs.filter(r =>
+      r.party.toLowerCase().includes(q) ||
+      r.summary.toLowerCase().includes(q) ||
+      r.category.toLowerCase().includes(q) ||
+      (r.provider_type || "").toLowerCase().includes(q)
+    );
+    rs = [...rs].sort((a, b) => {
+      const va = a[state.sortKey], vb = b[state.sortKey];
+      if (state.sortKey === "amount") return state.sortDir === "asc" ? va - vb : vb - va;
+      if (va < vb) return state.sortDir === "asc" ? -1 : 1;
+      if (va > vb) return state.sortDir === "asc" ? 1 : -1;
+      return 0;
+    });
+    return rs;
+  }
+
+  function renderControls() {
+    clear(controlsEl);
+    controlsEl.className = "controls";
+    const search = el("input", {
+      class: "search-input",
+      type: "text",
+      placeholder: "Search party, summary, category, or provider type…",
+      value: state.search,
+      oninput: (e) => { state.search = e.target.value; renderTable(); renderInfo(); }
+    });
+    controlsEl.appendChild(search);
+    controlsEl.appendChild(el("button", {
+      class: "btn btn-primary",
+      onclick: () => exportCSV(getFiltered(), filename, "enforcement")
+    }, "Export CSV"));
+    controlsEl.appendChild(el("button", {
+      class: "btn btn-secondary",
+      onclick: () => window.print()
+    }, "Print"));
+  }
+
+  function renderCatPills() {
+    clear(catPillsEl);
+    catPillsEl.appendChild(el("span", { class: "pills-label" }, "Category:"));
+    allCategories.forEach(c => {
+      const isActive = state.activeCats.has(c);
+      catPillsEl.appendChild(el("button", {
+        class: "pill" + (isActive ? " active" : ""),
+        style: isActive ? { background: colorFor(c) } : {},
+        onclick: () => {
+          if (state.activeCats.has(c)) state.activeCats.delete(c);
+          else state.activeCats.add(c);
+          rerender();
+        }
+      }, c));
+    });
+    catPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeCats = new Set(allCategories); rerender(); }
+    }, "all"));
+    catPillsEl.appendChild(el("span", { class: "pills-sep" }, "|"));
+    catPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeCats = new Set(); rerender(); }
+    }, "none"));
+  }
+
+  function renderProviderPills() {
+    clear(ptPillsEl);
+    ptPillsEl.appendChild(el("span", { class: "pills-label" }, "Provider:"));
+    allProviderTypes.forEach(pt => {
+      const isActive = state.activeProviderTypes.has(pt);
+      // Short label for pill - drop the " / ..." tail to keep pills compact
+      const shortLabel = pt.split(" / ")[0];
+      ptPillsEl.appendChild(el("button", {
+        class: "pill" + (isActive ? " active" : ""),
+        title: pt + " (" + ptCounts[pt] + ")",
+        style: isActive ? { background: colorForProvider(pt) } : {},
+        onclick: () => {
+          if (state.activeProviderTypes.has(pt)) state.activeProviderTypes.delete(pt);
+          else state.activeProviderTypes.add(pt);
+          rerender();
+        }
+      }, shortLabel));
+    });
+    ptPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeProviderTypes = new Set(allProviderTypes); rerender(); }
+    }, "all"));
+    ptPillsEl.appendChild(el("span", { class: "pills-sep" }, "|"));
+    ptPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeProviderTypes = new Set(); rerender(); }
+    }, "none"));
+  }
+
+  function renderInfo() {
+    clear(infoEl);
+    const filtered = getFiltered();
+    const total = filtered.reduce((s, r) => s + (r.amount || 0), 0);
+    infoEl.appendChild(document.createTextNode(
+      `Showing ${filtered.length} of ${rows.length} actions`
+    ));
+    if (showAmount) {
+      infoEl.appendChild(document.createTextNode(" · Filtered total: "));
+      infoEl.appendChild(el("strong", null, fmtCurrencyFull(total)));
+    }
+  }
+
+  function makeTh(key, label, opts) {
+    opts = opts || {};
+    const cls = "sortable" + (state.sortKey === key ? (state.sortDir === "asc" ? " sort-asc" : " sort-desc") : "") + (opts.right ? " right" : "");
+    return el("th", { class: cls, onclick: () => setSort(key) }, label);
+  }
+
+  function renderTable() {
+    clear(tableWrap);
+    const filtered = getFiltered();
+    const table = el("table");
+    const headRow = el("tr",
+      null,
+      makeTh("date", "Date"),
+      makeTh("party", "Settling Party"),
+      makeTh("provider_type", "Provider"),
+      makeTh("category", "Category"),
+      showAmount ? makeTh("amount", "Amount", { right: true }) : null,
+      makeTh("summary", "Allegation"),
+      el("th", { class: "src-col" }, "Src")
+    );
+    table.appendChild(el("thead", null, headRow));
+    const tbody = el("tbody");
+    const colCount = showAmount ? 7 : 6;
+    if (filtered.length === 0) {
+      tbody.appendChild(el("tr", { class: "empty-row" },
+        el("td", { colspan: colCount }, "No actions match the current filters.")
+      ));
+    } else {
+      filtered.forEach(r => {
+        const pt = r.provider_type || "Other / Unclassified";
+        const row = el("tr", null,
+          el("td", { class: "tabular" }, fmtDate(r.date)),
+          el("td", { class: "party" }, r.party),
+          el("td", null, el("span", {
+            class: "cat-badge", style: { background: colorForProvider(pt) }, title: pt
+          }, pt.split(" / ")[0])),
+          el("td", null, el("span", {
+            class: "cat-badge", style: { background: colorFor(r.category) }
+          }, r.category)),
+          showAmount ? el("td", { class: "amount right" },
+            r.amount > 0 ? fmtCurrencyFull(r.amount) : el("span", { class: "amount-empty" }, "—")
+          ) : null,
+          el("td", null, r.summary),
+          el("td", { class: "src-col" }, r.url ? el("a", {
+            href: r.url, target: "_blank", rel: "noopener noreferrer",
+            class: "src-link", title: "View on OIG.hhs.gov"
+          }, "↗") : "")
+        );
+        tbody.appendChild(row);
+      });
+    }
+    table.appendChild(tbody);
+    tableWrap.appendChild(table);
+  }
+
+  function rerender() {
+    renderCatPills();
+    renderProviderPills();
+    renderInfo();
+    renderTable();
+  }
+
+  renderControls();
+  rerender();
+
+  container.appendChild(controlsEl);
+  container.appendChild(catPillsEl);
+  container.appendChild(ptPillsEl);
+  container.appendChild(infoEl);
+  container.appendChild(tableWrap);
+  return container;
+}
+
+// ----- AO table -----
+function makeAOTable(rows) {
+  const allArrangements = [...new Set(rows.map(r => r.arrangement_type))]
+    .sort((a, b) => {
+      // Sort by count desc
+      const ca = rows.filter(r => r.arrangement_type === a).length;
+      const cb = rows.filter(r => r.arrangement_type === b).length;
+      return cb - ca;
+    });
+  const allIndustries = [...new Set(rows.map(r => r.industry))]
+    .sort((a, b) => {
+      const ca = rows.filter(r => r.industry === a).length;
+      const cb = rows.filter(r => r.industry === b).length;
+      return cb - ca;
+    });
+
+  const state = {
+    sortKey: "date",
+    sortDir: "desc",
+    search: "",
+    outcome: "all",
+    activeArrangements: new Set(allArrangements),
+    activeIndustries: new Set(allIndustries),
+  };
+
+  const container = el("div");
+  const controlsEl = el("div");
+  const arrPillsEl = el("div", { class: "pills" });
+  const indPillsEl = el("div", { class: "pills" });
+  const infoEl = el("div", { class: "results-info" });
+  const tableWrap = el("div", { class: "table-wrap" });
+
+  function setSort(key) {
+    if (state.sortKey === key) state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
+    else { state.sortKey = key; state.sortDir = "desc"; }
+    renderTable();
+  }
+  function getFiltered() {
+    const q = state.search.trim().toLowerCase();
+    let rs = rows.filter(r =>
+      state.activeArrangements.has(r.arrangement_type) &&
+      state.activeIndustries.has(r.industry)
+    );
+    if (state.outcome !== "all") rs = rs.filter(r => r.outcome === state.outcome);
+    if (q) rs = rs.filter(r =>
+      r.id.toLowerCase().includes(q) ||
+      r.topic.toLowerCase().includes(q) ||
+      r.summary.toLowerCase().includes(q) ||
+      (r.arrangement_type || "").toLowerCase().includes(q) ||
+      (r.industry || "").toLowerCase().includes(q) ||
+      (r.statutes || []).join(" ").toLowerCase().includes(q)
+    );
+    rs = [...rs].sort((a, b) => {
+      const va = a[state.sortKey], vb = b[state.sortKey];
+      if (va < vb) return state.sortDir === "asc" ? -1 : 1;
+      if (va > vb) return state.sortDir === "asc" ? 1 : -1;
+      return 0;
+    });
+    return rs;
+  }
+
+  function renderControls() {
+    clear(controlsEl);
+    controlsEl.className = "controls";
+    controlsEl.appendChild(el("input", {
+      class: "search-input", type: "text",
+      placeholder: "Search AO, topic, arrangement, or industry…",
+      value: state.search,
+      oninput: (e) => { state.search = e.target.value; renderTable(); renderInfo(); }
+    }));
+    const select = el("select", {
+      class: "select",
+      onchange: (e) => { state.outcome = e.target.value; renderTable(); renderInfo(); }
+    },
+      el("option", { value: "all" }, "All outcomes"),
+      el("option", { value: "Favorable" }, "Favorable only"),
+      el("option", { value: "Unfavorable" }, "Unfavorable only")
+    );
+    select.value = state.outcome;
+    controlsEl.appendChild(select);
+    controlsEl.appendChild(el("button", {
+      class: "btn btn-primary",
+      onclick: () => exportCSV(getFiltered(), "oig-advisory-opinions.csv", "ao")
+    }, "Export CSV"));
+    controlsEl.appendChild(el("button", {
+      class: "btn btn-secondary",
+      onclick: () => window.print()
+    }, "Print"));
+  }
+
+  function renderArrangementPills() {
+    clear(arrPillsEl);
+    arrPillsEl.appendChild(el("span", { class: "pills-label" }, "Arrangement:"));
+    allArrangements.forEach(a => {
+      const isActive = state.activeArrangements.has(a);
+      // Short label — strip " - " tail
+      const shortLabel = a.split(" - ")[0].split(" / ")[0];
+      arrPillsEl.appendChild(el("button", {
+        class: "pill" + (isActive ? " active" : ""),
+        title: a,
+        style: isActive ? { background: colorForArrangement(a) } : {},
+        onclick: () => {
+          if (state.activeArrangements.has(a)) state.activeArrangements.delete(a);
+          else state.activeArrangements.add(a);
+          renderTable(); renderInfo();
+        }
+      }, shortLabel));
+    });
+    arrPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeArrangements = new Set(allArrangements); renderTable(); renderInfo(); }
+    }, "all"));
+    arrPillsEl.appendChild(el("span", { class: "pills-sep" }, "|"));
+    arrPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeArrangements = new Set(); renderTable(); renderInfo(); }
+    }, "none"));
+  }
+
+  function renderIndustryPills() {
+    clear(indPillsEl);
+    indPillsEl.appendChild(el("span", { class: "pills-label" }, "Industry:"));
+    allIndustries.forEach(i => {
+      const isActive = state.activeIndustries.has(i);
+      const shortLabel = i.split(" / ")[0];
+      indPillsEl.appendChild(el("button", {
+        class: "pill" + (isActive ? " active" : ""),
+        title: i,
+        style: isActive ? { background: colorForIndustry(i) } : {},
+        onclick: () => {
+          if (state.activeIndustries.has(i)) state.activeIndustries.delete(i);
+          else state.activeIndustries.add(i);
+          renderTable(); renderInfo();
+        }
+      }, shortLabel));
+    });
+    indPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeIndustries = new Set(allIndustries); renderTable(); renderInfo(); }
+    }, "all"));
+    indPillsEl.appendChild(el("span", { class: "pills-sep" }, "|"));
+    indPillsEl.appendChild(el("button", {
+      class: "pills-link",
+      onclick: () => { state.activeIndustries = new Set(); renderTable(); renderInfo(); }
+    }, "none"));
+  }
+
+  function renderInfo() {
+    clear(infoEl);
+    const filtered = getFiltered();
+    infoEl.appendChild(document.createTextNode(
+      `Showing ${filtered.length} of ${rows.length} advisory opinions`
+    ));
+  }
+
+  function makeTh(key, label) {
+    const cls = "sortable" + (state.sortKey === key ? (state.sortDir === "asc" ? " sort-asc" : " sort-desc") : "");
+    return el("th", { class: cls, onclick: () => setSort(key) }, label);
+  }
+
+  function renderTable() {
+    clear(tableWrap);
+    const filtered = getFiltered();
+    const table = el("table");
+    table.appendChild(el("thead", null, el("tr", null,
+      makeTh("id", "AO #"),
+      makeTh("date", "Date"),
+      makeTh("outcome", "Outcome"),
+      makeTh("arrangement_type", "Arrangement"),
+      makeTh("industry", "Industry"),
+      makeTh("topic", "Topic"),
+      el("th", null, "Statutes"),
+      el("th", { class: "src-col" }, "Src")
+    )));
+    const tbody = el("tbody");
+    if (filtered.length === 0) {
+      tbody.appendChild(el("tr", { class: "empty-row" },
+        el("td", { colspan: 8 }, "No opinions match the current filters.")
+      ));
+    } else {
+      filtered.forEach(r => {
+        const arrShort = (r.arrangement_type || "").split(" - ")[0].split(" / ")[0];
+        const indShort = (r.industry || "").split(" / ")[0];
+        const statutesStr = (r.statutes || []).map(s =>
+          s === "Beneficiary Inducement CMP" ? "BI-CMP" : s
+        ).join(" · ");
+        tbody.appendChild(el("tr", null,
+          el("td", { class: "tabular", style: { "font-weight": 600 } }, r.id),
+          el("td", { class: "tabular" }, fmtDate(r.date)),
+          el("td", null, el("span", {
+            class: "cat-badge " + (r.outcome === "Favorable" ? "outcome-fav" : "outcome-unfav")
+          }, r.outcome)),
+          el("td", null, el("span", {
+            class: "cat-badge",
+            style: { background: colorForArrangement(r.arrangement_type) },
+            title: r.arrangement_type
+          }, arrShort)),
+          el("td", null, el("span", {
+            class: "cat-badge",
+            style: { background: colorForIndustry(r.industry) },
+            title: r.industry
+          }, indShort)),
+          el("td", { class: "party" },
+            el("div", null, r.topic),
+            el("div", { style: { fontSize: "12px", color: "#57534e", marginTop: "3px" } }, r.summary)
+          ),
+          el("td", { style: { fontSize: "11px", color: "#57534e" } }, statutesStr),
+          el("td", { class: "src-col" }, r.url ? el("a", {
+            href: r.url, target: "_blank", rel: "noopener noreferrer",
+            class: "src-link", title: "View on OIG.hhs.gov"
+          }, "↗") : "")
+        ));
+      });
+    }
+    table.appendChild(tbody);
+    tableWrap.appendChild(table);
+  }
+
+  renderControls();
+  renderArrangementPills();
+  renderIndustryPills();
+  renderInfo();
+  renderTable();
+  container.appendChild(controlsEl);
+  container.appendChild(arrPillsEl);
+  container.appendChild(indPillsEl);
+  container.appendChild(infoEl);
+  container.appendChild(tableWrap);
+  return container;
+}
+
+// ----- Section renderers -----
+function renderSDPSection() {
+  const byCat = aggregateByCategory(SDP);
+  const allCats = byCat.map(c => c.category);
+  const byProvider = aggregateByProviderType(SDP);
+  const total = SDP.reduce((s, r) => s + r.amount, 0);
+  const top = [...SDP].sort((a, b) => b.amount - a.amount)[0];
+
+  const section = el("section", { class: "section", id: "sdp" },
+    el("div", { class: "section-header" },
+      el("span", { class: "section-number" }, "01"),
+      el("div", null,
+        el("h2", { class: "section-title" }, "Self-Disclosure Protocol Settlements"),
+        el("p", { class: "section-subtitle" }, "Voluntary disclosures resolved under OIG's SDP · Jan 1, 2025 – Mar 18, 2026 YTD")
+      )
+    ),
+    el("div", { class: "stat-grid" },
+      statTile("Actions", String(SDP.length)),
+      statTile("Total $", fmtCurrency(total), fmtCurrencyFull(total)),
+      statTile("Median", fmtCurrency(median(SDP.map(r => r.amount)))),
+      statTile("Largest", fmtCurrency(top.amount), top.party)
+    ),
+    el("div", { class: "chart-row" },
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Frequency by Issue Category"),
+        barChart(byCat, "count", v => v + (v === 1 ? " action" : " actions"))
+      ),
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Settlement $ by Issue Category"),
+        treemap(byCat, 600, 280)
+      )
+    ),
+    el("div", { class: "chart-row" },
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Frequency by Provider Type"),
+        barChart(byProvider, "count", v => v + (v === 1 ? " action" : " actions"),
+          { labelKey: "provider_type", colorFn: colorForProvider })
+      ),
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Settlement $ by Provider Type"),
+        barChart(byProvider, "amount", v => fmtCurrency(v),
+          { labelKey: "provider_type", colorFn: colorForProvider })
+      )
+    ),
+    makeEnforcementTable(SDP, allCats, { filename: "oig-sdp-settlements.csv" })
+  );
+  return section;
+}
+
+function renderCMPSection() {
+  const byCat = aggregateByCategory(CMP);
+  const allCats = byCat.map(c => c.category);
+  const byProvider = aggregateByProviderType(CMP);
+  const total = CMP.reduce((s, r) => s + r.amount, 0);
+  const paid = CMP.filter(r => r.amount > 0).length;
+  const excl = CMP.filter(r => r.amount === 0).length;
+
+  return el("section", { class: "section", id: "cmp" },
+    el("div", { class: "section-header" },
+      el("span", { class: "section-number" }, "02"),
+      el("div", null,
+        el("h2", { class: "section-title" }, "CMP & Affirmative Exclusions"),
+        el("p", { class: "section-subtitle" }, "OIG-initiated matters · includes EMTALA, exclusion-only actions, and CMP settlements · Jan 1, 2025 – Jan 28, 2026")
+      )
+    ),
+    el("div", { class: "stat-grid" },
+      statTile("Actions", String(CMP.length)),
+      statTile("Total $", fmtCurrency(total), fmtCurrencyFull(total)),
+      statTile("Paid Settlements", String(paid), "with $ amount"),
+      statTile("Exclusion-Only", String(excl), "no monetary penalty")
+    ),
+    el("div", { class: "chart-row" },
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Frequency by Issue Category"),
+        barChart(byCat, "count", v => v + (v === 1 ? " action" : " actions"))
+      ),
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "CMP $ by Issue Category (excl. exclusion-only)"),
+        treemap(byCat, 600, 280)
+      )
+    ),
+    el("div", { class: "chart-row" },
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Frequency by Provider Type"),
+        barChart(byProvider, "count", v => v + (v === 1 ? " action" : " actions"),
+          { labelKey: "provider_type", colorFn: colorForProvider })
+      ),
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "CMP $ by Provider Type"),
+        barChart(byProvider, "amount", v => fmtCurrency(v),
+          { labelKey: "provider_type", colorFn: colorForProvider })
+      )
+    ),
+    makeEnforcementTable(CMP, allCats, { filename: "oig-cmp-actions.csv" })
+  );
+}
+
+// Aggregate AOs by an arbitrary key field
+function aggregateAOBy(rows, key) {
+  const map = {};
+  rows.forEach((r) => {
+    const v = r[key] || "Unclassified";
+    if (!map[v]) map[v] = { label: v, count: 0, favCount: 0, unfavCount: 0 };
+    map[v].count += 1;
+    if (r.outcome === "Favorable") map[v].favCount += 1;
+    else map[v].unfavCount += 1;
+  });
+  return Object.values(map).sort((a, b) => b.count - a.count);
+}
+
+// Industry color palette — reuse provider-type palette where it makes sense, add AO-specific
+const INDUSTRY_COLORS = {
+  "Pharmaceutical Manufacturer":          "#5D6B2F",
+  "Medical Device / DME Manufacturer":    "#6B4423",
+  "Clinical Laboratory":                  "#8B4513",
+  "Hospital / Health System":             "#2E5C8A",
+  "Physician Practice / Medical Group":   "#A67C52",
+  "ASC / Surgical Center":                "#1F5F5B",
+  "Home Health / Hospice":                "#B87333",
+  "FQHC / Safety-Net Provider":           "#3D7A5C",
+  "Behavioral Health / Crisis Provider":  "#7B4B94",
+  "Managed Care / Health Plan":           "#4B2E83",
+  "Charitable Foundation / Patient Assistance": "#A4343A",
+  "Management Services Org (MSO)":        "#46524A",
+};
+const colorForIndustry = (x) => INDUSTRY_COLORS[x] || "#78716c";
+
+// Arrangement type color palette — earthy tones, distinct from industry
+const ARRANGEMENT_COLORS = {
+  "Cost-Sharing Waiver":                                "#8B0000",
+  "Patient Assistance":                                 "#7B3F00",
+  "Manufacturer Discount":                              "#1B365D",
+  "Free Goods/Services to Providers":                   "#4B0082",
+  "Sponsored Testing/Screening Program":                "#2F4F4F",
+  "Warranty / Defect Reimbursement":                    "#4A7C59",
+  "Ownership Transfer / Buy-In":                        "#704214",
+  "Physician-Owned Entity (Manufacturer/Distributor)":  "#5D6B2F",
+  "Management Services / MSO":                          "#46524A",
+  "Recruitment Bonus / Employee Referral":              "#8B4513",
+  "Shared-Savings / Gainsharing":                       "#1F5F5B",
+  "Referral Arrangement (Non-Traditional)":             "#6B4423",
+  "Lab Operation / Service Expansion":                  "#3D7A5C",
+};
+const colorForArrangement = (x) => ARRANGEMENT_COLORS[x] || "#78716c";
+
+function renderAOSection() {
+  const fav = AO.filter(r => r.outcome === "Favorable").length;
+  const unfav = AO.filter(r => r.outcome === "Unfavorable").length;
+  const byArrangement = aggregateAOBy(AO, "arrangement_type");
+  const byIndustry = aggregateAOBy(AO, "industry");
+
+  // Statute implication counts (multi-tag)
+  const statuteCounts = {};
+  AO.forEach(r => {
+    (r.statutes || []).forEach(s => {
+      statuteCounts[s] = (statuteCounts[s] || 0) + 1;
+    });
+  });
+  const statuteRows = Object.entries(statuteCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([label, count]) => ({ label, count }));
+  const STATUTE_COLORS = {
+    "AKS": "#8B0000",
+    "Beneficiary Inducement CMP": "#B8860B",
+    "Stark": "#1B365D",
+    "Gainsharing CMP": "#4B0082",
+  };
+
+  // Build date range from actual data
+  const dates = AO.map(r => r.date).sort();
+  const aoIds = AO.map(r => r.ao_id).sort();
+  const firstAO = aoIds[0], lastAO = aoIds[aoIds.length - 1];
+
+  return el("section", { class: "section", id: "ao" },
+    el("div", { class: "section-header" },
+      el("span", { class: "section-number" }, "03"),
+      el("div", null,
+        el("h2", { class: "section-title" }, "Advisory Opinions"),
+        el("p", { class: "section-subtitle" },
+          `OIG guidance on proposed arrangements · ${firstAO} through ${lastAO} · ${fmtDate(dates[0])} – ${fmtDate(dates[dates.length - 1])}`)
+      )
+    ),
+    el("div", { class: "stat-grid" },
+      statTile("Opinions", String(AO.length)),
+      statTile("Favorable", String(fav), Math.round(fav / AO.length * 100) + "%"),
+      statTile("Unfavorable", String(unfav), Math.round(unfav / AO.length * 100) + "%"),
+      statTile("2026 YTD", String(AO.filter(r => r.date.startsWith("2026")).length))
+    ),
+    el("div", { class: "chart-row" },
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Frequency by Arrangement Type"),
+        barChart(byArrangement, "count", v => v + (v === 1 ? " opinion" : " opinions"),
+          { labelKey: "label", colorFn: colorForArrangement })
+      ),
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Outcomes"),
+        donutChart(fav, unfav)
+      )
+    ),
+    el("div", { class: "chart-row" },
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Frequency by Requestor Industry"),
+        barChart(byIndustry, "count", v => v + (v === 1 ? " opinion" : " opinions"),
+          { labelKey: "label", colorFn: colorForIndustry })
+      ),
+      el("div", { class: "chart-card" },
+        el("h4", { class: "chart-title" }, "Statutes Implicated (multi-tag)"),
+        barChart(statuteRows, "count", v => v + (v === 1 ? " opinion" : " opinions"),
+          { labelKey: "label", colorFn: (x) => STATUTE_COLORS[x] || "#78716c" })
+      )
+    ),
+    makeAOTable(AO)
+  );
+}
+
+// ----- App init -----
+let activeTab = "all";
+const mainEl = document.getElementById("app-main");
+
+function renderActiveSections() {
+  // Remove existing sections (keep exec summary)
+  const existing = mainEl.querySelectorAll(".section");
+  existing.forEach(n => n.remove());
+
+  if (activeTab === "all" || activeTab === "sdp") mainEl.appendChild(renderSDPSection());
+  if (activeTab === "all" || activeTab === "cmp") mainEl.appendChild(renderCMPSection());
+  if (activeTab === "all" || activeTab === "ao") mainEl.appendChild(renderAOSection());
+}
+
+function renderNav() {
+  const nav = document.getElementById("app-nav");
+  clear(nav);
+  const inner = el("div", { class: "nav-inner" });
+  const tabs = [
+    { id: "all", label: "All Sections" },
+    { id: "sdp", label: "01 · SDP Settlements" },
+    { id: "cmp", label: "02 · CMP & Exclusions" },
+    { id: "ao", label: "03 · Advisory Opinions" },
+  ];
+  tabs.forEach(t => {
+    inner.appendChild(el("button", {
+      class: "nav-tab" + (activeTab === t.id ? " active" : ""),
+      onclick: () => { activeTab = t.id; renderNav(); renderActiveSections(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+    }, t.label));
+  });
+  inner.appendChild(el("div", { class: "nav-spacer" }));
+  inner.appendChild(el("button", {
+    class: "nav-tab", onclick: () => window.print()
+  }, "Print All"));
+  nav.appendChild(inner);
+}
+
+function renderExecSummary() {
+  const totalSDP = SDP.reduce((s, r) => s + r.amount, 0);
+  const totalCMP = CMP.reduce((s, r) => s + r.amount, 0);
+  const aoFav = AO.filter(r => r.outcome === "Favorable").length;
+  const summary = el("div", { class: "exec-summary" },
+    el("h2", null, "Executive Summary"),
+    el("p", { html:
+      "Over the <strong>16-month window</strong> captured here, OIG resolved " +
+      "<strong>" + SDP.length + " SDP settlements</strong> totaling <strong>" + fmtCurrency(totalSDP) + "</strong> and " +
+      "<strong>" + CMP.length + " CMP &amp; affirmative exclusion actions</strong> (" + fmtCurrency(totalCMP) + "), and issued " +
+      "<strong>" + AO.length + " advisory opinions</strong> (" + aoFav + " favorable, " + (AO.length - aoFav) + " unfavorable). " +
+      "The largest single category in both SDP count and dollars is " +
+      "<strong>False/Not-Provided Claims</strong>, followed by <strong>AKS remuneration</strong> matters. " +
+      "Excluded-individual and unlicensed-provider cases dominate by volume but land lower on the dollar curve. " +
+      "EMTALA actions remain concentrated in the CMP docket, not the SDP. " +
+      "On the advisory side, <strong>pharmaceutical and medical-device manufacturers</strong> are the dominant requestors " +
+      "(10 of " + AO.length + " opinions), with cost-sharing waivers, manufacturer discounts, and patient-assistance programs " +
+      "as the most-frequent arrangement types."
+    })
+  );
+  mainEl.appendChild(summary);
+}
+
+// Boot
+function boot() {
+  renderNav();
+  renderExecSummary();
+  renderActiveSections();
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+else boot();
+
+  </script>
+  <script>
+    document.getElementById("meta-record-count").textContent = (SDP.length + CMP.length + AO.length).toString();
+  </script>
+</body>
+</html>
