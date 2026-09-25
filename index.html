@@ -12,30 +12,50 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;rect width='64' height='64' fill='%231B365D'/&gt;&lt;g fill='none' stroke='%23D4A574' stroke-width='3' stroke-linecap='round'&gt;&lt;line x1='32' y1='12' x2='32' y2='52'/&gt;&lt;line x1='20' y1='52' x2='44' y2='52'/&gt;&lt;line x1='14' y1='20' x2='50' y2='20'/&gt;&lt;path d='M14 20 L8 34 L20 34 Z'/&gt;&lt;path d='M50 20 L44 34 L56 34 Z'/&gt;&lt;/g&gt;&lt;/svg&gt;" />
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <style>
+/* Gotham — self-hosted by kaufcan.com. Resolves when this page is served from the
+   firm domain; otherwise the stack falls through to Montserrat. */
+@font-face { font-family:'Gotham'; src:url('/fonts/gotham/gotham-book-webfont.woff2') format('woff2');
+             font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Gotham'; src:url('/fonts/gotham/gotham-medium-webfont.woff2') format('woff2');
+             font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Gotham'; src:url('/fonts/gotham/gotham-bold-webfont.woff2') format('woff2');
+             font-weight:700; font-style:normal; font-display:swap; }
+</style>
+<style>
 /* OIG Enforcement Dashboard - Self-contained styles */
 
 * { box-sizing: border-box; }
 
 :root {
   color-scheme: light only;
-  --color-bg: #f5f5f4;
+  /* ---- Kaufman & Canoles brand palette (sampled from kaufcan.com) ---- */
+  --kc-orange:      #E5562A;
+  --kc-orange-dk:   #C4461F;
+  --kc-blue:        #0E5C96;
+  --kc-navy:        #0B3A5D;
+  --kc-navy-deep:   #082C48;
+  --kc-gray-bg:     #F1F1F1;
+  --kc-ink:         #383838;
+
+  --color-bg: #F1F1F1;
   --color-card: #ffffff;
-  --color-border: #d6d3d1;
-  --color-border-strong: #1c1917;
-  --color-text: #1c1917;
-  --color-text-muted: #57534e;
-  --color-text-faint: #78716c;
-  --color-row-alt: #fafaf9;
-  --color-row-hover: #fef3c7;
-  --color-accent: #b45309;
-  --color-masthead: #1c1917;
-  --color-masthead-text: #f5f5f4;
-  --color-masthead-faint: #a8a29e;
+  --color-border: #d9d9d9;
+  --color-border-strong: #0B3A5D;
+  --color-text: #383838;
+  --color-text-muted: #5c5c5c;
+  --color-text-faint: #8a8a8a;
+  --color-row-alt: #f7f7f7;
+  --color-row-hover: #eaf2f8;
+  --color-accent: #E5562A;
+  --color-masthead: #0B3A5D;
+  --color-masthead-text: #ffffff;
+  --color-masthead-faint: #9fb8cb;
 
   --cat-aks: #8B0000;
-  --cat-excluded: #1B365D;
+  --cat-excluded: #0B3A5D;
+  --cat-affirmative: #4B2E4E;
   --cat-unlicensed: #4A7C59;
   --cat-false: #B8860B;
   --cat-medical: #6B2E2E;
@@ -48,13 +68,13 @@
 html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Gotham','Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   background: var(--color-bg);
   color: var(--color-text);
   font-size: 14px;
   line-height: 1.5;
 }
-.serif { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; }
+.serif { font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif; }
 
 /* Masthead */
 .masthead {
@@ -79,14 +99,14 @@ body {
 }
 .masthead-eyebrow .sep { color: #57534e; }
 .masthead h1 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 44px;
   font-weight: 700;
   line-height: 1.1;
   margin: 0 0 8px 0;
 }
 .masthead-tagline {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-style: italic;
   color: var(--color-masthead-faint);
   font-size: 18px;
@@ -136,16 +156,16 @@ body {
   max-width: 150px;
 }
 .kc-mark-line1 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-weight: 600;
   font-size: 13px;
   color: var(--color-masthead-text);
   letter-spacing: 0.2px;
 }
 .kc-mark-line2 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Gotham','Montserrat',sans-serif;
   font-size: 11px;
-  color: #D4A574;
+  color: #E5562A;
   font-weight: 500;
 }
 @media (max-width: 700px) {
@@ -200,7 +220,7 @@ main {
   max-width: 800px;
 }
 .exec-summary h2 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 8px 0;
@@ -219,14 +239,14 @@ main {
   margin-bottom: 24px;
 }
 .section-number {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 48px;
   font-weight: 300;
   color: #a8a29e;
   line-height: 1;
 }
 .section-title {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 4px 0;
@@ -256,7 +276,7 @@ main {
   margin-bottom: 4px;
 }
 .stat-value {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 30px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -278,7 +298,7 @@ main {
   padding: 16px;
 }
 .chart-title {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 12px 0;
@@ -340,7 +360,7 @@ main {
   text-align: center;
 }
 .donut-center-num {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 32px;
   font-weight: 700;
   line-height: 1;
@@ -441,7 +461,7 @@ th {
   white-space: nowrap;
   position: relative;
 }
-th:hover { background: #f5f5f4; }
+th:hover { background: #F1F1F1; }
 th.sortable:after { content: ''; }
 th.sort-asc:after { content: ' ▲'; color: var(--color-text-faint); font-size: 10px; }
 th.sort-desc:after { content: ' ▼'; color: var(--color-text-faint); font-size: 10px; }
@@ -511,18 +531,18 @@ footer {
   border-top: 1px solid var(--color-border);
 }
 footer p { margin: 0 0 8px 0; }
-footer a { color: #1B365D; text-decoration: underline; text-decoration-color: rgba(27, 54, 93, 0.35); text-underline-offset: 2px; }
-footer a:hover { text-decoration-color: #1B365D; }
+footer a { color: #0B3A5D; text-decoration: underline; text-decoration-color: rgba(11, 58, 93, 0.35); text-underline-offset: 2px; }
+footer a:hover { text-decoration-color: #0B3A5D; }
 .footer-kc {
   margin-top: 18px;
   padding: 16px 18px;
-  background: #f5f5f4;
-  border-left: 3px solid #1B365D;
+  background: #F1F1F1;
+  border-left: 3px solid #0B3A5D;
   border-radius: 0 4px 4px 0;
 }
 .footer-kc p { font-size: 12px; line-height: 1.55; color: #44403c; }
 .footer-kc p:last-child { margin-bottom: 0; }
-.footer-kc strong { color: #1c1917; }
+.footer-kc strong { color: #0B3A5D; }
 
 /* Print */
 @media print {
@@ -550,7 +570,7 @@ footer a:hover { text-decoration-color: #1B365D; }
   border: none;
   border-bottom: 3px solid transparent;
   padding: 10px 16px;
-  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-family: 'Gotham','Montserrat',-apple-system,system-ui,sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: #57534e;
@@ -559,12 +579,12 @@ footer a:hover { text-decoration-color: #1B365D; }
   margin-bottom: -1px;
 }
 .cc-subtab:hover {
-  color: #1c1917;
-  background: #f5f5f4;
+  color: #0B3A5D;
+  background: #F1F1F1;
 }
 .cc-subtab.active {
-  color: #1B365D;
-  border-bottom-color: #1B365D;
+  color: #0B3A5D;
+  border-bottom-color: #0B3A5D;
   font-weight: 600;
 }
 .checkbox-label {
@@ -603,12 +623,12 @@ footer a:hover { text-decoration-color: #1B365D; }
   max-width: 920px;
 }
 .dashboard-leadin a {
-  color: #1B365D;
+  color: #0B3A5D;
   text-decoration: underline;
-  text-decoration-color: rgba(27, 54, 93, 0.35);
+  text-decoration-color: rgba(11, 58, 93, 0.35);
   text-underline-offset: 2px;
 }
-.dashboard-leadin a:hover { text-decoration-color: #1B365D; }
+.dashboard-leadin a:hover { text-decoration-color: #0B3A5D; }
 .dashboard-meta {
   display: flex;
   flex-wrap: wrap;
@@ -625,7 +645,7 @@ footer a:hover { text-decoration-color: #1B365D; }
   border-top: 1px solid var(--color-border);
 }
 .methodology-heading {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 16px 0;
@@ -638,24 +658,24 @@ footer a:hover { text-decoration-color: #1B365D; }
   margin: 0 0 10px 0;
 }
 .methodology a {
-  color: #1B365D;
+  color: #0B3A5D;
   text-decoration: underline;
-  text-decoration-color: rgba(27, 54, 93, 0.35);
+  text-decoration-color: rgba(11, 58, 93, 0.35);
 }
 
   
 /* When embedded inside Firmseek chrome, body bg is provided by parent; we use neutral surface */
 body {
-  background: #fafaf9;
+  background: #F7F7F7;
 }
 
   
 /* ===== Standalone masthead (replaces Firmseek intro card) ===== */
 .masthead {
-  background: #1c1917;
-  color: #fafaf9;
+  background: #0B3A5D;
+  color: #F7F7F7;
   padding: 32px 0 24px 0;
-  border-bottom: 4px solid #B87333;
+  border-bottom: 4px solid #E5562A;
 }
 .masthead-inner {
   max-width: 1400px;
@@ -671,16 +691,16 @@ body {
 }
 .masthead-title-block { flex: 1; min-width: 0; }
 .masthead .serif {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-size: 38px;
   font-weight: 700;
   margin: 0 0 6px 0;
-  color: #fafaf9;
+  color: #F7F7F7;
   letter-spacing: -0.5px;
 }
 .masthead-tagline {
   margin: 0;
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-style: italic;
   font-size: 14px;
   color: #a8a29e;
@@ -695,7 +715,7 @@ body {
   border-top: 1px solid #44403c;
   padding-top: 16px;
 }
-.masthead-meta strong { color: #fafaf9; font-weight: 500; }
+.masthead-meta strong { color: #F7F7F7; font-weight: 500; }
 
 /* K&C mark in top-right of masthead */
 .kc-mark {
@@ -733,16 +753,16 @@ body {
   max-width: 150px;
 }
 .kc-mark-line1 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
   font-weight: 600;
   font-size: 13px;
-  color: #fafaf9;
+  color: #F7F7F7;
   letter-spacing: 0.2px;
 }
 .kc-mark-line2 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Gotham','Montserrat',sans-serif;
   font-size: 11px;
-  color: #D4A574;
+  color: #E5562A;
   font-weight: 500;
 }
 @media (max-width: 700px) {
@@ -754,20 +774,87 @@ body {
 .footer-kc {
   margin-top: 18px;
   padding: 16px 18px;
-  background: #f5f5f4;
-  border-left: 3px solid #1B365D;
+  background: #F1F1F1;
+  border-left: 3px solid #0B3A5D;
   border-radius: 0 4px 4px 0;
 }
 .footer-kc p { font-size: 12px; line-height: 1.55; color: #44403c; margin: 0 0 10px 0; }
 .footer-kc p:last-child { margin-bottom: 0; }
-.footer-kc strong { color: #1c1917; }
-.footer-kc a { color: #1B365D; text-decoration: underline; text-decoration-color: rgba(27, 54, 93, 0.35); text-underline-offset: 2px; }
-.footer-kc a:hover { text-decoration-color: #1B365D; }
+.footer-kc strong { color: #0B3A5D; }
+.footer-kc a { color: #0B3A5D; text-decoration: underline; text-decoration-color: rgba(11, 58, 93, 0.35); text-underline-offset: 2px; }
+.footer-kc a:hover { text-decoration-color: #0B3A5D; }
 
 /* Remove the Firmseek-specific body background since we have the dark masthead now */
-body { background: #fafaf9; }
+body { background: #F7F7F7; }
 
-  </style>
+  
+/* ================= Kaufman & Canoles house style ================= */
+body { font-family:'Gotham','Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
+       background: var(--kc-gray-bg); color: var(--kc-ink); }
+
+/* Masthead: navy field, orange rule, uppercase eyebrow (mirrors site hero) */
+.masthead { background: var(--kc-navy) !important; color:#fff !important;
+            border-bottom: 5px solid var(--kc-orange) !important; }
+.masthead h1, .masthead .serif { font-weight:700 !important; letter-spacing:-0.01em;
+            color:#fff !important; font-style:normal !important; }
+.masthead-eyebrow { text-transform:uppercase; letter-spacing:.14em; font-weight:600;
+            font-size:10px; color: var(--kc-orange) !important; }
+.masthead p, .masthead .masthead-sub { font-style:normal !important; color:#cfe0ec !important; }
+.masthead-meta { color:#9fb8cb !important; border-top:1px solid rgba(255,255,255,.18) !important;
+            text-transform:uppercase; letter-spacing:.08em; font-size:10.5px; }
+.masthead-meta strong { color:#fff; }
+.kc-mark-caption .kc-mark-line2 { color: var(--kc-orange) !important; }
+
+/* Nav: uppercase letterspaced tabs, orange active state */
+.nav { background:#fff; border-bottom:1px solid var(--color-border); }
+.nav-tab { text-transform:uppercase; letter-spacing:.1em; font-size:10.5px; font-weight:600;
+           color:#5c5c5c; }
+.nav-tab:hover { color: var(--kc-navy); }
+.nav-tab.active { color: var(--kc-orange) !important; border-bottom-color: var(--kc-orange) !important; }
+
+/* Section headers: short orange rule above a navy title */
+.section-header { border-bottom:1px solid var(--color-border) !important; position:relative; }
+.section-header:before { content:""; position:absolute; top:-14px; left:0; width:44px; height:3px;
+           background: var(--kc-orange); }
+.section-number { color: var(--kc-orange) !important; font-weight:700 !important; opacity:.5; }
+.section-title, .section h2 { color: var(--kc-navy) !important; font-weight:700 !important; }
+
+/* Executive summary: navy keyline, matching the site's quote treatment */
+.exec-summary { border-left:4px solid var(--kc-orange) !important; }
+.exec-summary h2 { color: var(--kc-navy) !important; font-weight:700 !important; }
+
+/* Tables */
+thead th { background: var(--kc-navy) !important; color:#fff !important;
+           text-transform:uppercase; letter-spacing:.09em; font-weight:600; }
+th.sortable:hover { color: var(--kc-orange) !important; }
+tbody tr:hover { background: var(--color-row-hover) !important; }
+td.src-col a, .src-link { color: var(--kc-orange) !important; }
+a { color: var(--kc-blue); }
+a:hover { color: var(--kc-orange); }
+
+/* Footer: navy block, mirrors kaufcan.com */
+footer { background: var(--kc-navy-deep); color:#c8d6e0; }
+footer p, .methodology p { color:#c8d6e0; }
+footer a, .methodology a { color:#fff; text-decoration-color: rgba(255,255,255,.45); }
+footer a:hover { color: var(--kc-orange); }
+.methodology { border-top:1px solid rgba(255,255,255,.18); }
+.methodology h3 { color:#fff !important; text-transform:uppercase; letter-spacing:.1em;
+           font-size:12px !important; font-weight:700 !important; }
+.footer-kc { background: rgba(255,255,255,.06) !important; border-left:3px solid var(--kc-orange) !important;
+           color:#e2ebf1; }
+.footer-kc strong { color:#fff; }
+.footer-kc a { color:#fff; }
+
+@media print {
+  .masthead { background:#fff !important; color:#000 !important;
+              border-bottom:3px solid var(--kc-orange) !important; }
+  .masthead h1, .masthead .serif, .masthead-meta strong { color:#000 !important; }
+  footer { background:#fff; color:#383838; }
+  footer a, .methodology a, .methodology h3, .footer-kc strong, .footer-kc a { color:#000 !important; }
+  thead th { background:#0B3A5D !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+
+</style>
 </head>
 <body>
   <header class="masthead">
@@ -789,9 +876,9 @@ body { background: #fafaf9; }
       </div>
       <div class="masthead-meta">
         <span>Source: <strong>oig.hhs.gov</strong></span>
-        <span>Period: <strong>Jan 1, 2025 &ndash; May 18, 2026</strong></span>
+        <span>Period: <strong id="meta-period"></strong></span>
         <span>Records: <strong id="meta-record-count"></strong></span>
-        <span>Updated: <strong>May 19, 2026</strong> &middot; refreshes quarterly</span>
+        <span>Updated: <strong id="meta-updated"></strong> &middot; refreshes quarterly</span>
       </div>
     </div>
   </header>
@@ -802,7 +889,7 @@ body { background: #fafaf9; }
     <p>Advisory Opinion <strong>arrangement type</strong> and <strong>requestor industry</strong> classifications are manual (each opinion reviewed individually). The <strong>statutes implicated</strong> tags reflect what each opinion analyzes directly; note that every OIG advisory opinion implicates AKS by default, so the tag is only analytically useful when combined with other statutes (most notably the Beneficiary Inducement CMP). OIG does not have jurisdiction to opine on the physician self-referral law (Stark); Stark enforcement sits with CMS.</p>
     <p>Criminal &amp; Civil Actions are DOJ-led enforcement matters investigated, supported, or referred by HHS-OIG and posted to OIG&apos;s enforcement listing. The dashboard filters out non-healthcare actions (SNAP, passport fraud, alien-smuggling, defense-contractor matters, etc.) that appear on the OIG list because of OIG&apos;s broader oversight role beyond Medicare/Medicaid. Resolution stage (Indictment / Plea / Conviction / Sentence / Civil Settlement / DPA-NPA) is inferred from the title verbs. Dollar amounts come from the title where stated; many criminal cases have no $ figure in the title and are shown as &quot;—&quot;. Same-actor cases at successive stages (e.g. indictment then plea then sentence) are kept as separate enforcement events.</p>
     <p>Corporate Integrity Agreements (CIAs) are the post-settlement compliance obligations OIG imposes when it agrees to permissively waive its exclusion authority in exchange for a remediation regime. The lighter <strong>Integrity Agreement (IA)</strong> form is typically used for individuals and small entities. Each CIA listing on OIG&apos;s site identifies a <strong>Category</strong> (Claims Review, Arrangement Review, Quality of Care, etc.) that signals the type of independent review obligation OIG built into the agreement, and <strong>Tags</strong> identifying covered service lines or risk areas. The standard CIA term is <strong>5 years</strong>; 3-year terms typically apply to IAs and lower-risk matters. Each settlement amount shown is the dollar amount of the underlying FCA settlement to which the CIA is appended; CIAs themselves do not impose monetary penalties beyond stipulated penalties for breach. Sector and underlying conduct theory classifications in this dashboard are derived from the entity name and OIG-provided summary; for cases without a press release on the OIG listing, the theory is shown as &quot;Unspecified.&quot;</p>
-    <p>Each row links to the underlying OIG page (click the ↗ in the Src column). Exclusion-only actions are shown with a $0 amount and excluded from the dollar chart but counted in the frequency chart. In each CMP case resolved through settlement agreement, the settling party has contested OIG&apos;s allegations and denied any liability; no CMP judgment or finding of liability has been made.</p>
+    <p>Each row links to the underlying OIG page (click the ↗ in the Src column). Exclusion-only actions are shown with a $0 amount and excluded from the dollar chart but counted in the frequency chart. Two distinct categories use the word &quot;excluded&quot;: <strong>Excluded Individual</strong> means the settling provider employed or contracted with an excluded person, while <strong>Affirmative Exclusion</strong> means OIG excluded the named party itself. Affirmative exclusions that state a conduct theory (kickbacks, medically unnecessary services, false claims) are categorized by that theory instead. A dagger (&dagger;) on a provider type means it was inferred from the entity&rsquo;s name because OIG&rsquo;s notice did not state one; treat those as unverified. Affirmative exclusions whose notice gives no usable signal are left as Other / Unclassified rather than guessed. In each CMP case resolved through settlement agreement, the settling party has contested OIG&apos;s allegations and denied any liability; no CMP judgment or finding of liability has been made.</p>
     
   <div class="footer-kc">
       <p><strong>About this dashboard.</strong> Maintained by <a href="https://www.kaufcan.com/practices/health-care" target="_blank" rel="noopener noreferrer">Kaufman &amp; Canoles&apos; Health Care Practice Group</a>. We update this page quarterly as new enforcement actions, advisory opinions, and CIAs are posted to OIG&apos;s site. Where appropriate, our updates also include reclassifications based on additional facts surfaced after the initial posting.</p>
@@ -811,7 +898,34 @@ body { background: #fafaf9; }
   </footer>
   <script>
 const SDP = [
-  { date: "2026-05-05", party: "Country Hills Post Acute, Lakeport Post Acute, Oakwood Gardens Care Center, Primrose Post Acute, and St. Francis Healthcare Center", category: "Excluded Individual", amount: 52943, summary: "Employed individuals known or should-have-been-known to be excluded", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/skilled-nursing-facilities-agreed-to-pay-52000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals/" },
+  { date: "2026-08-27", party: "Bridge Crest Post Acute", category: "Unlicensed Provider", amount: 43000, summary: "Claims for services provided by an unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/bridge-crest-post-acute-agreed-to-pay-43000-fo-r-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-08-25", party: "Bayside Care Center", category: "Unlicensed Provider", amount: 38000, summary: "Claims for services provided by an unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/bayside-care-center-agreed-to-pay-38000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-08-25", party: "Friendship Community Care", category: "Excluded Individual", amount: 21000, summary: "Employed an excluded individual", provider_type: "I/DD & Community Services", url: "https://oig.hhs.gov/fraud/enforcement/friendship-community-care-agreed-to-pay-21000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-08-24", party: "Dialysis Care Center", category: "Excluded Individual", amount: 254000, summary: "Employed an excluded individual", provider_type: "Dialysis / ESRD", url: "https://oig.hhs.gov/fraud/enforcement/dialysis-care-center-agreed-to-pay-254000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-08-24", party: "Liberty County Hospital District No 1 and PF Carthage SNF Ops", category: "Excluded Individual", amount: 525000, summary: "Employed an excluded individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/liberty-county-hospital-district-no-1-and-pf-carthage-snf-ops-agreed-to-pay-525000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-08-05", party: "Suburban Hospital", category: "Excluded Individual", amount: 28000, summary: "Employed an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/suburban-hospital-agreed-to-pay-28000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-07-29", party: "AbleLight", category: "False/Not-Provided Claims", amount: 361000, summary: "Personal care services submitted without verifications", provider_type: "I/DD & Community Services", url: "https://oig.hhs.gov/fraud/enforcement/ablelight-agreed-to-pay-361000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-personal-care-services-without-verifications/" },
+  { date: "2026-07-27", party: "Fairlane Gardens Skilled Nursing and Rehabilitation Center", category: "Unlicensed Provider", amount: 131000, summary: "Claims for services provided by an unlicensed individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/fairlane-gardens-skilled-nursing-and-rehabilitation-center-agreed-to-pay-131000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-07-20", party: "First Care Ohio", category: "False/Not-Provided Claims", amount: 122000, summary: "False claims for ambulance services", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/first-care-ohio-agreed-to-pay-122000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-false-claims-for-ambulance-services/" },
+  { date: "2026-06-26", party: "Cookeville Regional Medical Center", category: "Excluded Individual", amount: 20000, summary: "Employed an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/cookeville-regional-medical-center-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-06-26", party: "Residential Home Health", category: "Unlicensed Provider", amount: 379000, summary: "Claims for services provided by an unlicensed individual", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/residential-home-health-agreed-to-pay-379000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-06-23", party: "Security Health Plan of Wisconsin", category: "AKS/Remuneration", amount: 1300000, summary: "Improper remuneration \u2014 excess compensation to Medicare Advantage enrollment agents", provider_type: "Health Plan / Payer", url: "https://oig.hhs.gov/fraud/enforcement/security-health-plan-of-wisconsin-agreed-to-pay-13-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-excess-compensation/" },
+  { date: "2026-06-22", party: "Aspirus St. Luke's Hospital", category: "Medically Unnecessary", amount: 276000, summary: "Services not medically necessary or failed coverage criteria", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/aspirus-st-lukes-hospital-agreed-to-pay-276000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-for-services-that-were-not-medically-necessary-or-failed-to-meet-coverage-criteria/" },
+  { date: "2026-06-22", party: "City of Tempe", category: "Unlicensed Provider", amount: 1000000, summary: "Services by unlicensed individuals and claims containing invalid signatures", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/city-of-tempe-agreed-to-pay-1-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals-and-services-containing-invalid-signatures/" },
+  { date: "2026-06-22", party: "Loudoun County Department of Fire Rescue and Emergency Management", category: "Unlicensed Provider", amount: 29000, summary: "Claims for services provided by an unlicensed individual", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/loudoun-county-department-of-fire-rescue-and-emergency-management-agreed-to-pay-29000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-06-15", party: "Suncoast Chiropractic", category: "False/Not-Provided Claims", amount: 62549, summary: "Claims for services performed by non-enrolled providers", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/suncoast-chiropractic-agreed-to-pay-6254913-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-performed-by-non-enrolled-providers/" },
+  { date: "2026-06-05", party: "Luxottica of America", category: "Excluded Individual", amount: 20000, summary: "Employed excluded individuals", provider_type: "Vision / Optical", url: "https://oig.hhs.gov/fraud/enforcement/luxottica-of-america-agreed-to-pay-20000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals/" },
+  { date: "2026-06-02", party: "University Health Associates", category: "Upcoding", amount: 56925, summary: "Upcoded evaluation and management services", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/university-health-associates-agreed-to-pay-56925-or-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-upcoded-evaluation-and-management-services/" },
+  { date: "2026-06-01", party: "Town of Norwood Fire Department", category: "Unlicensed Provider", amount: 77000, summary: "Claims for services provided by unlicensed individuals", provider_type: "Government / Municipal / Tribal", url: "https://oig.hhs.gov/fraud/enforcement/town-of-norwood-fire-department-agreed-to-pay-77000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2026-05-28", party: "Tampa General Hospital Hernando", category: "Unlicensed Provider", amount: 51000, summary: "Claims for services provided by an unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/tampa-general-hospital-hernando-agreed-to-pay-51000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
+  { date: "2026-05-19", party: "Lakehouse Healthcare and Rehabilitation Center", category: "Unlicensed Provider", amount: 47000, summary: "Claims for services provided by unlicensed individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/lakehouse-healthcare-and-rehabilitation-center-agreed-to-pay-47000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-unlicensed-individuals/" },
+  { date: "2026-05-11", party: "Ruth M. Rothstein CORE Center", category: "False/Not-Provided Claims", amount: 101000, summary: "Improperly supervised services and services rendered outside a scope of practice", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/ruth-m-rothstein-core-center-agreed-to-pay-101000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-were-improperly-supervised-and-services-rendered-outside-a-scope-of-practice/" },
+  { date: "2026-05-08", party: "Barnet Dulaney Perkins Eye Center", category: "Excluded Individual", amount: 175000, summary: "Employed an excluded individual", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/barnet-dulaney-perkins-eye-center-agreed-to-pay-175000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-05-08", party: "Majestic Care of Kent", category: "Excluded Individual", amount: 37000, summary: "Employed excluded individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/majestic-care-of-kent-agreed-to-pay-37000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals/" },
+  { date: "2026-05-06", party: "Petaluma Valley Hospital", category: "AKS/Remuneration", amount: 2900000, summary: "Improper remuneration \u2014 commercially unreasonable compensation", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/petaluma-valley-hospital-agreed-to-pay-29-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-improper-remuneration-in-the-form-of-commercially-unreasonable-compensation/" },
+  { date: "2026-05-05", party: "Wabash General Hospital", category: "False/Not-Provided Claims", amount: 166000, summary: "Services not performed or failed to meet coverage criteria", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/wabash-general-hospital-agreed-to-pay-166000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-were-not-performed-or-failed-to-meet-coverage-criteria/" },
+  { date: "2026-04-30", party: "The Counseling Center of Columbiana County", category: "False/Not-Provided Claims", amount: 71000, summary: "Claims for services that were not rendered", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/the-counseling-center-of-columbiana-county-agreed-to-pay-71000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-were-not-rendered/" },
+  { date: "2026-04-02", party: "Country Hills Post Acute, Lakeport Post Acute, Oakwood Gardens Care Center, Primrose Post Acute, and St. Francis Healthcare Center", category: "Excluded Individual", amount: 52943, summary: "Employed individuals known or should-have-been-known to be excluded", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/skilled-nursing-facilities-agreed-to-pay-52000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals/" },
   { date: "2026-04-29", party: "PSA Ambulatory Surgery Center of Killeen", category: "Unlicensed Provider", amount: 46000, summary: "Claims for services by an unlicensed individual", provider_type: "ASC / Surgical Center", url: "https://oig.hhs.gov/fraud/enforcement/psa-ambulatory-surgery-center-of-killeen-agreed-to-pay-46000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
   { date: "2026-04-24", party: "Barrett Hospital & Healthcare", category: "Unlicensed Provider", amount: 46000, summary: "Claims for services by an unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/barrett-hospital-healthcare-agreed-to-pay-46000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" },
   { date: "2026-04-23", party: "McKenzie Health", category: "Excluded Individual", amount: 80000, summary: "Employed an excluded individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/mckenzie-health-agreed-to-pay-80000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
@@ -949,6 +1063,28 @@ const SDP = [
   { date: "2025-01-07", party: "Wabash General Hospital", category: "Unlicensed Provider", amount: 107000, summary: "Services by unlicensed individual", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/wabash-general-hospital-agreed-to-pay-107000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-provided-by-an-unlicensed-individual/" }
 ];
 const CMP = [
+  { date: "2026-08-21", party: "Supreme Menthal Health Services and Nicolas Calzadilla Mendez", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/supreme-menthal-health-services-and-nicolas-calzadilla-mendez-were-excluded-for-20-years/", pt_inferred: true },
+  { date: "2026-08-19", party: "Jorge Alberto Bencomo Castro", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/jorge-alberto-bencomo-castro-was-excluded-for-20-years/" },
+  { date: "2026-08-18", party: "Amerihealth Solutions and Leosvany Nunez Corrales", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/amerihealth-solutions-and-leosvany-nunez-corrales-were-excluded-for-20-years/" },
+  { date: "2026-08-17", party: "Masiel Chaviano Huerta", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/masiel-chaviano-huerta-was-excluded-for-20-years/" },
+  { date: "2026-08-15", party: "Jobeca Services", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/jobeca-services-was-excluded-for-20-years/" },
+  { date: "2026-08-11", party: "ECU Health North Hospital", category: "EMTALA", amount: 200000, summary: "Failed to provide appropriate medical screening examinations", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/ecu-health-north-hospital-agreed-to-pay-200000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations/" },
+  { date: "2026-07-24", party: "Benimar Medical Center", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/benimar-medical-center-was-excluded-for-20-years/", pt_inferred: true },
+  { date: "2026-07-24", party: "CADH Multiservices", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/cadh-multiservices-was-excluded-for-20-years/" },
+  { date: "2026-07-24", party: "Gonbenale", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/gonbenale-was-excluded-for-20-years/" },
+  { date: "2026-07-24", party: "Gralos Medical Center", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 10 years", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/gralos-medical-center-was-excluded-for-10-years/", pt_inferred: true },
+  { date: "2026-07-24", party: "Magnus Healthcare Solutions", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 20 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/magnus-healthcare-solutions-was-excluded-for-20-years/" },
+  { date: "2026-07-24", party: "Nel Group", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 5 years", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/nel-group-was-excluded-for-5-years/" },
+  { date: "2026-07-22", party: "Magnolia Diagnostics, Magnolia Health, John Bains, and Kelly Bains", category: "Medically Unnecessary", amount: 0, summary: "Agreed to be excluded \u2014 medically unnecessary respiratory pathogen panel tests", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/magnolia-diagnostics-magnolia-health-john-bains-and-kelly-bains-agreed-to-be-excluded-for-allegedly-billing-medically-unnecessary-respiratory-pathogen-panel-tests/" },
+  { date: "2026-07-20", party: "Advanced Health Care of Colorado Springs", category: "Excluded Individual", amount: 500000, summary: "Employed an excluded individual", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/advanced-health-care-of-colorado-springs-agreed-to-pay-500000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
+  { date: "2026-07-02", party: "Northshore University Health System", category: "EMTALA", amount: 105000, summary: "Failed to provide an appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/northshore-university-health-system-agreed-to-pay-105000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2026-07-01", party: "Merit Health Central Hospital", category: "EMTALA", amount: 350000, summary: "Failed to provide adequate medical screening examinations and stabilizing treatment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/merit-health-central-hospital-agreed-to-pay-350000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-adequate-medical-screening-examinations-and-stabilizing-treatment/" },
+  { date: "2026-06-18", party: "Methodist Healthcare \u2013 Memphis Hospitals", category: "EMTALA", amount: 107000, summary: "Failed to provide an appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/methodist-healthcare-memphis-hospitals-agreed-to-pay-107000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
+  { date: "2026-06-16", party: "Diagnostic Health Services, James Jackson, and Michael Herman", category: "AKS/Remuneration", amount: 128000, summary: "Paying remuneration to providers; 10-year exclusion", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/diagnostic-health-services-james-jackson-and-michael-herman-agreed-to-pay-128000-and-be-excluded-for-10-years-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-remuneration-to-providers/" },
+  { date: "2026-06-11", party: "CHI St. Vincent Medical Group Hot Springs", category: "False/Not-Provided Claims", amount: 160000, summary: "False claims for facet joint injections", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/chi-st-vincent-medical-group-hot-springs-agreed-to-pay-160000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-false-claims-for-facet-joint-injections/" },
+  { date: "2026-06-03", party: "Sunshine Care Partners and Rusty McMurray", category: "False/Not-Provided Claims", amount: 0, summary: "Excluded 10 years — complex chronic care management services not received by beneficiaries", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/sunshine-care-partners-and-rusty-mcmurray-were-excluded-for-10-years/" },
+  { date: "2026-04-30", party: "Dr. Nathan Hanflink and Pain Management Institute", category: "False/Not-Provided Claims", amount: 0, summary: "Agreed to be excluded 5 years \u2014 chronic care management services not rendered", provider_type: "Physician Practice / Medical Group", url: "https://oig.hhs.gov/fraud/enforcement/dr-nathan-hanflink-and-pain-management-institute-agreed-to-be-excluded-for-5-years-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-chronic-care-management-services-not-rendered/" },
+  { date: "2026-04-09", party: "Myers Southern", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 7 years \u2014 failing to supply payment information required in an OIG subpoena", provider_type: "Other / Unclassified", url: "https://oig.hhs.gov/fraud/enforcement/myers-southern-was-excluded-for-7-years-for-failing-to-supply-payment-information-required-in-an-oig-subpoena/" },
   { date: "2026-02-13", party: "West Tennessee Healthcare", category: "EMTALA", amount: 340000, summary: "Failed to provide appropriate medical screening examinations and appropriate transfers", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/west-tennessee-healthcare-agreed-to-pay-340000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations-and-appropriate-transfers/" },
   { date: "2026-02-12", party: "Mission Advanced Pain Management & Spine Center and Alfred Beshai, MD", category: "False/Not-Provided Claims", amount: 451000, summary: "Claims for services that exceeded the allowed number of services per frequency limits", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/alfred-beshai-md-and-mission-advanced-pain-management-spine-center-agreed-to-pay-451000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-services-that-exceeded-the-allowed-number-of-services/" },
   { date: "2026-01-28", party: "Holmes Regional Medical Center", category: "EMTALA", amount: 113000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/holmes-regional-medical-center-agreed-to-pay-113000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
@@ -972,7 +1108,7 @@ const CMP = [
   { date: "2025-09-19", party: "Our Community Pharmacy / Candida Webb", category: "AKS/Remuneration", amount: 100000, summary: "Paying remuneration to beneficiaries; excluded 5 years", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/our-community-pharmacy-and-candida-webb-agreed-to-pay-100000-and-be-excluded-for-5-years-for-allegedly-violating-the-civil-monetary-penalties-law-by-paying-remuneration-to-beneficiaries/" },
   { date: "2025-09-11", party: "Alexandra Tellez", category: "AKS/Remuneration", amount: 60000, summary: "Receiving remuneration in exchange for referring Medicare services", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/alexandra-tellez-agreed-to-pay-60000-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-remuneration-in-exchange-for-referring-medicare-services/" },
   { date: "2025-09-04", party: "Ryan Cleland, DC / Infinite Wellness Integrative Medical Center", category: "Medically Unnecessary", amount: 249000, summary: "Medically unnecessary services", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/ryan-cleland-dc-and-infinite-wellness-integrative-medical-center-agreed-to-pay-249000-for-allegedly-violating-the-civil-monetary-penalties-law-by-submitting-claims-for-medically-unnecessary-services/" },
-  { date: "2025-09-03", party: "Opal Mullings / Optimum Faith Lab Corp", category: "Other", amount: 0, summary: "Excluded 10 years", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/opal-mullings-and-optimum-faith-lab-corp-were-excluded-for-10-years/" },
+  { date: "2025-09-03", party: "Opal Mullings / Optimum Faith Lab Corp", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 10 years", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/opal-mullings-and-optimum-faith-lab-corp-were-excluded-for-10-years/" },
   { date: "2025-08-26", party: "Ideal Health Diagnostics / Svetlana Dizik", category: "AKS/Remuneration", amount: 227000, summary: "Receiving improper remuneration; causing false or fraudulent Medicare claims; excluded 10 years", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/ideal-health-diagnostics-and-svetlana-dizik-agreed-to-pay-227000-and-be-excluded-for-10-years-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-improper-remuneration-and-causing-the-submission-of-false-or-fraudulent-medicare-claims/" },
   { date: "2025-08-19", party: "North Carolina Baptist Hospital", category: "EMTALA", amount: 200000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examinations", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/north-carolina-baptist-hospital-agreed-to-pay-200000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations/" },
   { date: "2025-08-15", party: "Bristol Regional Medical Center", category: "EMTALA", amount: 150000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examinations", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/bristol-regional-medical-center-agreed-to-pay-150000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations/" },
@@ -981,12 +1117,12 @@ const CMP = [
   { date: "2025-07-31", party: "Kidspeace National Centers of New England", category: "Excluded Individual", amount: 44000, summary: "Contracting with an excluded individual", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/kidspeace-national-centers-of-new-england-agreed-to-pay-44000-for-allegedly-violating-the-civil-monetary-penalties-law-by-contracting-with-an-excluded-individual/" },
   { date: "2025-07-25", party: "Flowers Hospital", category: "EMTALA", amount: 150000, summary: "EMTALA \u2014 failing to accept appropriate transfers", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/flowers-hospital-agreed-to-pay-150000-for-allegedly-violating-patient-dumping-statute-by-failing-to-accept-appropriate-transfers/" },
   { date: "2025-07-15", party: "Frankfort Regional Medical Center", category: "EMTALA", amount: 110000, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/frankfort-regional-medical-center-agreed-to-pay-110000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-an-appropriate-medical-screening-examination/" },
-  { date: "2025-07-10", party: "Andrew Gomes, MD", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/andrew-gomes-md-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-07-10", party: "Andrew Gomes, MD", category: "Affirmative Exclusion", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/andrew-gomes-md-was-excluded-for-defaulting-on-payment-obligations/" },
   { date: "2025-07-10", party: "UAB Medical West", category: "EMTALA", amount: 100000, summary: "EMTALA \u2014 failing to provide stabilizing treatment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/uab-medical-west-agreed-to-pay-100000-for-allegedly-violating-patient-dumping-statue-by-failing-to-provide-stabilizing-treatment/" },
   { date: "2025-07-09", party: "Brant Jolly", category: "False/Not-Provided Claims", amount: 0, summary: "Excluded 10 years \u2014 false claims for lab tests", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/brant-jolly-agreed-to-be-excluded-for-10-years-for-allegedly-submitting-false-claims-for-lab-tests/" },
-  { date: "2025-06-30", party: "Nirmal Mulye, PhD", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/nirmal-mulye-phd-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-06-30", party: "Nirmal Mulye, PhD", category: "Affirmative Exclusion", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/nirmal-mulye-phd-was-excluded-for-defaulting-on-payment-obligations/" },
   { date: "2025-06-18", party: "Wahid Makki", category: "False/Not-Provided Claims", amount: 0, summary: "Excluded 10 years \u2014 claims for prescriptions never dispensed", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/wahid-makki-agreed-to-be-excluded-for-10-years-for-allegedly-submitting-claims-for-prescriptions-never-dispensed/" },
-  { date: "2025-06-11", party: "Riverside Recovery Services", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/riverside-recovery-services-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-06-11", party: "Riverside Recovery Services", category: "Affirmative Exclusion", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Behavioral Health / Recovery", url: "https://oig.hhs.gov/fraud/enforcement/riverside-recovery-services-was-excluded-for-defaulting-on-payment-obligations/" },
   { date: "2025-06-10", party: "CareLink Home Health", category: "Excluded Individual", amount: 35000, summary: "Employing an excluded individual", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/carelink-home-health-agreed-to-pay-35000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
   { date: "2025-05-29", party: "Skilled Nursing Facilities (multiple)", category: "Excluded Individual", amount: 1500000, summary: "Employing excluded individuals", provider_type: "Long-Term Care / SNF / Hospice / ALF", url: "https://oig.hhs.gov/fraud/enforcement/skilled-nursing-facilities-agreed-to-pay-15-million-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-excluded-individuals/" },
   { date: "2025-05-27", party: "Jeffrey Parnell, Stanley Jones, and LGRB Management Services", category: "AKS/Remuneration", amount: 0, summary: "Excluded 10 years \u2014 paying improper remuneration", provider_type: "DME / Medical Device", url: "https://oig.hhs.gov/fraud/enforcement/jeffrey-parnell-stanley-jones-and-lgrb-management-services-agreed-to-be-excluded-for-10-years-for-allegedly-paying-improper-remuneration/" },
@@ -998,9 +1134,9 @@ const CMP = [
   { date: "2025-04-15", party: "Christopher Mallavarapu, MD", category: "AKS/Remuneration", amount: 305000, summary: "Receiving remuneration for ordering DME, genetic testing, prescription medications", provider_type: "Pharmacy / Pharma Manufacturer", url: "https://oig.hhs.gov/fraud/enforcement/christopher-mallavarapu-md-agreed-to-pay-305000-for-allegedly-violating-the-civil-monetary-penalties-law-by-receiving-remuneration-in-exchange-for-ordering-durable-medical-equipment-genetic-testing-and-prescription-medications/" },
   { date: "2025-04-03", party: "Advancare Healthcare Services", category: "Excluded Individual", amount: 41000, summary: "Employing an excluded individual", provider_type: "Home Health", url: "https://oig.hhs.gov/fraud/enforcement/advancare-healthcare-services-agreed-to-pay-41000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
   { date: "2025-04-03", party: "Diagnostic Clinic of Longview", category: "Excluded Individual", amount: 77000, summary: "Employing an excluded individual", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/diagnostic-clinic-of-longview-agreed-to-pay-77000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" },
-  { date: "2025-03-24", party: "Health Plus", category: "Excluded Individual", amount: 0, summary: "Excluded 10 years \u2014 failing to supply payment information required in OIG subpoena", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/health-plus-was-excluded-for-10-years-for-failing-to-supply-payment-information-required-in-an-oig-subpoena/" },
-  { date: "2025-03-20", party: "Assure Holdings / Assure Neuromonitoring", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/assure-holdings-and-assure-neuromonitoring-were-excluded-for-defaulting-on-payment-obligations/" },
-  { date: "2025-03-06", party: "Alex De Jesus, MD", category: "Excluded Individual", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/alex-de-jesus-md-was-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-03-24", party: "Health Plus", category: "Affirmative Exclusion", amount: 0, summary: "Excluded 10 years \u2014 failing to supply payment information required in OIG subpoena", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/health-plus-was-excluded-for-10-years-for-failing-to-supply-payment-information-required-in-an-oig-subpoena/" },
+  { date: "2025-03-20", party: "Assure Holdings / Assure Neuromonitoring", category: "Affirmative Exclusion", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Lab / Diagnostic / Imaging", url: "https://oig.hhs.gov/fraud/enforcement/assure-holdings-and-assure-neuromonitoring-were-excluded-for-defaulting-on-payment-obligations/" },
+  { date: "2025-03-06", party: "Alex De Jesus, MD", category: "Affirmative Exclusion", amount: 0, summary: "Excluded \u2014 defaulting on payment obligations", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/alex-de-jesus-md-was-excluded-for-defaulting-on-payment-obligations/" },
   { date: "2025-02-26", party: "Ascension Resurrection", category: "EMTALA", amount: 133420, summary: "EMTALA \u2014 failing to provide appropriate medical screening examination", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/ascension-resurrection-agreed-to-pay-133420-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examination/" },
   { date: "2025-02-20", party: "Baptist Medical Center South", category: "EMTALA", amount: 290000, summary: "EMTALA \u2014 failing to provide appropriate MSE and stabilizing treatment", provider_type: "Hospital / Health System", url: "https://oig.hhs.gov/fraud/enforcement/baptist-medical-center-south-agreed-to-pay-290000-for-allegedly-violating-patient-dumping-statute-by-failing-to-provide-appropriate-medical-screening-examinations-and-stabilizing-treatment/" },
   { date: "2025-02-14", party: "Med One Mobile / Gregory Wireman", category: "Medically Unnecessary", amount: 0, summary: "Excluded 5 years \u2014 medically unnecessary ambulance transportation", provider_type: "Ambulance / EMS", url: "https://oig.hhs.gov/fraud/enforcement/med-one-mobile-and-gregory-wireman-agreed-to-be-excluded-for-5-years-for-submitting-claims-for-medically-unnecessary-ambulance-transportation-services/" },
@@ -1010,11 +1146,19 @@ const CMP = [
   { date: "2025-01-06", party: "Adriana Strimbu, DPM", category: "Excluded Individual", amount: 41000, summary: "Employing an excluded individual", provider_type: "Individual Physician / NPP", url: "https://oig.hhs.gov/fraud/enforcement/adriana-strimbu-dpm-agreed-to-pay-41000-for-allegedly-violating-the-civil-monetary-penalties-law-by-employing-an-excluded-individual/" }
 ];
 const AO = [
-  { date: "2026-05-18", category: "AKS", summary: "Orthopedic medical technology company proposing consulting agreements with individuals (often physicians) for its product lines.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-10/", id: "AO 26-10", ao_id: "AO 26-10", outcome: "Unfavorable", topic: "Orthopedic device manufacturer consulting agreements with physicians", arrangement_type: "Personal Services / Consulting", industry: "Medical Device / Orthopedic", statutes: ["AKS"] },
-  { date: "2026-05-01", category: "AKS", summary: "Lease arrangements to create a centralized location providing items and services to patients with hearing loss who may be candidates for cochlear implants.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-08/", id: "AO 26-08", ao_id: "AO 26-08", outcome: "Favorable", topic: "Cochlear implant centralized-location lease arrangements", arrangement_type: "Space/Equipment Rental", industry: "Medical Device / Specialty Care", statutes: ["AKS"] },
-  { date: "2026-05-01", category: "AKS + Beneficiary Inducement CMP", summary: "Pediatric dental and orthodontic services provider offering free, comprehensive orthodontic treatment to one of its existing patients per year.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-09/", id: "AO 26-09", ao_id: "AO 26-09", outcome: "Favorable", topic: "Pediatric dental free orthodontic treatment to one patient per year", arrangement_type: "Free Goods or Services", industry: "Dental / Pediatric Practice", statutes: ["AKS", "Beneficiary Inducement CMP"] },
-  { date: "2026-04-17", category: "AKS + Beneficiary Inducement CMP", summary: "Medicare Advantage subsidiaries offering Employer Group Waiver Plans and sharing a percentage of savings with certain groups.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-07/", id: "AO 26-07", ao_id: "AO 26-07", outcome: "Favorable", topic: "MA organization EGWPs \u2014 sharing savings with employer groups they cover", arrangement_type: "Shared-Savings / Gainsharing", industry: "Managed Care / Health Plan", statutes: ["AKS", "Beneficiary Inducement CMP"] },
-  { date: "2026-04-10", category: "AKS + Beneficiary Inducement CMP", summary: "State-designated domestic crisis provider billing federal programs for therapy and waiving cost-sharing.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-06/", id: "AO 26-06", ao_id: "AO 26-06", outcome: "Favorable", topic: "State-designated domestic-crisis provider \u2014 cost-sharing waiver for therapy services", arrangement_type: "Cost-Sharing Waiver - Service-Specific (non-trial)", industry: "Behavioral Health / Crisis Provider", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2026-09-09", category: "AKS", summary: "Referral service connecting patients needing specialized ear and hearing health care with hearing professionals.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-18/", id: "AO 26-18", ao_id: "AO 26-18", outcome: "Favorable", topic: "Referral service for ear and hearing health care", arrangement_type: "Referral Service / Marketing", industry: "Hearing / Audiology", statutes: ["AKS"] },
+  { date: "2026-08-21", category: "Beneficiary Inducement", summary: "Non-profit, tax-exempt charitable organization providing certain patient assistance.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-17/", id: "AO 26-17", ao_id: "AO 26-17", outcome: "Favorable", topic: "Charitable patient assistance program", arrangement_type: "Patient Assistance / Cost-Sharing Support", industry: "Charitable Foundation", statutes: ["AKS", "Beneficiary Inducements CMP"] },
+  { date: "2026-07-14", category: "Beneficiary Inducement", summary: "Federally qualified health center providing produce boxes and produce vouchers to patients diagnosed with certain health conditions.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-16/", id: "AO 26-16", ao_id: "AO 26-16", outcome: "Favorable", topic: "FQHC produce boxes and vouchers for patients with diet-related conditions", arrangement_type: "In-Kind Patient Support", industry: "FQHC / Safety Net", statutes: ["AKS", "Beneficiary Inducements CMP"] },
+  { date: "2026-06-30", category: "AKS", summary: "Home health agency's payment of remuneration to a vendor for use of online referral management software.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-15/", id: "AO 26-15", ao_id: "AO 26-15", outcome: "Unfavorable", topic: "Home health payments to online referral management software vendor", arrangement_type: "Referral Service / Marketing", industry: "Home Health", statutes: ["AKS"] },
+  { date: "2026-06-14", category: "AKS", summary: "Pharmaceutical manufacturer program sponsoring antibody testing for eligible patients to determine whether a certain drug may be appropriate.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-14/", id: "AO 26-14", ao_id: "AO 26-14", outcome: "Favorable", topic: "Manufacturer-sponsored antibody testing to support prescribing decisions", arrangement_type: "Free Items/Services to Patients", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducements CMP"] },
+  { date: "2026-06-08", category: "AKS", summary: "Pharmaceutical manufacturer provides free eye drops to mitigate ocular toxicity for patients using one of its products. Supersedes AO 21-19, terminated June 8, 2026.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-13/", id: "AO 26-13", ao_id: "AO 26-13", outcome: "Favorable", topic: "Manufacturer free eye drops to mitigate product ocular toxicity", arrangement_type: "Free Items/Services to Patients", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducements CMP"] },
+  { date: "2026-05-27", category: "Beneficiary Inducement", summary: "Orthopedic surgery provider's warranty program refunding certain concierge fees to patients requiring revision surgery within 2 years of initial surgery.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-12/", id: "AO 26-12", ao_id: "AO 26-12", outcome: "Favorable", topic: "Orthopedic surgery warranty refunding concierge fees on revision surgery", arrangement_type: "Warranty / Refund Program", industry: "Orthopedic / Specialty Care", statutes: ["AKS", "Beneficiary Inducements CMP"] },
+  { date: "2026-05-19", category: "AKS", summary: "Precision oncology company provides consenting patients a supplemental report at no cost in connection with a cancer screening test.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-11/", id: "AO 26-11", ao_id: "AO 26-11", outcome: "Favorable", topic: "Free supplemental report with cancer screening test", arrangement_type: "Free Items/Services to Patients", industry: "Lab / Precision Oncology", statutes: ["AKS", "Beneficiary Inducements CMP"] },
+  { date: "2026-05-17", category: "AKS", summary: "Orthopedic medical technology company proposing consulting agreements with individuals (often physicians) for its product lines.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-10/", id: "AO 26-10", ao_id: "AO 26-10", outcome: "Unfavorable", topic: "Orthopedic device manufacturer consulting agreements with physicians", arrangement_type: "Personal Services / Consulting", industry: "Medical Device / Orthopedic", statutes: ["AKS"] },
+  { date: "2026-04-30", category: "AKS", summary: "Lease arrangements to create a centralized location providing items and services to patients with hearing loss who may be candidates for cochlear implants.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-08/", id: "AO 26-08", ao_id: "AO 26-08", outcome: "Favorable", topic: "Cochlear implant centralized-location lease arrangements", arrangement_type: "Space/Equipment Rental", industry: "Medical Device / Specialty Care", statutes: ["AKS"] },
+  { date: "2026-04-30", category: "AKS + Beneficiary Inducement CMP", summary: "Pediatric dental and orthodontic services provider offering free, comprehensive orthodontic treatment to one of its existing patients per year.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-09/", id: "AO 26-09", ao_id: "AO 26-09", outcome: "Favorable", topic: "Pediatric dental free orthodontic treatment to one patient per year", arrangement_type: "Free Goods or Services", industry: "Dental / Pediatric Practice", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2026-04-16", category: "AKS + Beneficiary Inducement CMP", summary: "Medicare Advantage subsidiaries offering Employer Group Waiver Plans and sharing a percentage of savings with certain groups.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-07/", id: "AO 26-07", ao_id: "AO 26-07", outcome: "Favorable", topic: "MA organization EGWPs \u2014 sharing savings with employer groups they cover", arrangement_type: "Shared-Savings / Gainsharing", industry: "Managed Care / Health Plan", statutes: ["AKS", "Beneficiary Inducement CMP"] },
+  { date: "2026-04-09", category: "AKS + Beneficiary Inducement CMP", summary: "State-designated domestic crisis provider billing federal programs for therapy and waiving cost-sharing.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-06/", id: "AO 26-06", ao_id: "AO 26-06", outcome: "Favorable", topic: "State-designated domestic-crisis provider \u2014 cost-sharing waiver for therapy services", arrangement_type: "Cost-Sharing Waiver - Service-Specific (non-trial)", industry: "Behavioral Health / Crisis Provider", statutes: ["AKS", "Beneficiary Inducement CMP"] },
   { date: "2026-03-16", category: "AKS + Beneficiary Inducement CMP", summary: "Subsidizing certain cost-sharing obligations in the context of a clinical trial.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-05/", id: "AO 26-05", ao_id: "AO 26-05", outcome: "Favorable", topic: "Cost-sharing subsidy for clinical trial participants", arrangement_type: "Cost-Sharing Waiver - Clinical Trial", industry: "Pharmaceutical Manufacturer", statutes: ["AKS", "Beneficiary Inducement CMP"] },
   { date: "2026-03-09", category: "AKS", summary: "Manufacturer offering ASC discounts on IOLs/supplies contingent on affiliated practice's software purchase.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-03/", id: "AO 26-03", ao_id: "AO 26-03", outcome: "Favorable", topic: "Med-tech manufacturer \u2014 bundled IOL/supply discount to ASCs tied to practice software purchases", arrangement_type: "Manufacturer Discount - Bundled/Conditional", industry: "Medical Device / DME Manufacturer", statutes: ["AKS"] },
   { date: "2026-03-09", category: "AKS", summary: "Sole shareholder of Medicare-certified ASC transferring ownership interests in anticipation of retirement.", url: "https://oig.hhs.gov/compliance/advisory-opinions/26-04/", id: "AO 26-04", ao_id: "AO 26-04", outcome: "Favorable", topic: "ASC \u2014 transfer of ownership interests by sole shareholder upon retirement", arrangement_type: "Ownership Transfer / Buy-In", industry: "ASC / Surgical Center", statutes: ["AKS"] },
@@ -1035,6 +1179,122 @@ const AO = [
 ];
 
 const CC = [
+  { date: "2026-09-17", title: "Maryland Long Term Care Pharmacy Pays $5.3M to Settle Allegations of Billing for Drugs Without Valid Prescriptions", url: "https://oig.hhs.gov/fraud/enforcement/maryland-long-term-care-pharmacy-pays-53m-to-settle-allegations-of-billing-for-drugs-without-valid-prescriptions/", res: "Civil Settlement", cc: "Civil", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 5300000, amt_text: "$5.3M", covid: false },
+  { date: "2026-09-17", title: "Maryland Nurse Pleads Guilty to Health Care Fraud Conspiracy for Role in $14 Million D.C. Medicaid Scheme", url: "https://oig.hhs.gov/fraud/enforcement/maryland-nurse-pleads-guilty-to-health-care-fraud-conspiracy-for-role-in-14-million-dc-medicaid-scheme/", res: "Plea", cc: "Criminal", scheme: "Billing for Services Not Provided", ptype: "Other/Individual", amount: 14000000, amt_text: "$14M", covid: false },
+  { date: "2026-09-17", title: "D.C. Dentist Sentenced to 24 Months in Prison for Scheme to Defraud D.C. Medicaid of $3.4 Million", url: "https://oig.hhs.gov/fraud/enforcement/dc-dentist-sentenced-to-24-months-in-prison-for-scheme-to-defraud-dc-medicaid-of-34-million/", res: "Sentence", cc: "Criminal", scheme: "Dental Fraud", ptype: "Physician Practice", amount: 3400000, amt_text: "$3.4M", covid: false },
+  { date: "2026-09-17", title: "Massachusetts Man Sentenced to Prison for Conspiring to Violate the Anti-Kickback Statute", url: "https://oig.hhs.gov/fraud/enforcement/massachusetts-man-sentenced-to-prison-for-conspiring-to-violate-the-anti-kickback-statute/", res: "Sentence", cc: "Criminal", scheme: "AKS / Kickbacks", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-09-17", title: "DOJ Sues Georgia Lab Executives for Defrauding Medicare by Targeting Faith-Based Communities and Seniors", url: "https://oig.hhs.gov/fraud/enforcement/doj-sues-georgia-lab-executives-for-defrauding-medicare-by-targeting-faith-based-communities-and-seniors/", res: "Indictment/Charge", cc: "Civil", scheme: "Genetic/Lab Testing", ptype: "Lab", amount: 0, amt_text: "", covid: false },
+  { date: "2026-09-17", title: "Arizona Addiction Treatment Clinic Owner Sentenced to 14 Years in Prison for Leadership Role in $69M Medicaid Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/arizona-addiction-treatment-clinic-owner-sentenced-to-14-years-in-prison-for-leadership-role-in-69m-medicaid-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Behavioral / Substance Abuse", ptype: "Behavioral Health", amount: 69000000, amt_text: "$69M", covid: false },
+  { date: "2026-09-15", title: "Repeat Felon Arrested and Charged in $4.75M Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/repeat-felon-arrested-and-charged-in-475m-medicare-fraud-scheme/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 4750000, amt_text: "$4.75M", covid: false },
+  { date: "2026-09-14", title: "Brentwood Woman Sentenced to Federal Prison for $6.9 Million Health Care Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/brentwood-woman-sentenced-to-federal-prison-for-69-million-health-care-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 6900000, amt_text: "$6.9M", covid: false },
+  { date: "2026-09-11", title: "Eye Practice and Physician Owner Agree to Pay $350,000 to Resolve Allegations of False Claims to Medicare", url: "https://oig.hhs.gov/fraud/enforcement/eye-practice-and-physician-owner-agree-to-pay-350000-to-resolve-allegations-of-false-claims-to-medicare/", res: "Civil Settlement", cc: "Civil", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 350000, amt_text: "$350K", covid: false },
+  { date: "2026-09-11", title: "Arrested at Airport, Man Voluntarily Returns to Minnesota to Face Charges of Defrauding $1.3 Million in Housing Stabilization Services Funds", url: "https://oig.hhs.gov/fraud/enforcement/arrested-at-airport-man-voluntarily-returns-to-minnesota-to-face-charges-of-defrauding-13-million-in-housing-stabilization-services-funds/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 1300000, amt_text: "$1.3M", covid: false },
+  { date: "2026-09-11", title: "Brooklyn Adult Daycare Owner Sentenced to Prison for Leadership Role in $64M Medicaid Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/brooklyn-adult-daycare-owner-sentenced-to-prison-for-leadership-role-in-64m-medicaid-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 64000000, amt_text: "$64M", covid: false },
+  { date: "2026-09-10", title: "Brandon Pulmonary Practice Agrees to Pay Over $400,000 to Resolve False Claims Act Violations", url: "https://oig.hhs.gov/fraud/enforcement/brandon-pulmonary-practice-agrees-to-pay-over-400000-to-resolve-false-claims-act-violations/", res: "Civil Settlement", cc: "Civil", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 400000, amt_text: "$400K", covid: false },
+  { date: "2026-09-10", title: "Domp\u00e9 U.S. Agrees to Pay $32M to Resolve False Claims Act Liability Relating to Self-Disclosure of Patient Kickbacks", url: "https://oig.hhs.gov/fraud/enforcement/domp%C3%A9-us-agrees-to-pay-32m-to-resolve-false-claims-act-liability-relating-to-self-disclosure-of-patient-kickbacks-2/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Pharma/Device Manufacturer", amount: 32000000, amt_text: "$32M", covid: false },
+  { date: "2026-09-09", title: "Federal Court Orders Forfeiture of Approximately $7 Million and Three Vehicles Following Conviction of Jamie P. McNamara", url: "https://oig.hhs.gov/fraud/enforcement/federal-court-orders-forfeiture-of-approximately-7-million-and-three-vehicles-following-conviction-of-jamie-p-mcnamara/", res: "Other", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 7000000, amt_text: "$7M", covid: false },
+  { date: "2026-09-09", title: "Brooklyn Adult Daycare Owner Sentenced to 76 Months in Prison for Leadership Role in $68 Million Medicaid Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/brooklyn-adult-daycare-owner-sentenced-to-76-months-in-prison-for-leadership-role-in-68-million-medicaid-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 68000000, amt_text: "$68M", covid: false },
+  { date: "2026-09-09", title: "Owner Of Physical Rehabilitation Company Sentenced To 38 Months In Prison For $20 Million Fraud On Health Benefit Programs", url: "https://oig.hhs.gov/fraud/enforcement/owner-of-physical-rehabilitation-company-sentenced-to-38-months-in-prison-for-20-million-fraud-on-health-benefit-programs/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 20000000, amt_text: "$20M", covid: false },
+  { date: "2026-09-09", title: "California Man Sentenced to 30 Years for Orchestrating $270M Medication Reimbursement Fraud Scheme Targeting Medi-Cal", url: "https://oig.hhs.gov/fraud/enforcement/california-man-sentenced-to-30-years-for-orchestrating-270m-medication-reimbursement-fraud-scheme-targeting-medi-cal/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 270000000, amt_text: "$270M", covid: false },
+  { date: "2026-09-08", title: "Illegal Alien Pleads Guilty to Healthcare Benefit Fraud and Aggravated Identity Theft", url: "https://oig.hhs.gov/fraud/enforcement/illegal-alien-pleads-guilty-to-healthcare-benefit-fraud-and-aggravated-identity-theft/", res: "Plea", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-09-08", title: "Foreign National Pleads Guilty To Health Care Fraud Scheme Targeting Medicare Advantage Programs", url: "https://oig.hhs.gov/fraud/enforcement/foreign-national-pleads-guilty-to-health-care-fraud-scheme-targeting-medicare-advantage-programs/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-09-04", title: "Florida Men Sentenced to Prison for $34.8M Health Care Fraud Scheme Targeting Medicare Beneficiaries", url: "https://oig.hhs.gov/fraud/enforcement/florida-men-sentenced-to-prison-for-348m-health-care-fraud-scheme-targeting-medicare-beneficiaries/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 34800000, amt_text: "$34.8M", covid: false },
+  { date: "2026-09-04", title: "Illegal Alien from Georgia Charged for Conspiracy to Launder Proceeds of $1.3B Health Care Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/illegal-alien-from-georgia-charged-for-conspiracy-to-launder-proceeds-of-13b-health-care-fraud-scheme/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 1300000000, amt_text: "$1.3B", covid: false },
+  { date: "2026-08-28", title: "Man Sentenced for Role in Conspiracy with Annandale-Based Doctor to Illegally Distribute Promethazine-Codeine", url: "https://oig.hhs.gov/fraud/enforcement/man-sentenced-for-role-in-conspiracy-with-annandale-based-doctor-to-illegally-distribute-promethazine-codeine/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-27", title: "The Villages Health System LLC Agrees to $541.5M Settlement to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/the-villages-health-system-llc-agrees-to-5415m-settlement-to-resolve-false-claims-act-allegations-fl/", res: "Civil Settlement", cc: "Civil", scheme: "MA Risk Adjustment", ptype: "Hospital/Health System", amount: 541500000, amt_text: "$541.5M", covid: false },
+  { date: "2026-08-27", title: "Anaheim Woman Pleads Guilty to Submitting More Than $2.2 Million in Fraudulent Hospice Care Claims to Medicare", url: "https://oig.hhs.gov/fraud/enforcement/anaheim-woman-pleads-guilty-to-submitting-more-than-22-million-in-fraudulent-hospice-care-claims-to-medicare/", res: "Plea", cc: "Criminal", scheme: "Hospice Fraud", ptype: "Home Health/Hospice", amount: 2200000, amt_text: "$2.2M", covid: false },
+  { date: "2026-08-26", title: "Dallas medical clinic to pay $7.5 million to resolve COVID-19 testing overbilling allegations", url: "https://oig.hhs.gov/fraud/enforcement/dallas-medical-clinic-to-pay-75-million-to-resolve-covid-19-testing-overbilling-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "COVID-19 Fraud", ptype: "Physician Practice", amount: 7500000, amt_text: "$7.5M", covid: true },
+  { date: "2026-08-26", title: "DermTech Inc. to Pay Up to $5M to Resolve Allegations It Submitted False Claims to Medicare for Unreliable Skin Cancer Tests", url: "https://oig.hhs.gov/fraud/enforcement/dermtech-inc-to-pay-up-to-5m-to-resolve-allegations-it-submitted-false-claims-to-medicare-for-unreliable-skin-cancer-tests/", res: "Civil Settlement", cc: "Civil", scheme: "Genetic/Lab Testing", ptype: "Lab", amount: 5000000, amt_text: "$5M", covid: false },
+  { date: "2026-08-24", title: "Medicare Advantage Provider Monogram Health Agrees to Pay $2.4M to Settle False Claims Act Suit", url: "https://oig.hhs.gov/fraud/enforcement/medicare-advantage-provider-monogram-health-agrees-to-pay-24m-to-settle-false-claims-act-suit/", res: "Civil Settlement", cc: "Civil", scheme: "Other Health Care Fraud", ptype: "Physician Practice", amount: 2400000, amt_text: "$2.4M", covid: false },
+  { date: "2026-08-20", title: "Former Owner of Telemedicine Companies Sentenced to Two Years in Prison for $110 Million Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/former-owner-of-telemedicine-companies-sentenced-to-two-years-in-prison-for-110-million-medicare-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Telemedicine/Telehealth", ptype: "Telemedicine/Telehealth Co", amount: 110000000, amt_text: "$110M", covid: false },
+  { date: "2026-08-20", title: "Four Members of the \u201cWar Room\u201d Charged in Connection with $12M Medicaid Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/four-members-of-the-war-room-charged-in-connection-with-12m-medicaid-fraud-scheme/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 12000000, amt_text: "$12M", covid: false },
+  { date: "2026-08-18", title: "United States and State of Illinois File Complaint in Intervention in False Claims Act Lawsuit Against Chicago-Area Medical Practice and Billing Company", url: "https://oig.hhs.gov/fraud/enforcement/united-states-and-state-of-illinois-file-complaint-in-intervention-in-false-claims-act-lawsuit-against-chicago-area-medical-practice-and-billing-company-for-allegedly-submitting-fraudulent-medicare-and-medicaid-claims/", res: "Indictment/Charge", cc: "Civil", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-17", title: "U.S. Attorney's Office Files Civil Complaint against Texas Corporation and North Carolina Man for Allegedly Defrauding Medicare", url: "https://oig.hhs.gov/fraud/enforcement/us-attorneys-office-files-civil-complaint-against-texas-corporation-and-north-carolina-man-for-allegedly-defrauding-medicare/", res: "Indictment/Charge", cc: "Civil", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-17", title: "Illinois Man Charged With Scheme To Impersonate Doctors And Make False Statements To Obtain GLP-1 Medications", url: "https://oig.hhs.gov/fraud/enforcement/illinois-man-charged-with-scheme-to-impersonate-doctors-and-make-false-statements-to-obtain-glp-1-medications/", res: "Indictment/Charge", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-14", title: "Ohio Man Pleads Guilty to Laundering Health Care Fraud Proceeds for Transnational Criminal Organization", url: "https://oig.hhs.gov/fraud/enforcement/ohio-man-pleads-guilty-to-laundering-health-care-fraud-proceeds-for-transnational-criminal-organization/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-12", title: "Former Brooklyn Bank Manager Sentenced to Prison for Laundering Proceeds of Medicare Fraud for Transnational Criminal Organization", url: "https://oig.hhs.gov/fraud/enforcement/former-brooklyn-bank-manager-sentenced-to-prison-for-laundering-proceeds-of-medicare-fraud-for-transnational-criminal-organization/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-11", title: "International Fugitive Pleads Guilty to Healthcare Fraud Conspiracy and Failure to Appear", url: "https://oig.hhs.gov/fraud/enforcement/international-fugitive-pleads-guilty-to-healthcare-fraud-conspiracy-and-failure-to-appear/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-10", title: "United States Intervenes in False Claims Act Lawsuit Against Colorado Medical Companies", url: "https://oig.hhs.gov/fraud/enforcement/united-states-intervenes-in-false-claims-act-lawsuit-against-colorado-medical-companies/", res: "Indictment/Charge", cc: "Civil", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-10", title: "CFO of Boston-Area Spinal Device Company Sentenced to Four Months in Prison for Kickback Scheme", url: "https://oig.hhs.gov/fraud/enforcement/cfo-of-boston-area-spinal-device-company-sentenced-to-four-months-in-prison-for-kickback-scheme/", res: "Sentence", cc: "Criminal", scheme: "AKS / Kickbacks", ptype: "Pharma/Device Manufacturer", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-10", title: "Celina Pharmacy Owner/Two Pharmacies Agree to Pay $450,000 & Receive Ban on Handling Controlled Substances", url: "https://oig.hhs.gov/fraud/enforcement/celina-pharmacy-ownertwo-pharmacies-agree-to-pay-450000-receive-ban-on-handling-controlled-substances/", res: "Civil Settlement", cc: "Civil", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 450000, amt_text: "$450K", covid: false },
+  { date: "2026-08-10", title: "Veloxis Pharmaceuticals Agrees to Pay Over $46M to Resolve Criminal and Civil Liability for Kickback Schemes", url: "https://oig.hhs.gov/fraud/enforcement/veloxis-pharmaceuticals-agrees-to-pay-over-46m-to-resolve-criminal-and-civil-liability-for-kickback-schemes/", res: "Civil Settlement", cc: "Both", scheme: "AKS / Kickbacks", ptype: "Pharma/Device Manufacturer", amount: 46000000, amt_text: "$46M", covid: false },
+  { date: "2026-08-05", title: "Iranian National Pleads Guilty to Conspiracy to Commit Healthcare Fraud", url: "https://oig.hhs.gov/fraud/enforcement/iranian-national-pleads-guilty-to-conspiracy-to-commit-healthcare-fraud/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-05", title: "Nevada Doctor Charged with $95M Wound Care Fraud on Medicare", url: "https://oig.hhs.gov/fraud/enforcement/nevada-doctor-charged-with-95m-wound-care-fraud-on-medicare/", res: "Indictment/Charge", cc: "Criminal", scheme: "Wound Care/Skin Grafts", ptype: "Physician Practice", amount: 95000000, amt_text: "$95M", covid: false },
+  { date: "2026-08-04", title: "Dozens Charged With Health Care Fraud in Federal and State Cases Involving $5.76 Million in Billings to Pennsylvania's Medicaid Program", url: "https://oig.hhs.gov/fraud/enforcement/dozens-charged-with-health-care-fraud-in-federal-and-state-cases-involving-576-million-in-billings-to-pennsylvanias-medicaid-program/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 5760000, amt_text: "$5.76M", covid: false },
+  { date: "2026-08-04", title: "Philadelphia In-Home Care Services Provider Agrees to Pay $1 Million to Resolve Allegations of False Claims Act Violations", url: "https://oig.hhs.gov/fraud/enforcement/philadelphia-in-home-care-services-provider-agrees-to-pay-1-million-to-resolve-allegations-of-false-claims-act-violations/", res: "Civil Settlement", cc: "Civil", scheme: "Home Health Fraud", ptype: "Home Health/Hospice", amount: 1000000, amt_text: "$1M", covid: false },
+  { date: "2026-08-04", title: "The Fraud Division Announces Charges Against 19 Defendants for Medicaid Home Health Aid Schemes Expands", url: "https://oig.hhs.gov/fraud/enforcement/the-fraud-division-announces-charges-against-19-defendants-for-medicaid-home-health-aid-schemes-expands/", res: "Indictment/Charge", cc: "Criminal", scheme: "Home Health Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-08-03", title: "Medicare Advantage Provider Complete Health to Pay $14,100,000 to Settle False Claims Act Suit", url: "https://oig.hhs.gov/fraud/enforcement/medicare-advantage-provider-complete-health-to-pay-14100000-to-settle-false-claims-act-suit/", res: "Civil Settlement", cc: "Civil", scheme: "MA Risk Adjustment", ptype: "Physician Practice", amount: 14100000, amt_text: "$14.1M", covid: false },
+  { date: "2026-07-31", title: "Massachusetts Ophthalmology Practice to Pay Nearly $4 Million to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/massachusetts-ophthalmology-practice-to-pay-nearly-4-million-to-resolve-false-claims-act-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 4000000, amt_text: "$4M", covid: false },
+  { date: "2026-07-31", title: "Two Additional Ophthalmology Practices Agree to Pay $2.3M to Resolve Allegations of Fraudulent Claims to Medicare and Medicaid for Cranial Ultrasounds", url: "https://oig.hhs.gov/fraud/enforcement/two-additional-ophthalmology-practices-agree-to-pay-23m-to-resolve-allegations-of-fraudulent-claims-to-medicare-and-medicaid-for-cranial-ultrasounds/", res: "Civil Settlement", cc: "Civil", scheme: "Medically Unnecessary Services", ptype: "Physician Practice", amount: 2300000, amt_text: "$2.3M", covid: false },
+  { date: "2026-07-30", title: "Adult Day Care Provider Accused of $1.47 Million Missouri Medicaid Fraud", url: "https://oig.hhs.gov/fraud/enforcement/adult-day-care-provider-accused-of-147-million-missouri-medicaid-fraud/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 1470000, amt_text: "$1.47M", covid: false },
+  { date: "2026-07-30", title: "Healthcare Executive and Telemarketing Company Owner Sentenced to Prison for Exploiting Elderly Medicare Advantage Beneficiaries in $35 Million Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/healthcare-executive-and-telemarketing-company-owner-sentenced-to-prison-for-exploiting-elderly-medicare-advantage-beneficiaries-in-35-million-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 35000000, amt_text: "$35M", covid: false },
+  { date: "2026-07-30", title: "Texas Laboratory, Former CEO, and Florida Businessman Pay a Total of $36.4M to Settle Allegations of Kickbacks and Unnecessary Genetic Testing", url: "https://oig.hhs.gov/fraud/enforcement/texas-laboratory-former-ceo-and-florida-businessman-pay-a-total-of-364m-to-settle-allegations-of-kickbacks-and-unnecessary-genetic-testing/", res: "Civil Settlement", cc: "Civil", scheme: "Genetic/Lab Testing", ptype: "Lab", amount: 36400000, amt_text: "$36.4M", covid: false },
+  { date: "2026-07-29", title: "Founder And Former CEO of New Jersey Based Eye Care Group Charged with Health Care Fraud Conspiracy and Paying Illegal Kickbacks", url: "https://oig.hhs.gov/fraud/enforcement/founder-and-former-ceo-of-new-jersey-based-eye-care-group-charged-with-health-care-fraud-conspiracy-and-paying-illegal-kickbacks/", res: "Indictment/Charge", cc: "Criminal", scheme: "AKS / Kickbacks", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-29", title: "Oakland County Lab Agrees To Settle False Claims Act Allegations For $6,494,290.00", url: "https://oig.hhs.gov/fraud/enforcement/oakland-county-lab-agrees-to-settle-false-claims-act-allegations-for-649429000/", res: "Civil Settlement", cc: "Civil", scheme: "Genetic/Lab Testing", ptype: "Lab", amount: 6494290, amt_text: "$6.49M", covid: false },
+  { date: "2026-07-29", title: "Fraud Division Resolves Fraud Investigation of Eye Care Group Under New Corporate Enforcement Policy; Health Care Executive Charged for Alleged Fraud and Kickbacks", url: "https://oig.hhs.gov/fraud/enforcement/fraud-division-resolves-fraud-investigation-of-eye-care-group-under-new-corporate-enforcement-policy-health-care-executive-charged-for-alleged-fraud-and-kickbacks/", res: "DPA/NPA", cc: "Both", scheme: "AKS / Kickbacks", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-27", title: "Addiction Recovery Care and Affiliates Agree to Pay $16.2 Million Civil Judgment to Resolve Medicaid Fraud Allegations", url: "https://oig.hhs.gov/fraud/enforcement/addiction-recovery-care-and-affiliates-agree-to-pay-162-million-civil-judgment-to-resolve-medicaid-fraud-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Behavioral / Substance Abuse", ptype: "Behavioral Health", amount: 16200000, amt_text: "$16.2M", covid: false },
+  { date: "2026-07-27", title: "Adult Day Care Owner Pleads Guilty to $500,000 Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/adult-day-care-owner-pleads-guilty-to-500000-medicare-fraud-scheme/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 500000, amt_text: "$500K", covid: false },
+  { date: "2026-07-24", title: "Four Men Plead Guilty to $2M Minnesota Medicaid Fraud", url: "https://oig.hhs.gov/fraud/enforcement/four-men-plead-guilty-to-2m-minnesota-medicaid-fraud/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 2000000, amt_text: "$2M", covid: false },
+  { date: "2026-07-24", title: "Three Individuals Sentenced to Prison for Fraudulently Billing Medicare and Medicaid Through Opioid Addiction Treatment Clinics in Kentucky", url: "https://oig.hhs.gov/fraud/enforcement/three-individuals-sentenced-to-prison-for-fraudulently-billing-medicare-and-medicaid-through-opioid-addiction-treatment-clinics-in-kentucky/", res: "Sentence", cc: "Criminal", scheme: "Behavioral / Substance Abuse", ptype: "Behavioral Health", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-23", title: "CEO Of Bay Area Home Health Agency Convicted Of Health Care Fraud Conspiracy Targeting Medicare", url: "https://oig.hhs.gov/fraud/enforcement/ceo-of-bay-area-home-health-agency-convicted-of-health-care-fraud-conspiracy-targeting-medicare/", res: "Conviction", cc: "Criminal", scheme: "Home Health Fraud", ptype: "Home Health/Hospice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-23", title: "Dallas Laboratory, Owners, and Investors Pay $24M to Resolve COVID-19 Testing Fraud Allegations", url: "https://oig.hhs.gov/fraud/enforcement/dallas-laboratory-owners-and-investors-pay-24m-to-resolve-covid-19-testing-fraud-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "COVID-19 Fraud", ptype: "Lab", amount: 24000000, amt_text: "$24M", covid: true },
+  { date: "2026-07-22", title: "Coeur d'Alene Physician Sentenced to 40 Months Imprisonment and $1.25 Million in Restitution for Involvement in Fraudulent Telemedicine Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/coeur-dalene-physician-sentenced-to-40-months-imprisonment-and-125-million-in-restitution-for-involvement-in-fraudulent-telemedicine-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Telemedicine/Telehealth", ptype: "Physician Practice", amount: 1250000, amt_text: "$1.25M", covid: false },
+  { date: "2026-07-22", title: "Florida Pharmacist Convicted of Massive Oxycodone Distribution Conspiracy", url: "https://oig.hhs.gov/fraud/enforcement/florida-pharmacist-convicted-of-massive-oxycodone-distribution-conspiracy/", res: "Conviction", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-22", title: "Medical Supply Company Owner Convicted of $30M Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/medical-supply-company-owner-convicted-of-30m-medicare-fraud-scheme/", res: "Conviction", cc: "Criminal", scheme: "DME Fraud", ptype: "DME Supplier", amount: 30000000, amt_text: "$30M", covid: false },
+  { date: "2026-07-21", title: "Home Health Care Operator Sentenced for Defrauding Missouri Medicaid", url: "https://oig.hhs.gov/fraud/enforcement/home-health-care-operator-sentenced-for-defrauding-missouri-medicaid/", res: "Sentence", cc: "Criminal", scheme: "Home Health Fraud", ptype: "Home Health/Hospice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-21", title: "Owner of Long Island Ambulette Services Company Sentenced to Prison for Multimillion Dollar Healthcare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/owner-of-long-island-ambulette-services-company-sentenced-to-prison-for-multimillion-dollar-healthcare-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-21", title: "Notorious Fugitive Arrested in Connection with $547 Million Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/notorious-fugitive-arrested-in-connection-with-547-million-medicare-fraud-scheme/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 547000000, amt_text: "$547M", covid: false },
+  { date: "2026-07-20", title: "Brooklyn Adult Daycare Owner Sentenced to 57 Months for Medicaid Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/brooklyn-adult-daycare-owner-sentenced-to-57-months-for-medicaid-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-20", title: "EyePoint Pharmaceuticals to Pay $4.6 Million to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/eyepoint-pharmaceuticals-to-pay-46-million-to-resolve-false-claims-act-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Pharma/Device Manufacturer", amount: 4600000, amt_text: "$4.6M", covid: false },
+  { date: "2026-07-20", title: "Florida Laboratory Agrees to Pay $9.8M to Resolve False Claims Act Liability Relating to Self-Disclosure of Compensation Arrangements", url: "https://oig.hhs.gov/fraud/enforcement/florida-laboratory-agrees-to-pay-98m-to-resolve-false-claims-act-liability-relating-to-self-disclosure-of-compensation-arrangements/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Lab", amount: 9800000, amt_text: "$9.8M", covid: false },
+  { date: "2026-07-20", title: "New Mexico Woman Pleads Guilty to $4M Medicaid Fraud", url: "https://oig.hhs.gov/fraud/enforcement/new-mexico-woman-pleads-guilty-to-4m-medicaid-fraud/", res: "Plea", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 4000000, amt_text: "$4M", covid: false },
+  { date: "2026-07-17", title: "New Jersey Man Sentenced to 48 Months in Prison for Role in Multi-State Prescription Fraud Ring", url: "https://oig.hhs.gov/fraud/enforcement/new-jersey-man-sentenced-to-48-months-in-prison-for-role-in-multi-state-prescription-fraud-ring/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-15", title: "Labcorp Agrees to Pay $14.5M to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/labcorp-agrees-to-pay-145m-to-resolve-false-claims-act-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Genetic/Lab Testing", ptype: "Lab", amount: 14500000, amt_text: "$14.5M", covid: false },
+  { date: "2026-07-14", title: "Medical Device Company to Pay Over $550,000 to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/medical-device-company-to-pay-over-550000-to-resolve-false-claims-act-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Other Health Care Fraud", ptype: "Pharma/Device Manufacturer", amount: 550000, amt_text: "$550K", covid: false },
+  { date: "2026-07-14", title: "Pharmacy Owner and Technician Sentenced for Falsifying Audit Documents and Submitting Fraudulent Claims", url: "https://oig.hhs.gov/fraud/enforcement/pharmacy-owner-and-technician-sentenced-for-falsifying-audit-documents-and-submitting-fraudulent-claims/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-10", title: "Suspected Dominican National Charged with Possession with Intent to Distribute Fentanyl Analog, Healthcare Benefit Fraud and Aggravated Identity Theft", url: "https://oig.hhs.gov/fraud/enforcement/suspected-dominican-national-charged-with-possession-with-intent-to-distribute-fentanyl-analog-healthcare-benefit-fraud-and-aggravated-identity-theft/", res: "Indictment/Charge", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-09", title: "Six Individuals, Including a Pharmacist and Doctor, Charged in Connection with $20 Million Healthcare Fraud and Kickback Scheme", url: "https://oig.hhs.gov/fraud/enforcement/six-individuals-including-a-pharmacist-and-doctor-charged-in-connection-with-20-million-healthcare-fraud-and-kickback-scheme/", res: "Indictment/Charge", cc: "Criminal", scheme: "AKS / Kickbacks", ptype: "Other/Individual", amount: 20000000, amt_text: "$20M", covid: false },
+  { date: "2026-07-09", title: "Guilford County Woman Pleads Guilty to Health Care Fraud in Connection with Million Dollar Urine Drug Testing Scheme", url: "https://oig.hhs.gov/fraud/enforcement/guilford-county-woman-pleads-guilty-to-health-care-fraud-in-connection-with-million-dollar-urine-drug-testing-scheme/", res: "Plea", cc: "Criminal", scheme: "Genetic/Lab Testing", ptype: "Lab", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-08", title: "Memphis Gynecologist Sentenced to 20 Years in Prison for Adulterating Medical Devices and Health Care Fraud", url: "https://oig.hhs.gov/fraud/enforcement/memphis-gynecologist-sentenced-to-20-years-in-prison-for-adulterating-medical-devices-and-health-care-fraud/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-07", title: "Founder/CEO and Clinical President of Digital Health Company Sentenced to 72 Months and 24 Months, Respectively, for $90 Million Scheme to Distribute over 37 Million Pills of Adderall", url: "https://oig.hhs.gov/fraud/enforcement/founderceo-and-clinical-president-of-digital-health-company-sentenced-to-72-months-and-24-months-respectively-for-90-million-scheme-to-distribute-over-37-million-pills-of-adderall/", res: "Sentence", cc: "Criminal", scheme: "Telemedicine/Telehealth", ptype: "Telemedicine/Telehealth Co", amount: 90000000, amt_text: "$90M", covid: false },
+  { date: "2026-07-06", title: "Gardner Man Agrees to Plead Guilty to Tampering with Oxycodone", url: "https://oig.hhs.gov/fraud/enforcement/gardner-man-agrees-to-plead-guilty-to-tampering-with-oxycodone/", res: "Plea", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-02", title: "Two Defendants Charged with Multi-Million Dollar Health Care Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/two-defendants-charged-with-multi-million-dollar-health-care-fraud-scheme/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-07-01", title: "Maryland Oncology Practice Agrees to Pay More Than $1.4M to Resolve False Claims Act Allegations of Fraudulent Billing", url: "https://oig.hhs.gov/fraud/enforcement/maryland-oncology-practice-agrees-to-pay-more-than-14m-to-resolve-false-claims-act-allegations-of-fraudulent-billing/", res: "Civil Settlement", cc: "Civil", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 1400000, amt_text: "$1.4M", covid: false },
+  { date: "2026-06-30", title: "Telemedicine Company Owner and Author of Health Care Compliance Books Sentenced for $136M Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/telemedicine-company-owner-and-author-of-health-care-compliance-books-sentenced-for-136m-medicare-fraud-scheme/", res: "Sentence", cc: "Criminal", scheme: "Telemedicine/Telehealth", ptype: "Telemedicine/Telehealth Co", amount: 136000000, amt_text: "$136M", covid: false },
+  { date: "2026-06-25", title: "New York City Woman Pleads Guilty for Role in Multi-State Prescription Fraud Ring", url: "https://oig.hhs.gov/fraud/enforcement/new-york-city-woman-pleads-guilty-for-role-in-multi-state-prescription-fraud-ring/", res: "Plea", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-25", title: "U.S. Attorney Announces $2.2 Million Settlement With Urologists For Submitting False Claims To Medicare", url: "https://oig.hhs.gov/fraud/enforcement/us-attorney-announces-22-million-settlement-with-urologists-for-submitting-false-claims-to-medicare/", res: "Civil Settlement", cc: "Civil", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 2200000, amt_text: "$2.2M", covid: false },
+  { date: "2026-06-24", title: "Cape May County Psychiatrist Admits to 17 Felony Counts for Unlawful Controlled Substance Prescriptions Linked to Sexual Conduct, Death, and Serious Bodily Injury", url: "https://oig.hhs.gov/fraud/enforcement/cape-may-county-psychiatrist-admits-to-17-felony-counts-for-unlawful-controlled-substance-prescriptions-linked-to-sexual-conduct-death-and-serious-bodily-injury/", res: "Plea", cc: "Criminal", scheme: "Pain Management / Pill Mill", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-24", title: "United States Reaches $1 Million Settlement over Waived Pharmacy Copays", url: "https://oig.hhs.gov/fraud/enforcement/united-states-reaches-1-million-settlement-over-waived-pharmacy-copays/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Pharmacy", amount: 1000000, amt_text: "$1M", covid: false },
+  { date: "2026-06-24", title: "Celina Pharmacy Owner Sentenced for Opioid Distribution/Health Care Fraud", url: "https://oig.hhs.gov/fraud/enforcement/celina-pharmacy-owner-sentenced-for-opioid-distributionhealth-care-fraud/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-24", title: "Raleigh Man Pleads Guilty to Receiving More than $60 Million in Fraudulent Claims from Paying Kickbacks for Patient Referrals", url: "https://oig.hhs.gov/fraud/enforcement/raleigh-man-pleads-guilty-to-receiving-more-than-60-million-in-fraudulent-claims-from-paying-kickbacks-for-patient-referrals/", res: "Plea", cc: "Criminal", scheme: "AKS / Kickbacks", ptype: "Other/Individual", amount: 60000000, amt_text: "$60M", covid: false },
+  { date: "2026-06-23", title: "2026 National Health Care Fraud Takedown", url: "https://oig.hhs.gov/fraud/enforcement/2026-national-health-care-fraud-takedown/", res: "Other", cc: "Both", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-22", title: "Dominican National Sentenced for Fraudulently Obtaining Social Security Benefits and Medicare Coverage Using Stolen Identity", url: "https://oig.hhs.gov/fraud/enforcement/dominican-national-sentenced-for-fraudulently-obtaining-social-security-benefits-and-medicare-coverage-using-stolen-identity/", res: "Sentence", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-18", title: "Owner of Two South Florida Nursing Schools Pleads Guilty in Fraudulent Nursing Diploma Scheme", url: "https://oig.hhs.gov/fraud/enforcement/owner-of-two-south-florida-nursing-schools-pleads-guilty-in-fraudulent-nursing-diploma-scheme/", res: "Plea", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-17", title: "Arkansas Pathology Laboratory and Its Owners Pay $30M to Settle Allegations of Kickbacks and Unnecessary Medical Testing", url: "https://oig.hhs.gov/fraud/enforcement/arkansas-pathology-laboratory-and-its-owners-pay-30m-to-settle-allegations-of-kickbacks-and-unnecessary-medical-testing/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Lab", amount: 30000000, amt_text: "$30M", covid: false },
+  { date: "2026-06-17", title: "Nurse Practitioner Sentenced to 87 Months in Prison for $12M Medicare Fraud", url: "https://oig.hhs.gov/fraud/enforcement/nurse-practitioner-sentenced-to-87-months-in-prison-for-12m-medicare-fraud/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 12000000, amt_text: "$12M", covid: false },
+  { date: "2026-06-16", title: "Journey to Hope Health and Healing and Former CEO Agree to Pay $10.2 Million to Resolve False Claims Allegations", url: "https://oig.hhs.gov/fraud/enforcement/journey-to-hope-health-and-healing-and-former-ceo-agree-to-pay-102-million-to-resolve-false-claims-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Behavioral / Substance Abuse", ptype: "Behavioral Health", amount: 10200000, amt_text: "$10.2M", covid: false },
+  { date: "2026-06-15", title: "Ohio Doctor Ordered to Pay Nearly $1M for Facilitating Fraud on Medicare", url: "https://oig.hhs.gov/fraud/enforcement/ohio-doctor-ordered-to-pay-nearly-1m-for-facilitating-fraud-on-medicare/", res: "Other", cc: "Civil", scheme: "Other Health Care Fraud", ptype: "Physician Practice", amount: 1000000, amt_text: "$1M", covid: false },
+  { date: "2026-06-11", title: "Multi-Million-Dollar Prescription Fraud Scheme Results In Prison Sentence For Three East Tennesseans", url: "https://oig.hhs.gov/fraud/enforcement/multi-million-dollar-prescription-fraud-scheme-results-in-prison-sentence-for-three-east-tennesseans/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-11", title: "Nurse Sentenced to Two Years in Prison for Tampering with and Stealing Controlled Substances at Tampa Bay Area Hospital", url: "https://oig.hhs.gov/fraud/enforcement/nurse-sentenced-to-two-years-in-prison-for-tampering-with-and-stealing-controlled-substances-at-tampa-bay-area-hospital/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Hospital/Health System", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-10", title: "San Francisco Company Agrees to Pay Over Three Million Dollars to Resolve Allegations That They Submitted False Claims for Healthcare Payments", url: "https://oig.hhs.gov/fraud/enforcement/san-francisco-company-agrees-to-pay-over-three-million-dollars-to-resolve-allegations-that-they-submitted-false-claims-for-healthcare-payments/", res: "Civil Settlement", cc: "Civil", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 3000000, amt_text: "$3M", covid: false },
+  { date: "2026-06-10", title: "Ahold Delhaize USA Inc. to Pay $40M for Allegedly Reporting Inflated Drug Prices on Claims to Federal Healthcare Programs", url: "https://oig.hhs.gov/fraud/enforcement/ahold-delhaize-usa-inc-to-pay-40m-for-allegedly-reporting-inflated-drug-prices-on-claims-to-federal-healthcare-programs/", res: "Civil Settlement", cc: "Civil", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 40000000, amt_text: "$40M", covid: false },
+  { date: "2026-06-09", title: "Two Charged in Multi-Year Conspiracy to Buy and Sell Stolen Medicare Beneficiary Information from Major South Florida Health Care Network", url: "https://oig.hhs.gov/fraud/enforcement/two-charged-in-multi-year-conspiracy-to-buy-and-sell-stolen-medicare-beneficiary-information-from-major-south-florida-health-care-network/", res: "Indictment/Charge", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-08", title: "United States Obtains $3.4M in a False Claims Act Judgment Against Nebraska Pharmacist", url: "https://oig.hhs.gov/fraud/enforcement/united-states-obtains-34m-in-a-false-claims-act-judgment-against-nebraska-pharmacist/", res: "Civil Settlement", cc: "Civil", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 3400000, amt_text: "$3.4M", covid: false },
+  { date: "2026-06-04", title: "Puerto Rico Pharmacies Agree to Pay $4.6 Million to Federal Authorities in Medicare and Medicaid Fraud Cases", url: "https://oig.hhs.gov/fraud/enforcement/puerto-rico-pharmacies-agree-to-pay-46-million-to-federal-authorities-in-medicare-and-medicaid-fraud-cases/", res: "Civil Settlement", cc: "Civil", scheme: "Pharmacy/Drug Diversion", ptype: "Pharmacy", amount: 4600000, amt_text: "$4.6M", covid: false },
+  { date: "2026-06-03", title: "Matrix, HealthFair, and HealthFair Founder Agree to Pay $56.5M to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/matrix-healthfair-and-healthfair-founder-agree-to-pay-565m-to-resolve-false-claims-act-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "MA Risk Adjustment", ptype: "Insurance / Health Plan", amount: 56500000, amt_text: "$56.5M", covid: false },
+  { date: "2026-06-02", title: "Nurse Practitioner Convicted for Illegal Distribution of Controlled Substances", url: "https://oig.hhs.gov/fraud/enforcement/nurse-practitioner-convicted-for-illegal-distribution-of-controlled-substances/", res: "Conviction", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-01", title: "Three Sentenced to Prison for Laundering Medicare Fraud Proceeds", url: "https://oig.hhs.gov/fraud/enforcement/three-sentenced-to-prison-for-laundering-medicare-fraud-proceeds2026/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-06-01", title: "Laboratory Executives, Marketers, and Physician to Pay Over $2M to Settle Allegations of Illegal Kickbacks to Doctors", url: "https://oig.hhs.gov/fraud/enforcement/laboratory-executives-marketers-and-physician-to-pay-over-2m-to-settle-allegations-of-illegal-kickbacks-to-doctors/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Lab", amount: 2000000, amt_text: "$2M", covid: false },
+  { date: "2026-05-28", title: "Blood Test Lab Owner Sentenced to More Than 4 Years in Federal Prison for Using Shill to Collect Medicare Payments to Evade $11.2 Million in Taxes", url: "https://oig.hhs.gov/fraud/enforcement/blood-test-lab-owner-sentenced-to-more-than-4-years-in-federal-prison-for-using-shill-to-collect-medicare-payments-to-evade-112-million-in-taxes/", res: "Sentence", cc: "Criminal", scheme: "COVID-19 Fraud", ptype: "Lab", amount: 11200000, amt_text: "$11.2M", covid: true },
+  { date: "2026-05-28", title: "Clinic Manager Convicted of $8M Medicare Fraud Scheme", url: "https://oig.hhs.gov/fraud/enforcement/clinic-manager-convicted-of-8m-medicare-fraud-scheme/", res: "Conviction", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Physician Practice", amount: 8000000, amt_text: "$8M", covid: false },
+  { date: "2026-05-27", title: "Oglethorpe Inc. and Top Executives Agree to Pay $32M to Resolve False Claims Act Allegations", url: "https://oig.hhs.gov/fraud/enforcement/oglethorpe-inc-and-top-executives-agree-to-pay-32m-to-resolve-false-claims-act-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Behavioral / Substance Abuse", ptype: "Behavioral Health", amount: 32000000, amt_text: "$32M", covid: false },
+  { date: "2026-05-26", title: "Rochester Man Sentenced For Defrauding Medicare", url: "https://oig.hhs.gov/fraud/enforcement/rochester-man-sentenced-for-defrauding-medicare/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-05-22", title: "APRN Charged with Defrauding Connecticut's Medicaid Program", url: "https://oig.hhs.gov/fraud/enforcement/aprn-charged-with-defrauding-connecticuts-medicaid-program/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-05-21", title: "Minnesota Health Care Fraud Takedown Results in Charges Against 15 Defendants for Over $90M in Fraud", url: "https://oig.hhs.gov/fraud/enforcement/minnesota-health-care-fraud-takedown-results-in-charges-against-15-defendants-for-over-90m-in-fraud/", res: "Indictment/Charge", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 90000000, amt_text: "$90M", covid: false },
+  { date: "2026-05-21", title: "Three Sentenced to Prison for Laundering Medicare Fraud Proceeds", url: "https://oig.hhs.gov/fraud/enforcement/three-sentenced-to-prison-for-laundering-medicare-fraud-proceeds/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
+  { date: "2026-05-19", title: "Illinois Doctor Agrees to Pay $62,500 for Signing False Orders in Durable Medical Equipment Scheme", url: "https://oig.hhs.gov/fraud/enforcement/illinois-doctor-agrees-to-pay-62500-for-signing-false-orders-in-durable-medical-equipment-scheme/", res: "Civil Settlement", cc: "Civil", scheme: "DME Fraud", ptype: "Physician Practice", amount: 62500, amt_text: "$62.5K", covid: false },
+  { date: "2026-05-19", title: "California Doctor Convicted of $45M Botox Fraud Scheme Targeting Medicare", url: "https://oig.hhs.gov/fraud/enforcement/california-doctor-convicted-of-45m-botox-fraud-scheme-targeting-medicare/", res: "Conviction", cc: "Criminal", scheme: "Medically Unnecessary Services", ptype: "Physician Practice", amount: 45000000, amt_text: "$45M", covid: false },
+  { date: "2026-05-18", title: "New York Business Owner Sentenced to Prison for Using Shell Companies to Launder Health Care Fraud Proceeds for Transnational Criminal Organization", url: "https://oig.hhs.gov/fraud/enforcement/new-york-business-owner-sentenced-to-prison-for-using-shell-companies-to-launder-health-care-fraud-proceeds-for-transnational-criminal-organization/", res: "Sentence", cc: "Criminal", scheme: "Other Health Care Fraud", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
   { date: "2026-05-15", title: "Operators of Day Treatment Program for Children Agree to $15.2 Million Civil Judgment to Resolve Medicaid Fraud Allegations", url: "https://oig.hhs.gov/fraud/enforcement/operators-of-day-treatment-program-for-children-agree-to-152-million-civil-judgment-to-resolve-medicaid-fraud-allegations/", res: "Civil Settlement", cc: "Civil", scheme: "Behavioral / Substance Abuse", ptype: "Behavioral Health", amount: 15200000, amt_text: "$15.2M", covid: false },
   { date: "2026-05-15", title: "Michigan Home Health Care Agency Owner Convicted of $1.6M Medicare Fraud Scheme and Kickback Conspiracy", url: "https://oig.hhs.gov/fraud/enforcement/michigan-home-health-care-agency-owner-convicted-of-16m-medicare-fraud-scheme-and-kickback-conspiracy/", res: "Conviction", cc: "Criminal", scheme: "Home Health Fraud", ptype: "Home Health/Hospice", amount: 1600000, amt_text: "$1.6M", covid: false },
   { date: "2026-05-14", title: "Takeda Agrees to Pay $13.6M to Resolve False Claims Allegations Relating to Improper Payments to Physicians", url: "https://oig.hhs.gov/fraud/enforcement/takeda-agrees-to-pay-136m-to-resolve-false-claims-allegations-relating-to-improper-payments-to-physicians/", res: "Civil Settlement", cc: "Civil", scheme: "AKS / Kickbacks", ptype: "Pharma/Device Manufacturer", amount: 13670921, amt_text: "$13.67M", covid: false },
@@ -1042,7 +1302,6 @@ const CC = [
   { date: "2026-05-12", title: "CFO of Boston-Area Spinal Device Company Pleads Guilty to Kickback Scheme", url: "https://oig.hhs.gov/fraud/enforcement/cfo-of-boston-area-spinal-device-company-pleads-guilty-to-kickback-scheme/", res: "Plea", cc: "Criminal", scheme: "AKS / Kickbacks", ptype: "Pharma/Device Manufacturer", amount: 0, amt_text: "", covid: false },
   { date: "2026-05-12", title: "Utah Doctor and Two Nurses Charged with Health Care Fraud After Submitting False Claims to Medicare and Receiving Millions in Payout", url: "https://oig.hhs.gov/fraud/enforcement/utah-doctor-and-two-nurses-charged-with-health-care-fraud-after-submitting-false-claims-to-medicare-and-receiving-millions-in-payout/", res: "Indictment/Charge", cc: "Criminal", scheme: "Billing for Services Not Provided", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
   { date: "2026-05-14", title: "Owner of Health Care Software Company Convicted of 1 Billion Dollar Medicare Fraud Conspiracy", url: "https://oig.hhs.gov/fraud/enforcement/owner-of-health-care-software-company-convicted-of-1-billion-dollar-medicare-fraud-conspiracy/", res: "Conviction", cc: "Criminal", scheme: "EHR / Billing Software Fraud", ptype: "Other/Individual", amount: 1000000000, amt_text: "$1B", covid: false },
-  { date: "2026-05-14", title: "Fraud Charges Filed Against 12 Defendants in Phase II of Operation Nightingale", url: "https://oig.hhs.gov/fraud/enforcement/fraud-charges-filed-against-12-defendants-in-phase-ii-of-operation-nightingale/", res: "Indictment/Charge", cc: "Criminal", scheme: "Identity Theft / Impersonation", ptype: "Other/Individual", amount: 0, amt_text: "", covid: false },
   { date: "2026-05-08", title: "One Sentenced, One Convicted for Conspiring with Annandale-Based Doctor to Illegally Distribute Promethazine-Codeine and other Controlled Substances", url: "https://oig.hhs.gov/fraud/enforcement/one-sentenced-one-convicted-for-conspiring-with-annandale-based-doctor-to-illegally-distribute-promethazine-codeine-and-other-controlled-substances/", res: "Sentence", cc: "Criminal", scheme: "Pharmacy/Drug Diversion", ptype: "Physician Practice", amount: 0, amt_text: "", covid: false },
   { date: "2026-05-08", title: "Former NFL Player Sentenced to Over 16 Years in Prison for $197M Medicare Fraud", url: "https://oig.hhs.gov/fraud/enforcement/former-nfl-player-sentenced-to-over-16-years-in-prison-for-197m-medicare-fraud/", res: "Sentence", cc: "Criminal", scheme: "Billing for Services Not Provided", ptype: "Other/Individual", amount: 197000000, amt_text: "$197M", covid: false },
   { date: "2026-05-08", title: "Three Affiliated Skilled Nursing Facilities to Pay $300,000 to Resolve False Claims Act Allegations Related to Medically Unnecessary Rehabilitation Services", url: "https://oig.hhs.gov/fraud/enforcement/three-affiliated-skilled-nursing-facilities-to-pay-300000-to-resolve-false-claims-act-allegations-related-to-medically-unnecessary-rehabilitation-services/", res: "Civil Settlement", cc: "Civil", scheme: "Medically Unnecessary Services", ptype: "Skilled Nursing/LTC", amount: 300000, amt_text: "$300,000", covid: false },
@@ -1557,6 +1816,12 @@ const CC = [
 ];
 
 const CIA = [
+  { eff: "2026-08-07", name: "Veloxis Pharmaceuticals, Inc.", short: "Veloxis Pharmaceuticals", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/veloxis-pharmaceuticals-inc/", duration: 5, completion: "2031-08", city: "Cary", state: "NC", amount: 46000000, amt_text: "$46M", agreement_type: "Corporate Integrity Agreement", category: "", tags: [], sector: "Pharma/Device Manufacturer", theory: "AKS / Kickbacks", fca_companion: "Veloxis Pharmaceuticals Agrees to Pay Over $46M to Resolve Criminal and Civil Liability for Kickback Schemes", summary: "" },
+  { eff: "2026-07-13", name: "EyePoint, Inc.", short: "EyePoint", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/eyepoint-inc/", duration: 5, completion: "2031-07", city: "Watertown", state: "MA", amount: 4600000, amt_text: "$4.6M", agreement_type: "Corporate Integrity Agreement", category: "", tags: [], sector: "Pharma/Device Manufacturer", theory: "AKS / Kickbacks", fca_companion: "EyePoint Pharmaceuticals to Pay $4.6 Million to Resolve False Claims Act Allegations", summary: "" },
+  { eff: "2026-06-17", name: "Advanced Pathology Solutions", short: "Advanced Pathology Solutions", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/advanced-pathology-solutions/", duration: 5, completion: "2031-06", city: "Little Rock", state: "AR", amount: 30000000, amt_text: "$30M", agreement_type: "Corporate Integrity Agreement", category: "", tags: [], sector: "Lab", theory: "AKS / Kickbacks", fca_companion: "Arkansas Pathology Laboratory and Its Owners Pay $30M to Settle Allegations of Kickbacks and Unnecessary Medical Testing", summary: "" },
+  { eff: "2026-06-03", name: "Family Health Care Associates, LLC (and affiliates; Gina Good)", short: "Family Health Care Associates", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/family-health-care-associates-llc/", duration: null, completion: "", city: "Barbourville", state: "KY", amount: 0, amt_text: "", agreement_type: "Corporate Integrity Agreement", category: "", tags: [], sector: "Physician Practice", theory: "", fca_companion: "", summary: "" },
+  { eff: "2026-06-03", name: "Tatyana Kolesnikova and Tatyanas Case Management, LLC", short: "Tatyanas Case Management", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/tatyana-kolesnikova-and-tatyanas-case-management-llc/", duration: null, completion: "", city: "Louisville", state: "KY", amount: 0, amt_text: "", agreement_type: "Corporate Integrity Agreement", category: "", tags: [], sector: "Behavioral Health", theory: "", fca_companion: "", summary: "" },
+  { eff: "2026-05-21", name: "Community Care Health Network LLC d/b/a Matrix Medical Network", short: "Matrix Medical Network", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/community-care-health-network-llc-dba-matrix-medical-network/", duration: 5, completion: "2031-05", city: "Nashville", state: "TN", amount: 36500000, amt_text: "$36.5M", agreement_type: "Corporate Integrity Agreement", category: "", tags: [], sector: "Insurance / Health Plan", theory: "MA Risk Adjustment", fca_companion: "Matrix, HealthFair, and HealthFair Founder Agree to Pay $56.5M to Resolve False Claims Act Allegations", summary: "" },
   { eff: "2026-05-04", name: "Recovery Center of USA LLC", short: "Recovery Center of USA", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/recovery-center-of-usa-llc/", duration: 5, completion: "2031-05", city: "Lawrenceville", state: "GA", amount: 15248240, amt_text: "$15.25M", agreement_type: "Corporate Integrity Agreement", category: "Claims Review", tags: ["Medicaid", "Mental Health", "Dependent Care", "Financial Stewardship"], sector: "Behavioral Health", theory: "AKS / Kickbacks", fca_companion: "", summary: "Behavioral health / substance abuse treatment provider \u2014 $15.25M companion settlement." },
   { eff: "2026-04-10", name: "Modern Nuclear, Inc.", short: "Modern Nuclear", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/modern-nuclear-inc/", duration: 5, completion: "2031-04", city: "La Habra", state: "CA", amount: 8334350, amt_text: "$8.33M", agreement_type: "Corporate Integrity Agreement", category: "Arrangement Review", tags: ["Laboratories", "Medicare B", "Elderly"], sector: "Lab", theory: "AKS / Kickbacks", fca_companion: "Mobile PET Scan Provider to Pay $8.33 Million to Resolve Allegations of False Claims Act Violations Based on Unlawful Kickbacks to Medical Practices", summary: "Mobile PET scan provider paid referring cardiologists excessive supervision fees in violation of AKS." },
   { eff: "2026-03-31", name: "Advanced Urology Institute of Georgia, P.C. et al.", short: "Advanced Urology / Patel", url: "https://oig.hhs.gov/compliance/corporate-integrity-agreements/browse-cias/advanced-urology-institute-of-georgia-pc/", duration: 5, completion: "2031-03", city: "Snellville", state: "GA", amount: 14000000, amt_text: "$14M", agreement_type: "Corporate Integrity Agreement", category: "Claims Review", tags: ["Children and Families", "Medicaid", "Medicare B", "Other Funding", "Non-institutional care", "Elderly", "People With Disabilities", "Financial Stewardship"], sector: "Physician Practice (Urology)", theory: "Medically Unnecessary / Upcoding", fca_companion: "Advanced Urology and Jitesh Patel will pay $14 million to settle False Claims Act case involving allegations of fraudulent billing and unnecessary medical procedures", summary: "Urological and diagnostic procedures not performed or medically unnecessary, billed to Medicare and Medicaid." },
@@ -1586,43 +1851,61 @@ const CIA = [
 // Data is injected as DATA_SDP, DATA_CMP, DATA_AO globals before this script.
 
 // ----- Constants -----
+const DATA_UPDATED = "2026-09-18";
+function windowLabel(){
+  var ds = []
+    .concat(SDP.map(function(r){return r.date;}))
+    .concat(CMP.map(function(r){return r.date;}))
+    .concat(AO.map(function(r){return r.date;}))
+    .concat(CC.map(function(r){return r.date;}))
+    .concat(CIA.map(function(r){return r.eff;}))
+    .filter(Boolean).sort();
+  var a = ds[0].split("-"), b = ds[ds.length-1].split("-");
+  var m = (parseInt(b[0],10)-parseInt(a[0],10))*12 + (parseInt(b[1],10)-parseInt(a[1],10)) + 1;
+  return m + "-month window";
+}
 const CATEGORY_COLORS = {
-  "Excluded Individual": "#1B365D",
-  "Unlicensed Provider": "#4A7C59",
-  "False/Not-Provided Claims": "#B8860B",
-  "Medically Unnecessary": "#6B2E2E",
-  "Upcoding": "#2F4F4F",
-  "Provider-Based": "#7B3F00",
-  "EMTALA": "#4B0082",
-  "Other": "#6B6B6B",
-  "AKS/Remuneration": "#8B0000",
-  "Beneficiary Inducement": "#B8860B",
-  "Lab/Diagnostic": "#4A7C59",
-  "Patient Support": "#1B365D",
-  "Medical Device": "#6B2E2E",
-  "Telehealth": "#2F4F4F",
-  "FQHC/Safety Net": "#7B3F00",
-  "Discount Safe Harbor": "#4B0082",
+  "Excluded Individual": "#0B3A5D",
+  "Affirmative Exclusion": "#4B2E4E",
+  "Unlicensed Provider": "#0E5C96",
+  "False/Not-Provided Claims": "#C4461F",
+  "Medically Unnecessary": "#8C3B2E",
+  "Upcoding": "#2E6E6B",
+  "Provider-Based": "#946231",
+  "EMTALA": "#5B4B8A",
+  "Other": "#7A7A7A",
+  "AKS/Remuneration": "#E5562A",
+  "Beneficiary Inducement": "#B07A2B",
+  "Lab/Diagnostic": "#3E7C59",
+  "Patient Support": "#3D7EA6",
+  "Medical Device": "#7A4A3A",
+  "Telehealth": "#25565E",
+  "FQHC/Safety Net": "#8A6A3B",
+  "Discount Safe Harbor": "#6A5D9B",
 };
-const colorFor = (cat) => CATEGORY_COLORS[cat] || "#6B6B6B";
+const colorFor = (cat) => CATEGORY_COLORS[cat] || "#8A8A8A";
 
 // Provider type colors — distinct palette from category colors, lower saturation
 const PROVIDER_TYPE_COLORS = {
-  "Hospital / Health System":           "#2E5C8A",
-  "Physician Practice / Medical Group": "#A67C52",
-  "Long-Term Care / SNF / Hospice / ALF":"#7B4B94",
-  "Behavioral Health / Recovery":       "#3D7A5C",
-  "Home Health":                        "#B87333",
-  "Lab / Diagnostic / Imaging":         "#8B4513",
-  "Pharmacy / Pharma Manufacturer":     "#5D6B2F",
-  "DME / Medical Device":               "#6B4423",
-  "Ambulance / EMS":                    "#A4343A",
-  "ASC / Surgical Center":              "#1F5F5B",
-  "Individual Physician / NPP":         "#704214",
-  "Government / Municipal / Tribal":    "#46524A",
-  "Other / Unclassified":               "#78716c",
+  "Hospital / Health System": "#0E5C96",
+  "Physician Practice / Medical Group": "#E5562A",
+  "Long-Term Care / SNF / Hospice / ALF": "#5B4B8A",
+  "Behavioral Health / Recovery": "#3E7C59",
+  "Home Health": "#B4643A",
+  "Lab / Diagnostic / Imaging": "#8C3B2E",
+  "Pharmacy / Pharma Manufacturer": "#5E6B33",
+  "DME / Medical Device": "#7A4A3A",
+  "Ambulance / EMS": "#A33B3B",
+  "ASC / Surgical Center": "#25565E",
+  "Individual Physician / NPP": "#946231",
+  "Government / Municipal / Tribal": "#4A5A63",
+  "Health Plan / Payer": "#6A5D9B",
+  "Dialysis / ESRD": "#3D7EA6",
+  "I/DD & Community Services": "#54468C",
+  "Vision / Optical": "#2E6E6B",
+  "Other / Unclassified": "#8A8A8A",
 };
-const colorForProvider = (pt) => PROVIDER_TYPE_COLORS[pt] || "#78716c";
+const colorForProvider = (pt) => PROVIDER_TYPE_COLORS[pt] || "#8A8A8A";
 
 // ----- Formatters -----
 function fmtCurrency(n) {
@@ -2100,8 +2383,9 @@ function makeEnforcementTable(rows, allCategories, opts) {
           el("td", { class: "tabular" }, fmtDate(r.date)),
           el("td", { class: "party" }, r.party),
           el("td", null, el("span", {
-            class: "cat-badge", style: { background: colorForProvider(pt) }, title: pt
-          }, pt.split(" / ")[0])),
+            class: "cat-badge", style: { background: colorForProvider(pt) },
+            title: pt + (r.pt_inferred ? " (inferred from entity name \u2014 not stated by OIG)" : "")
+          }, pt.split(" / ")[0] + (r.pt_inferred ? " \u2020" : ""))),
           el("td", null, el("span", {
             class: "cat-badge", style: { background: colorFor(r.category) }
           }, r.category)),
@@ -2488,14 +2772,14 @@ const INDUSTRY_COLORS = {
   "Hospital / Health System":             "#2E5C8A",
   "Physician Practice / Medical Group":   "#A67C52",
   "ASC / Surgical Center":                "#1F5F5B",
-  "Home Health / Hospice":                "#B87333",
+  "Home Health / Hospice":                "#E5562A",
   "FQHC / Safety-Net Provider":           "#3D7A5C",
   "Behavioral Health / Crisis Provider":  "#7B4B94",
   "Managed Care / Health Plan":           "#4B2E83",
   "Charitable Foundation / Patient Assistance": "#A4343A",
   "Management Services Org (MSO)":        "#46524A",
 };
-const colorForIndustry = (x) => INDUSTRY_COLORS[x] || "#78716c";
+const colorForIndustry = (x) => INDUSTRY_COLORS[x] || "#8A8A8A";
 
 // Arrangement type color palette — earthy tones, distinct from industry
 const ARRANGEMENT_COLORS = {
@@ -2505,7 +2789,7 @@ const ARRANGEMENT_COLORS = {
   "Patient Assistance - Travel/Lodging":                "#7B3F00",
   "Patient Assistance - Free Drug/Product":             "#A6612E",
   "Patient Assistance - Financial Subsidy (charitable foundation)": "#B8860B",
-  "Manufacturer Discount - Bundled/Conditional":        "#1B365D",
+  "Manufacturer Discount - Bundled/Conditional":        "#0B3A5D",
   "Manufacturer Discount - Volume/Standard":            "#2E5C8A",
   "Free Goods/Services to Providers":                   "#4B0082",
   "Sponsored Testing/Screening Program":                "#2F4F4F",
@@ -2518,7 +2802,7 @@ const ARRANGEMENT_COLORS = {
   "Referral Arrangement (Non-Traditional)":             "#6B4423",
   "Lab Operation / Service Expansion":                  "#3D7A5C",
 };
-const colorForArrangement = (x) => ARRANGEMENT_COLORS[x] || "#78716c";
+const colorForArrangement = (x) => ARRANGEMENT_COLORS[x] || "#8A8A8A";
 
 function renderAOSection() {
   const fav = AO.filter(r => r.outcome === "Favorable").length;
@@ -2539,7 +2823,7 @@ function renderAOSection() {
   const STATUTE_COLORS = {
     "AKS": "#8B0000",
     "Beneficiary Inducement CMP": "#B8860B",
-    "Stark": "#1B365D",
+    "Stark": "#0B3A5D",
     "Gainsharing CMP": "#4B0082",
   };
 
@@ -2583,7 +2867,7 @@ function renderAOSection() {
       el("div", { class: "chart-card" },
         el("h4", { class: "chart-title" }, "Statutes Implicated (multi-tag)"),
         barChart(statuteRows, "count", v => v + (v === 1 ? " opinion" : " opinions"),
-          { labelKey: "label", colorFn: (x) => STATUTE_COLORS[x] || "#78716c" })
+          { labelKey: "label", colorFn: (x) => STATUTE_COLORS[x] || "#8A8A8A" })
       )
     ),
     makeAOTable(AO)
@@ -2595,58 +2879,58 @@ function renderAOSection() {
 // ============================================================
 
 const SCHEME_COLORS = {
-  "AKS / Kickbacks":                     "#8B0000",
-  "Stark / Self-Referral":               "#A43D3D",
-  "Pharmacy/Drug Diversion":             "#6B2E2E",
-  "Pain Management / Pill Mill":         "#7B3F00",
-  "DME Fraud":                           "#B87333",
-  "Genetic/Lab Testing":                 "#4A7C59",
-  "Hospice Fraud":                       "#3D7A5C",
-  "Home Health Fraud":                   "#5D6B2F",
-  "Telemedicine/Telehealth":             "#2F4F4F",
-  "MA Risk Adjustment":                  "#1B365D",
-  "ACA Enrollment Fraud":                "#2E5C8A",
-  "Wound Care/Skin Grafts":              "#A6612E",
-  "Identity Theft / Impersonation":      "#7B4B94",
-  "Medically Unnecessary Services":      "#B8860B",
-  "Billing for Services Not Provided":   "#704214",
-  "Upcoding / False Statements":         "#46524A",
-  "Behavioral / Substance Abuse":        "#4B0082",
-  "COVID-19 Fraud":                      "#A4343A",
-  "Hospital / FCA Settlement":           "#2E5C8A",
-  "Dental Fraud":                        "#1F5F5B",
-  "EHR / Billing Software Fraud":        "#4B2E83",
-  "Other Health Care Fraud":             "#78716c",
+  "AKS / Kickbacks": "#E5562A",
+  "Stark / Self-Referral": "#C4461F",
+  "Pharmacy/Drug Diversion": "#8C3B2E",
+  "Pain Management / Pill Mill": "#946231",
+  "DME Fraud": "#B4643A",
+  "Genetic/Lab Testing": "#3E7C59",
+  "Hospice Fraud": "#2E6E6B",
+  "Home Health Fraud": "#5E6B33",
+  "Telemedicine/Telehealth": "#25565E",
+  "MA Risk Adjustment": "#0B3A5D",
+  "ACA Enrollment Fraud": "#0E5C96",
+  "Wound Care/Skin Grafts": "#A9603A",
+  "Identity Theft / Impersonation": "#5B4B8A",
+  "Medically Unnecessary Services": "#B07A2B",
+  "Billing for Services Not Provided": "#7A4A3A",
+  "Upcoding / False Statements": "#4A5A63",
+  "Behavioral / Substance Abuse": "#6A5D9B",
+  "COVID-19 Fraud": "#A33B3B",
+  "Hospital / FCA Settlement": "#3D7EA6",
+  "Dental Fraud": "#1F6F6A",
+  "EHR / Billing Software Fraud": "#54468C",
+  "Other Health Care Fraud": "#8A8A8A",
 };
-const colorForScheme = (x) => SCHEME_COLORS[x] || "#78716c";
+const colorForScheme = (x) => SCHEME_COLORS[x] || "#8A8A8A";
 
 const RES_COLORS = {
-  "Sentence":         "#5D2E2E",
-  "Conviction":       "#7B3F00",
-  "Plea":             "#A6612E",
-  "Indictment/Charge":"#2E5C8A",
-  "Civil Settlement": "#3D7A5C",
-  "DPA/NPA":          "#4B0082",
-  "Other":            "#78716c",
+  "Sentence": "#0B3A5D",
+  "Conviction": "#8C3B2E",
+  "Plea": "#B4643A",
+  "Indictment/Charge": "#0E5C96",
+  "Civil Settlement": "#3E7C59",
+  "DPA/NPA": "#5B4B8A",
+  "Other": "#8A8A8A",
 };
-const colorForRes = (x) => RES_COLORS[x] || "#78716c";
+const colorForRes = (x) => RES_COLORS[x] || "#8A8A8A";
 
 const CC_PROVIDER_COLORS = {
-  "Hospital/Health System":      "#2E5C8A",
-  "Physician Practice":          "#A67C52",
-  "Pharmacy":                    "#6B2E2E",
-  "Pharma/Device Manufacturer":  "#5D6B2F",
-  "Lab":                         "#4A7C59",
-  "DME Supplier":                "#B87333",
-  "Home Health/Hospice":         "#3D7A5C",
-  "ASC/Surgical Center":         "#1F5F5B",
-  "Behavioral Health":           "#7B4B94",
-  "Telemedicine/Telehealth Co":  "#2F4F4F",
-  "Insurance / Health Plan":     "#4B2E83",
-  "Skilled Nursing/LTC":         "#704214",
-  "Other/Individual":            "#78716c",
+  "Hospital/Health System": "#0E5C96",
+  "Physician Practice": "#E5562A",
+  "Pharmacy": "#8C3B2E",
+  "Pharma/Device Manufacturer": "#5E6B33",
+  "Lab": "#3E7C59",
+  "DME Supplier": "#B4643A",
+  "Home Health/Hospice": "#2E6E6B",
+  "ASC/Surgical Center": "#25565E",
+  "Behavioral Health": "#5B4B8A",
+  "Telemedicine/Telehealth Co": "#3D7EA6",
+  "Insurance / Health Plan": "#6A5D9B",
+  "Skilled Nursing/LTC": "#946231",
+  "Other/Individual": "#8A8A8A",
 };
-const colorForCCProv = (x) => CC_PROVIDER_COLORS[x] || "#78716c";
+const colorForCCProv = (x) => CC_PROVIDER_COLORS[x] || "#8A8A8A";
 
 // CC sub-view (Criminal/Civil/All)
 let ccActiveSubView = "all";
@@ -2939,7 +3223,7 @@ function makeCCTable(rows) {
           el("td", null, el("span", {
             class: "cat-badge", style: { background: colorForCCProv(r.ptype) }, title: r.ptype
           }, provShort)),
-          el("td", { class: "tabular", style: { "font-weight": r.amount > 0 ? 600 : 400, color: r.amount > 0 ? "#1B365D" : "#a8a29e" } },
+          el("td", { class: "tabular", style: { "font-weight": r.amount > 0 ? 600 : 400, color: r.amount > 0 ? "#0B3A5D" : "#a8a29e" } },
             r.amount > 0 ? fmtCurrency(r.amount) : "—"),
           el("td", { class: "party" }, r.title),
           el("td", { class: "src-col" }, r.url ? el("a", {
@@ -2981,31 +3265,33 @@ function makeCCTable(rows) {
 // ============================================================
 
 const SECTOR_COLORS = {
-  "Hospital/Health System":          "#2E5C8A",
-  "Physician Practice":              "#A67C52",
-  "Physician Practice (Urology)":    "#A67C52",
-  "Pain Management Practice":        "#7B3F00",
-  "Pharmacy":                        "#6B2E2E",
-  "DME Supplier":                    "#B87333",
-  "Lab":                             "#4A7C59",
-  "Pharma/Device Manufacturer":      "#5D6B2F",
-  "Skilled Nursing/LTC":             "#704214",
-  "Behavioral Health":               "#7B4B94",
-  "I/DD Service Provider":           "#4B2E83",
-  "Other":                           "#78716c",
+  "Hospital/Health System": "#0E5C96",
+  "Physician Practice": "#E5562A",
+  "Physician Practice (Urology)": "#E5562A",
+  "Pain Management Practice": "#946231",
+  "Pharmacy": "#8C3B2E",
+  "DME Supplier": "#B4643A",
+  "Lab": "#3E7C59",
+  "Pharma/Device Manufacturer": "#5E6B33",
+  "Skilled Nursing/LTC": "#704214",
+  "Behavioral Health": "#5B4B8A",
+  "I/DD Service Provider": "#54468C",
+  "Insurance / Health Plan": "#6A5D9B",
+  "Other": "#8A8A8A",
 };
-const colorForSector = (x) => SECTOR_COLORS[x] || "#78716c";
+const colorForSector = (x) => SECTOR_COLORS[x] || "#8A8A8A";
 
 const THEORY_COLORS = {
-  "Medically Unnecessary / Upcoding":         "#B8860B",
-  "Quality of Care / Worthless Services":     "#A4343A",
-  "AKS / Kickbacks":                          "#8B0000",
-  "Stark / AKS":                              "#A43D3D",
-  "Opioid / Controlled Substance Diversion":  "#6B2E2E",
-  "Phantom Billing / Services Not Provided":  "#704214",
-  "Unspecified":                              "#78716c",
+  "Medically Unnecessary / Upcoding": "#B07A2B",
+  "Quality of Care / Worthless Services": "#A33B3B",
+  "AKS / Kickbacks": "#E5562A",
+  "Stark / AKS": "#C4461F",
+  "MA Risk Adjustment": "#0B3A5D",
+  "Opioid / Controlled Substance Diversion": "#8C3B2E",
+  "Phantom Billing / Services Not Provided": "#7A4A3A",
+  "Unspecified": "#8A8A8A",
 };
-const colorForTheory = (x) => THEORY_COLORS[x] || "#78716c";
+const colorForTheory = (x) => THEORY_COLORS[x] || "#8A8A8A";
 
 function renderCIASection() {
   const totalDollars = CIA.reduce((s, r) => s + (r.amount || 0), 0);
@@ -3154,7 +3440,7 @@ function makeCIATable(rows) {
     typePillsEl.appendChild(el("span", { class: "pills-label" }, "Type:"));
     allTypes.forEach(t => {
       const isActive = state.activeTypes.has(t);
-      const color = t === "Corporate Integrity Agreement" ? "#1B365D" : "#7B3F00";
+      const color = t === "Corporate Integrity Agreement" ? "#0B3A5D" : "#7B3F00";
       typePillsEl.appendChild(el("button", {
         class: "pill" + (isActive ? " active" : ""),
         style: isActive ? { background: color } : {},
@@ -3240,14 +3526,14 @@ function makeCIATable(rows) {
     } else {
       filtered.forEach(r => {
         const typeShort = r.agreement_type === "Corporate Integrity Agreement" ? "CIA" : "IA";
-        const typeColor = r.agreement_type === "Corporate Integrity Agreement" ? "#1B365D" : "#7B3F00";
+        const typeColor = r.agreement_type === "Corporate Integrity Agreement" ? "#0B3A5D" : "#7B3F00";
         const sectorShort = r.sector.replace(" Practice (Urology)", " (Urology)");
         tbody.appendChild(el("tr", null,
           el("td", { class: "tabular" }, fmtDate(r.eff)),
           el("td", null, el("span", {
             class: "cat-badge", style: { background: typeColor }
           }, typeShort)),
-          el("td", { class: "tabular", style: { fontWeight: 600 } }, r.duration + "y"),
+          el("td", { class: "tabular", style: { fontWeight: 600 } }, r.duration ? r.duration + "y" : "\u2014"),
           el("td", null, el("span", {
             class: "cat-badge", style: { background: colorForSector(r.sector) }, title: r.sector
           }, sectorShort)),
@@ -3255,7 +3541,7 @@ function makeCIATable(rows) {
             class: "cat-badge", style: { background: colorForTheory(r.theory) }, title: r.theory
           }, r.theory.split(" / ")[0])),
           el("td", { class: "tabular" }, r.state),
-          el("td", { class: "tabular", style: { fontWeight: 600, color: "#1B365D" } },
+          el("td", { class: "tabular", style: { fontWeight: 600, color: "#0B3A5D" } },
             r.amount > 0 ? fmtCurrency(r.amount) : "—"),
           el("td", { class: "party", title: r.name }, r.short),
           el("td", { class: "src-col" }, r.url ? el("a", {
@@ -3338,7 +3624,7 @@ function renderExecSummary() {
   const summary = el("div", { class: "exec-summary" },
     el("h2", null, "Executive Summary"),
     el("p", { html:
-      "Over the <strong>16-month window</strong> tracked here, OIG resolved <strong>" + SDP.length + " SDP settlements</strong> " +
+      "Over the <strong>" + windowLabel() + "</strong> tracked here, OIG resolved <strong>" + SDP.length + " SDP settlements</strong> " +
       "(" + fmtCurrency(totalSDP) + ") and <strong>" + CMP.length + " CMP &amp; affirmative-exclusion actions</strong> (" + fmtCurrency(totalCMP) + "), " +
       "issued <strong>" + AO.length + " advisory opinions</strong> (" + aoFav + " favorable), and imposed <strong>" + CIA.length + " CIAs/IAs</strong> " +
       "covering <strong>" + fmtCurrency(totalCIA) + "</strong> in companion settlements. " +
@@ -3367,6 +3653,26 @@ else boot();
   </script>
   <script>
     document.getElementById("meta-record-count").textContent = (SDP.length + CMP.length + AO.length + CC.length + CIA.length).toString();
+    // --- auto-computed masthead (added in Q2 2026 refresh) ---
+    (function(){
+      var ds = []
+        .concat(SDP.map(function(r){return r.date;}))
+        .concat(CMP.map(function(r){return r.date;}))
+        .concat(AO.map(function(r){return r.date;}))
+        .concat(CC.map(function(r){return r.date;}))
+        .concat(CIA.map(function(r){return r.eff;}))
+        .filter(Boolean).sort();
+      var fmt = function(iso){
+        var p = iso.split("-");
+        var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        return M[parseInt(p[1],10)-1] + " " + parseInt(p[2],10) + ", " + p[0];
+      };
+      window.__DATA_MIN = ds[0]; window.__DATA_MAX = ds[ds.length-1];
+      var pe = document.getElementById("meta-period");
+      if (pe) pe.innerHTML = fmt(ds[0]) + " &ndash; " + fmt(ds[ds.length-1]);
+      var ue = document.getElementById("meta-updated");
+      if (ue) ue.textContent = fmt(DATA_UPDATED);
+    })();
   </script>
 </body>
 </html>
